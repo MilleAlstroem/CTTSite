@@ -1,4 +1,5 @@
-﻿using CTTSite.Models;
+﻿using CTTSite.MockData;
+using CTTSite.Models;
 
 namespace CTTSite.Services.NormalService
 {
@@ -18,7 +19,7 @@ namespace CTTSite.Services.NormalService
         }
         public List<Item> GetItems()
         {
-            throw new System.NotImplementedException();
+            return MockDataItem.GetMockItem();
         }
         public void UpdateItem(Item item)
         {

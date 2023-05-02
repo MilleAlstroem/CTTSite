@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\DB\" />
-    <Folder Include="Services\JSON\" />
     <Folder Include="wwwroot\Data\" />
   </ItemGroup>
 
