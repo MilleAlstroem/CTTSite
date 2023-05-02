@@ -7,7 +7,8 @@ using CTTSite.Services.JSON;
 using CTTSite.Services.Interface;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http; 
+using Microsoft.AspNetCore.Http;
+using CTTSite.Models;
 
 
 // Edited by Christian
@@ -16,8 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddSingleton<UserService, UserService>();
-builder.Services.AddTransient<JsonUserService>();
+builder.Services.AddSingleton<IUserService, UserService>();
+builder.Services.AddTransient<JsonFileService<User>>();
 builder.Services.Configure<CookiePolicyOptions>(options => {
     // This lambda determines whether user consent for non-essential cookies is needed for a given request. options.CheckConsentNeeded = context => true;
     options.MinimumSameSitePolicy = SameSiteMode.None;

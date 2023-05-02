@@ -9,11 +9,11 @@ namespace CTTSite.Services.NormalService
     public class UserService : IUserService
     {
         private List<User> _users { get; set; }
-        private JsonUserService JsonUserService { get; set; }
+        private JsonFileService<User> JsonFileService { get; set; }
 
-        public UserService(JsonUserService jsonUserService)
+        public UserService(JsonFileService<User> jsonUserService)
         {
-            JsonUserService = jsonUserService;
+            JsonFileService = jsonUserService;
             _users = MockDataUser.GetMockUsers();
             //_users = JsonUserService.GetJsonUsers().ToList();
         }
