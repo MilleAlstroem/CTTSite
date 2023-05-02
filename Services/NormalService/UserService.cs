@@ -1,7 +1,9 @@
 ﻿using CTTSite.Models;
+using CTTSite.Services.UserServices;
 
-namespace CTTSite.Services.UserServices
+namespace CTTSite.Services.NormalService
 {
+    // Made by Christian
     public class UserService : IUserService
     {
         private List<User> _users { get; set; }

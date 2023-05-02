@@ -1,9 +1,18 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using CTTSite.Services.UserServices;
+using CTTSite.Services.NormalService;
+
+// Edited by Christian
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddSingleton<CTTSite.Services.UserServices.IUserService, CTTSite.Services.UserServices.UserService>();
-builder.Services.AddTransient<CTTSite.Services.UserServices.JsonUserService>();
+builder.Services.AddSingleton<IUserService, UserService>();
+builder.Services.AddTransient<JsonUserService>();
 
 var app = builder.Build();
 
