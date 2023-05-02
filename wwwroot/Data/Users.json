@@ -1,0 +1,17 @@
+[
+  {
+    "Id": 0,
+    "Email": "chilterntalkingtherapies@gmail.com",
+    "Password": "Admin!88"
+  },
+  {
+    "Id": 0,
+    "Email": "testStaff@email.com",
+    "Password": "Test1234"
+  },
+  {
+    "Id": 0,
+    "Email": "testClient@email.com",
+    "Password": "Test1234"
+  }
+]
