@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddSingleton<IUserService, UserService>();
+builder.Services.AddSingleton<UserService, UserService>();
 builder.Services.AddTransient<JsonUserService>();
 builder.Services.Configure<CookiePolicyOptions>(options => {
     // This lambda determines whether user consent for non-essential cookies is needed for a given request. options.CheckConsentNeeded = context => true;
@@ -28,8 +28,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     cookieOptions.LoginPath = "/User/Login/LogInPage";
 
 });
-builder.Services.AddMvc().AddRazorPagesOptions(options => {
-    options.Conventions.AuthorizeFolder("/User");
+builder.Services.AddMvc().AddRazorPagesOptions(options =>
+{
+    options.Conventions.AuthorizeFolder("/Admin");
 
 }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 

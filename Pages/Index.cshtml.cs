@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CTTSite.Pages.User.LogIn;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CTTSite.Pages
@@ -14,7 +17,10 @@ namespace CTTSite.Pages
 
         public void OnGet()
         {
-
+            if (LogInPageModel.LoggedInUser == null)
+            {
+                HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            }
         }
     }
 }
