@@ -1,29 +1,41 @@
 ﻿using CTTSite.MockData;
 using CTTSite.Models;
+using CTTSite.Services.DB;
 
 namespace CTTSite.Services.NormalService
 {
     public class ItemService : IItemService
     {
-        public void AddItem(Item item)
+        public DBServiceGeneric<Item> DBServiceGeneric;
+
+        public ItemService(DBServiceGeneric<Item> dBServiceGeneric)
         {
-            throw new System.NotImplementedException();
+            DBServiceGeneric = dBServiceGeneric;
         }
-        public void DeleteItem(int id)
+
+        public Task CreateItemAsync(Item item)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
-        public Item GetItem(int id)
+
+        public Task DeleteItemByIDAsync(int ID)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
-        public List<Item> GetItems()
+
+        public List<Item> GetAllItems()
         {
-            return MockDataItem.GetMockItem();
+            return DBServiceGeneric.GetObjectsAsync().Result.ToList();
         }
-        public void UpdateItem(Item item)
+
+        public Task UpdateItemByIDAsync(int ID)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateItemStockAsync(int amount)
+        {
+            throw new NotImplementedException();
         }
     }
 }

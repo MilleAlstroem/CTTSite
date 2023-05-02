@@ -17,7 +17,7 @@ namespace CTTSite.Pages.Store
 
         public void OnGet()
         {
-            Items = ItemService.GetItems();
+            Items = ItemService.GetAllItems();
         }
     }
 }

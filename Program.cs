@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using CTTSite.Models;
 using CTTSite.Services;
+using CTTSite.EFDbContext;
+using CTTSite.Services.DB;
 
 
 // Edited by Christian
@@ -22,6 +24,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IItemService, ItemService>();
 builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddTransient<JsonFileService<User>>();
+builder.Services.AddDbContext<ItemDbContext>();
+builder.Services.AddTransient<DBServiceGeneric<Item>>();
 
 builder.Services.Configure<CookiePolicyOptions>(options => {
     // This lambda determines whether user consent for non-essential cookies is needed for a given request. options.CheckConsentNeeded = context => true;

@@ -4,10 +4,10 @@ namespace CTTSite.Services
 {
     public interface IItemService
     {
-        List<Item> GetItems();
-        Item GetItem(int id);
-        void AddItem(Item item);
-        void UpdateItem(Item item);
-        void DeleteItem(int id);
+        List<Item> GetAllItems();
+        Task CreateItemAsync(Item item);
+        Task UpdateItemByIDAsync(int ID);
+        Task DeleteItemByIDAsync(int ID);
+        Task UpdateItemStockAsync(int amount);
     }
 }
