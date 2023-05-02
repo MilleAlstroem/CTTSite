@@ -11,9 +11,9 @@ namespace CTTSite.MockData
     {
         private static List<User> users = new List<User>()
         {
-            new User("chilterntalkingtherapies@gmail.com", "Admin!88"),
-            new User("testStaff@email.com", "Test1234"),
-            new User("testClient@email.com", "Test1234")
+            new User("chilterntalkingtherapies@gmail.com", "Admin!88", true, true),
+            new User("testStaff@email.com", "Test1234", false, true),
+            new User("testClient@email.com", "Test1234", false, false)
         };
 
         public static List<User> GetMockUsers()

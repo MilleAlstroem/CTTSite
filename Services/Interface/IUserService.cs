@@ -8,19 +8,17 @@ namespace CTTSite.Services.Interface
     {
         List<User> GetUsers();
 
-        void AddStaffUser(User user);
+        public List<User> GetClients();
 
+        public List<User> GetAdmins();
 
-        void AddClientUser(User user);
+        public List<User> GetStaff();
 
+        void AddUser(User user);
 
         List<User> SearchUserByEmail(string searchEmail);
 
-
-
         User GetUser(int ID);
-
-
 
         User DeleteUser(int ID);
         
