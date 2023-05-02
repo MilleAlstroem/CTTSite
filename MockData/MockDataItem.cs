@@ -11,5 +11,7 @@ namespace CTTSite.MockData
             new Item(3, "The little book of hygge", "Great book to take with you everywhere for a quick read.", "", 29, 74),
             new Item(4, "Paint kit", "Cozy plaint kit to get your thoughts and emotions out on a canvas.", "", 12, 28),
         };
+
+        public static List<Item> GetMockItem() { return Items; }
     }
 }
