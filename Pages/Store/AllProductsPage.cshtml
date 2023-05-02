@@ -3,20 +3,20 @@
 @{
 }
 
-<div class="col-12">
-    <div class="row">
-        <h1 class="text-center"><b>Store</b></h1>
-    </div>
-    <div class="row">
+
+<h1 class="text-center"><b>Store</b></h1>
+
+<div class="row">
+
         @foreach(var Item in Model.Items)
         {
-            <div class="card" style="background-color:#f6d8cc width:20%">
+            <div class="card align-content-center" style="background-color:#f6d8cc; width:20%">
                 <img src="@Item.IMG" alt="ProductImage" class="card-img-top img-fluid">
                 <div class="card-body">
-                    <h4 class="card-title">@Item.Name</h4>
-                    <p class="card-text">@Item.Price</p>
+                    <h4 class="card-title text-center"><b>@Item.Name</b></h4>
+                    <h4 class="card-text text-center text-danger">@Item.Price</h4>
                 </div>
             </div>
         }
-    </div>
+
 </div>
