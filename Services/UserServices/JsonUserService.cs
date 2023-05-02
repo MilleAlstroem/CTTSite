@@ -1,4 +1,4 @@
-﻿namespace CTTSite.Services
+﻿namespace CTTSite.Services.UserServices
 {
     public class JsonUserService : IJsonUserService
     {
