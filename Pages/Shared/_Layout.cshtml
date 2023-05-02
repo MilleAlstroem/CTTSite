@@ -29,6 +29,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Store/AllProductsPage">Store</a>
                         </li>
+                        <ul class="navbar-nav">
+                            @{
+                                if (LogInPageModel.LoggedInUser == null)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-black" asp-area="" asp-page="/User/LogIn/LogInPage">Login</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item nav-link text-black me-3">
+                                        User: @LogInPageModel.LoggedInUser.Email
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link text-black" asp-area="" asp-page="/User/LogIn/LogOutPage">Logout</a>
+                                    </li>
+                                }
+                            }
+                        </ul>
                     </ul>
                 </div>
             </div>
