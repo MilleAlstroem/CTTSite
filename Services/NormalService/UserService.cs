@@ -1,5 +1,7 @@
 ﻿using CTTSite.Models;
+using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
+using CTTSite.MockData;
 
 namespace CTTSite.Services.NormalService
 {
@@ -12,8 +14,13 @@ namespace CTTSite.Services.NormalService
         public UserService(JsonUserService jsonUserService)
         {
             JsonUserService = jsonUserService;
-            //_users = MockUsers.GetMockUsers();
+            _users = MockDataUser.GetMockUsers();
             //_users = JsonUserService.GetJsonUsers().ToList();
+        }
+
+        public List<User> GetUsers()
+        {          
+            return _users;
         }
     }
 }

@@ -4,6 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using CTTSite.Services.NormalService;
 using CTTSite.Services.JSON;
+using CTTSite.Services.Interface;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http; 
+
 
 // Edited by Christian
 
@@ -13,6 +18,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddTransient<JsonUserService>();
+builder.Services.Configure<CookiePolicyOptions>(options => {
+    // This lambda determines whether user consent for non-essential cookies is needed for a given request. options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+
+});
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(cookieOptions => {
+    cookieOptions.LoginPath = "/User/Login/LogInPage";
+
+});
+builder.Services.AddMvc().AddRazorPagesOptions(options => {
+    options.Conventions.AuthorizeFolder("/User");
+
+}).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
 var app = builder.Build();
 
@@ -28,6 +47,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

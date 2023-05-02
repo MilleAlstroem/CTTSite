@@ -1,6 +1,6 @@
 ﻿using CTTSite.Models;
 
-namespace CTTSite.Services.NormalService
+namespace CTTSite.Services.Interface
 {
     // Made by Christian
     public interface IUserService
