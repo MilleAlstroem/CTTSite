@@ -6,13 +6,14 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using CTTSite.Services.Interface;
 
 namespace CTTSite.Pages.User.LogIn
 {
     public class LogInPageModel : PageModel
     {
         public static Models.User LoggedInUser { get; set; } = null;
-        private UserService _userService;
+        private IUserService _userService;
 
         private List<Models.User> _users { get; set; }
 
@@ -23,7 +24,7 @@ namespace CTTSite.Pages.User.LogIn
         public string Password { get; set; }
         public string Message { get; set; }
 
-        public LogInPageModel(UserService userService)
+        public LogInPageModel(IUserService userService)
         {
             _userService = userService;
         }

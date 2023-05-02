@@ -8,7 +8,7 @@ using CTTSite.Services.Interface;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using CTTSite.Services;
+using CTTSite.Models;
 
 
 // Edited by Christian
@@ -17,7 +17,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddSingleton<IItemService, ItemService>();
 builder.Services.AddSingleton<UserService, UserService>();
 builder.Services.AddTransient<JsonUserService>();
 builder.Services.Configure<CookiePolicyOptions>(options => {
