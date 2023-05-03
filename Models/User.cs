@@ -5,7 +5,7 @@ namespace CTTSite.Models
     // Made by Christian
     public class User
     {
-        private int nextId = 0;
+        private static int nextId = 0;
         public int Id { get; set; }
 
         [Display(Name = "Email")]
@@ -26,6 +26,7 @@ namespace CTTSite.Models
 
         public User()
         {
+            
         }
 
         public User(string email, string password, bool admin, bool staff)
