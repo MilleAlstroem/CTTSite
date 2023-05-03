@@ -18,56 +18,78 @@ namespace CTTSite.Services.NormalService
         public UserService(JsonFileService<User> jsonUserService)
         {
             JsonFileService = jsonUserService;
-            _users = MockDataUser.GetMockUsers();
-            //_users = JsonFileService.GetJsonObjects().ToList();
+            //_users = MockDataUser.GetMockUsers();
+            _users = JsonFileService.GetJsonObjects().ToList();
+            
 
+		}
+
+
+        public List<User> GetStaff()
+        {
+            _staff = SortStaff();
+            return _staff;
         }
 
+		public List<User> GetClients()
+		{
+			_clients = SortClients();
+			return _clients;
+		}
 
-        public List<User> GetUsers()
+		public List<User> GetAdmins()
+		{
+			_admins = SortAdmins();
+			return _admins;
+		}
+
+		public List<User> GetUsers()
         {
             JsonFileService.SaveJsonObjects(_users);
             return _users;
         }
 
 
-        public List<User> GetStaff()
+        public List<User> SortStaff()
         {
+            List<User> users = new List<User>();
             foreach(User u in _users)
             {
                 if(u.Staff == true)
                 {
-                    _staff.Add(u);
+                    users.Add(u);
                 }
             }
-            return _staff;
+            return users;
         }
 
 
-        public List<User> GetAdmins()
+        public List<User> SortAdmins()
         {
-            foreach (User u in _users)
-            {
-                if (u.Admin == true)
-                {
-                    _admins.Add(u);
-                }
-            }
-            return _admins;
-        }
+			List<User> users = new List<User>();
+			foreach (User u in _users)
+			{
+				if (u.Admin == true)
+				{
+					users.Add(u);
+				}
+			}
+			return users;
+		}
 
 
-        public List<User> GetClients()
+        public List<User> SortClients()
         {
-            foreach (User u in _users)
-            {
-                if ((u.Admin == false) && (u.Staff == false))
-                {
-                    _clients.Add(u);
-                }
-            }
-            return _clients;
-        }
+			List<User> users = new List<User>();
+			foreach (User u in _users)
+			{
+				if ((u.Staff == false) && (u.Admin == false))
+				{
+					users.Add(u);
+				}
+			}
+			return users;
+		}
 
 
         public bool AddUser(User user)
@@ -89,7 +111,7 @@ namespace CTTSite.Services.NormalService
 
         public List<User> SearchUserByEmail(string searchEmail)
         {
-            var results = _users.Where(u => u.Email.Contains(searchEmail));
+            var results = _users.Where(u => u.Email.ToLower().Contains(searchEmail.ToLower()));
             return results.ToList();   
         }
 
@@ -113,6 +135,34 @@ namespace CTTSite.Services.NormalService
             }
             return userToBeDeleted;
         }
-      
+
+        public IEnumerable<User> SortById()
+        {
+            return from user in _users
+                   orderby user.Id
+                   select user;
+        }
+
+        public IEnumerable<User> SortByIdDescending()
+        {
+            return from user in _users
+                   orderby user.Id descending
+                   select user;
+        }
+
+        public IEnumerable<User> SortByEmail()
+        {
+            return from user in _users
+                   orderby user.Email
+                   select user;
+        }
+
+        public IEnumerable<User> SortByEmailDescending()
+        {
+            return from user in _users
+                   orderby user.Email descending
+                   select user;
+        }
+
     }
 }
