@@ -6,8 +6,9 @@ namespace CTTSite.Services
     {
         List<Item> GetAllItems();
         Task CreateItemAsync(Item item);
-        Task UpdateItemByIDAsync(int ID);
+        Task UpdateItemAsync(Item itemN);
         Task DeleteItemByIDAsync(int ID);
         Task UpdateItemStockAsync(int amount);
+        Item GetItemByID(int ID);
     }
 }
