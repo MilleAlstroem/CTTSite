@@ -26,5 +26,12 @@
     "Password": "1234",
     "Admin": false,
     "Staff": false
+  },
+  {
+    "Id": 0,
+    "Email": "new2@email.com",
+    "Password": "1234",
+    "Admin": false,
+    "Staff": false
   }
 ]

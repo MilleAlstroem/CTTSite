@@ -14,7 +14,7 @@ namespace CTTSite.Services.Interface
 
         public List<User> GetStaff();
 
-        void AddUser(User user);
+        bool AddUser(User user);
 
         List<User> SearchUserByEmail(string searchEmail);
 

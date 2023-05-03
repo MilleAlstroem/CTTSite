@@ -18,6 +18,8 @@ namespace CTTSite.Pages.Staff
         [BindProperty, DataType(DataType.Password)]
         public string Password { get; set; }
 
+        public bool SuccessfulCreation { get; set; }
+
         public CreateClientUserModel(IUserService userService)
         {
             _userService = userService;
@@ -31,8 +33,17 @@ namespace CTTSite.Pages.Staff
             {
                 return Page();
             }
-            _userService.AddUser(new Models.User(Email, Password, false, false));
-            return RedirectToPage("/Index");
+            
+            SuccessfulCreation = _userService.AddUser(new Models.User(Email, Password, false, false));
+            if(SuccessfulCreation = true)
+            {
+                return RedirectToPage("/Index");
+            }
+            else
+            {
+                return Page();
+            }
+                
         }
     }
 }

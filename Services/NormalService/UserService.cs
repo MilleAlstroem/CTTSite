@@ -18,15 +18,15 @@ namespace CTTSite.Services.NormalService
         public UserService(JsonFileService<User> jsonUserService)
         {
             JsonFileService = jsonUserService;
-            _users = MockDataUser.GetMockUsers();
-            //_users = JsonUserService.GetJsonUsers().ToList();
-            
+            //_users = MockDataUser.GetMockUsers();
+            _users = JsonFileService.GetJsonObjects().ToList();
+
         }
 
 
         public List<User> GetUsers()
         {          
-            JsonFileService.SaveJsonObjects(_users);
+            //JsonFileService.SaveJsonObjects(_users);
             return _users;
         }
 
@@ -70,10 +70,20 @@ namespace CTTSite.Services.NormalService
         }
 
 
-        public void AddUser(User user)
+        public bool AddUser(User user)
         {
-            _users.Add(user);
-            JsonFileService.SaveJsonObjects(_users);
+            User existingUser =_users.Find(_user => _user.Email.ToLower() == user.Email.ToLower());
+
+            if (existingUser == null)
+            {
+                _users.Add(user);
+                JsonFileService.SaveJsonObjects(_users);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         
 
