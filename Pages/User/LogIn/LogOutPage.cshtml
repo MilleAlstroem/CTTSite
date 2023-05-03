@@ -2,3 +2,12 @@
 @model CTTSite.Pages.User.LogIn.LogOutPageModel
 @{
 }
+<h1>Are you sure you want to log out?</h1>
+
+ <form method="post">
+    <div class="form-group">
+        <input type="submit" value="Yes" class="btn btn-danger" />
+        <a asp-page="/Index">No</a>
+    </div>
+    
+</form>

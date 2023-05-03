@@ -2,28 +2,21 @@
   {
     "Id": 0,
     "Email": "chilterntalkingtherapies@gmail.com",
-    "Password": "AQAAAAEAACcQAAAAEJx9XDBxJIaXhk6oQz4pfyZNgsNafrufrvDyQD5G5hhzN1c9zp50i45OEWnattF5MQ==",
+    "Password": "AQAAAAEAACcQAAAAEMHfGafFIA6uAGwc4a6xQeAGsQ4SYQFQvnhbq8T72mOlfNJzqfIlcqDkYYpJ5hd21A==",
     "Admin": true,
     "Staff": true
   },
   {
     "Id": 0,
     "Email": "testStaff@email.com",
-    "Password": "AQAAAAEAACcQAAAAEDWzz6ive8khxEmzUCVOkyEMy\u002BdkPF5ZzY3GWtZcRLBMcXBDUwCQDWgG7t9cgtMJvA==",
+    "Password": "AQAAAAEAACcQAAAAEKQvIvDh6SSqsGJ8Nx9n7lQL\u002Bn5Ujn6BrVD24xob0lnRQnF1tOz021gxYGSayOYNnw==",
     "Admin": false,
     "Staff": true
   },
   {
     "Id": 0,
     "Email": "testClient@email.com",
-    "Password": "AQAAAAEAACcQAAAAEOyPK\u002B6VauLHLeALrPJSLtu7AC8epFs9D66HF79qYOFi7Q\u002B25EOh2OtBEfEotByYwA==",
-    "Admin": false,
-    "Staff": false
-  },
-  {
-    "Id": 0,
-    "Email": "new@email.com",
-    "Password": "AQAAAAEAACcQAAAAEB00Sfm0eV2XKBRaaIua0x1lp4BFwIVS6LmCndWSZOBEt4elYTtmh29QngVmDvldjw==",
+    "Password": "AQAAAAEAACcQAAAAEKIVmXvpiIKfBN/bV65KGAKIiGxpWR/6JZEGWi/q001M8ceQhlVjAeKraZAYrsUf/Q==",
     "Admin": false,
     "Staff": false
   }
