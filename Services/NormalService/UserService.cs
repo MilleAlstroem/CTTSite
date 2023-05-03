@@ -103,6 +103,6 @@ namespace CTTSite.Services.NormalService
             }
             return userToBeDeleted;
         }
-
+      
     }
 }

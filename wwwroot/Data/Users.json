@@ -2,16 +2,29 @@
   {
     "Id": 0,
     "Email": "chilterntalkingtherapies@gmail.com",
-    "Password": "Admin!88"
+    "Password": "Admin!88",
+    "Admin": true,
+    "Staff": true
   },
   {
     "Id": 0,
     "Email": "testStaff@email.com",
-    "Password": "Test1234"
+    "Password": "Test1234",
+    "Admin": false,
+    "Staff": true
   },
   {
     "Id": 0,
     "Email": "testClient@email.com",
-    "Password": "Test1234"
+    "Password": "Test1234",
+    "Admin": false,
+    "Staff": false
+  },
+  {
+    "Id": 0,
+    "Email": "new@email.com",
+    "Password": "1234",
+    "Admin": false,
+    "Staff": false
   }
 ]

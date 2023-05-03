@@ -41,11 +41,14 @@ namespace CTTSite.Pages.User.LogIn
             {
 
                 if (Email == user.Email && Password == user.Password)
-                {
+                { 
 
                     LoggedInUser = user;
-
+                                       
                     var claims = new List<Claim> { new Claim(ClaimTypes.Name, Email) };
+
+                    if (LoggedInUser.Admin == true) claims.Add(new Claim(ClaimTypes.Role, "admin"));
+                    if (LoggedInUser.Staff == true) claims.Add(new Claim(ClaimTypes.Role, "staff"));
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));

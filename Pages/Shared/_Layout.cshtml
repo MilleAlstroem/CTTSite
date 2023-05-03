@@ -29,6 +29,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Store/AllProductsPage">Store</a>
                         </li>
+                        @{
+                            if (LogInPageModel.LoggedInUser != null && LogInPageModel.LoggedInUser.Admin == true)
+                            {
+                            <li class="nav-item">
+                            <a class="nav-link text-black" asp-area="" asp-page="/Admin/CreateStaffUser">Create Staff User</a>
+                            </li>
+                            }
+                         }
+                        @{
+                            if (LogInPageModel.LoggedInUser != null && LogInPageModel.LoggedInUser.Staff == true)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-black" asp-area="" asp-page="/Staff/CreateClientUser">Create Client User</a>
+                                </li>
+                            }
+                        }
                         <ul class="navbar-nav">
                             @{
                                 if (LogInPageModel.LoggedInUser == null)
