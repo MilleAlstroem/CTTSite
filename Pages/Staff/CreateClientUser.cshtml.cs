@@ -19,6 +19,7 @@ namespace CTTSite.Pages.Staff
         public string Password { get; set; }
 
         public bool SuccessfulCreation { get; set; }
+        public string Message { get; set; }
 
         public CreateClientUserModel(IUserService userService)
         {
@@ -41,7 +42,8 @@ namespace CTTSite.Pages.Staff
             }
             else
             {
-                return RedirectToPage("/Staff/ClientEmailExists");
+                Message = "Email already exists!!!";
+                return Page();
             }
                 
         }

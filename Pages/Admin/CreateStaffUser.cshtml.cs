@@ -20,6 +20,7 @@ namespace CTTSite.Pages.Staff.Admin
         [BindProperty, DataType(DataType.Password)]
         public string Password { get; set; }
         public bool SuccessfulCreation { get; set; }
+        public string Message { get; set; }
 
         public CreateStaffUserModel(IUserService userService)
         {
@@ -44,7 +45,8 @@ namespace CTTSite.Pages.Staff.Admin
             }
             else
             {
-                return RedirectToPage("/Admin/StaffEmailExists");
+                Message = "Email already exists!!!";
+                return Page();
             }
         }
     }
