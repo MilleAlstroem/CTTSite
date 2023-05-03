@@ -11,6 +11,7 @@
         @foreach(var Item in Model.Items)
         {
             <div style="width:20%">
+            <a class="text-decoration-none text-black" asp-page="SpecificProductPage" asp-route-id="@Item.ID">
                 <div class="card align-content-center" style="background-color:#f6d8cc;">
                     <img src="@Item.IMG" alt="ProductImage" class="card-img-top img-fluid">
                     <div class="card-body text-center">
@@ -20,6 +21,7 @@
                         <a class="btn" type="button" asp-page="DeleteProductPage" asp-route-id="@Item.ID"><i class="fa fa-trash"></i></a>
                     </div>
                 </div>
+            </a>
             </div>
         }
 

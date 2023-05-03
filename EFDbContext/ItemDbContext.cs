@@ -15,5 +15,6 @@ namespace CTTSite.EFDbContext
         }   
         public DbSet<Item> Items { get; set; }
 
+        public DbSet<CartItem> CartItems { get; set; }
     }
 }

@@ -70,5 +70,6 @@ namespace CTTSite.Services.NormalService
             }
             return null;
         }
+
     }
 }

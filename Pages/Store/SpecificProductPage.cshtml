@@ -1,0 +1,30 @@
+﻿@page "{id:int}"
+@model CTTSite.Pages.Store.SpecificProductPageModel
+@{
+}
+
+<h1 class="text-center"><b>@Model.Item.Name</b></h1>
+<br />
+<div class="row text-center">
+    <div class="col-1"></div>
+    <div class="col-4">
+        <h4>Description:</h4><br />
+        <p>@Model.Item.Description</p>
+        <br />
+        <h4>@Model.Item.Price</h4>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-4">
+        <img src="@Model.Item.IMG" alt="Product image" class="img-fluid"/>
+        <br />
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="@Model.CartItem.Amount" class="control-lable"></label>
+                <input asp-for="@Model.CartItem.Amount" class="form-control"/>
+                <span asp-validation-for="@Model.CartItem.Amount" class="text-danger"></span>
+                <input type="submit" value="Add to cart" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-1"></div>
+</div>
