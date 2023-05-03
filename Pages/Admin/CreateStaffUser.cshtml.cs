@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CTTSite.Pages.Staff.Admin
 {
+    // Made by Christian
+
     [Authorize(Roles = "admin")]
     public class CreateStaffUserModel : PageModel
     {

@@ -13,6 +13,8 @@ namespace CTTSite.Pages.User.LogIn
 {
     public class LogInPageModel : PageModel
     {
+        // Made by Christian
+
         public static Models.User LoggedInUser { get; set; } = null;
         private IUserService _userService;
 

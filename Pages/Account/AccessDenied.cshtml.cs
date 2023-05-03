@@ -5,6 +5,7 @@ namespace CTTSite.Pages.Account
 {
     public class AccessDeniedModel : PageModel
     {
+        // Made by Christian
         public void OnGet()
         {
         }

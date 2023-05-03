@@ -7,6 +7,7 @@ namespace CTTSite.Pages.User.LogIn
 {
     public class LogOutPageModel : PageModel
     {
+        // Made by Christian
         public void OnGet()
         {
             
