@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using CTTSite.Services.Interface;
+using Microsoft.AspNetCore.Identity;
 
 namespace CTTSite.Pages.User.LogIn
 {
     public class LogInPageModel : PageModel
     {
+        // Made by Christian
+
         public static Models.User LoggedInUser { get; set; } = null;
         private IUserService _userService;
 
@@ -40,22 +43,28 @@ namespace CTTSite.Pages.User.LogIn
             foreach (Models.User user in users)
             {
 
-                if (Email == user.Email && Password == user.Password)
+                if (Email == user.Email)
                 {
+                    var passwordHasher = new PasswordHasher<string>();
+                    if (passwordHasher.VerifyHashedPassword(null, user.Password, Password) == PasswordVerificationResult.Success)
+                    {
+                        LoggedInUser = user;
 
-                    LoggedInUser = user;
+                        var claims = new List<Claim> { new Claim(ClaimTypes.Name, Email) };
 
-                    var claims = new List<Claim> { new Claim(ClaimTypes.Name, Email) };
+                        if (LoggedInUser.Admin == true) claims.Add(new Claim(ClaimTypes.Role, "admin"));
+                        if (LoggedInUser.Staff == true) claims.Add(new Claim(ClaimTypes.Role, "staff"));
 
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                    return RedirectToPage("/Index");
-
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                        return RedirectToPage("/Index");
+                    }
+                        LoggedInUser = user;
                 }
 
             }
 
-            Message = "Invalid attempt";
+            Message = "There is something wrong with your email or password!!!";
             return Page();
         }
     }

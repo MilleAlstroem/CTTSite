@@ -2,16 +2,22 @@
   {
     "Id": 0,
     "Email": "chilterntalkingtherapies@gmail.com",
-    "Password": "Admin!88"
+    "Password": "AQAAAAEAACcQAAAAEDz7IoRbEIT39faqfPDv7x6zJkoK6LL5KtBmJSCc1ZPmhzDCBfD6Vh2A56lLSJX1Vw==",
+    "Admin": true,
+    "Staff": true
   },
   {
     "Id": 0,
     "Email": "testStaff@email.com",
-    "Password": "Test1234"
+    "Password": "AQAAAAEAACcQAAAAEEmcviInTFAmAtN2OTHHmgZovznRue6i0ORSeR/EYBbxiHWKArrQ4tFdfF4eF5nftg==",
+    "Admin": false,
+    "Staff": true
   },
   {
     "Id": 0,
     "Email": "testClient@email.com",
-    "Password": "Test1234"
+    "Password": "AQAAAAEAACcQAAAAEORxcQecFutfgabdQ6l3\u002Bu\u002B8zTWOWNfFa1ri34bXbXz0PB\u002BjmzlXkiYS4SYdhHOG2w==",
+    "Admin": false,
+    "Staff": false
   }
 ]

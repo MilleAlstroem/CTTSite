@@ -7,7 +7,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Data;
 
 namespace CTTSite.Pages.Staff.Admin
-{   
+{
+    // Made by Christian
+
     [Authorize(Roles = "admin")]
     public class GetAllUsersModel : PageModel
     {

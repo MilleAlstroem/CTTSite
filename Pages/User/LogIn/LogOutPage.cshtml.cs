@@ -7,12 +7,17 @@ namespace CTTSite.Pages.User.LogIn
 {
     public class LogOutPageModel : PageModel
     {
-        public async Task<IActionResult> OnGet()
+        // Made by Christian
+        public void OnGet()
+        {
+            
+        }
+
+        public async Task<IActionResult> OnPost()
         {
             LogInPageModel.LoggedInUser = null;
-
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToPage("/index");
-        }
+        }   
     }
 }
