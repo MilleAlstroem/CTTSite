@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using CTTSite.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace CTTSite.Pages.Staff.Admin
 {
@@ -22,9 +23,12 @@ namespace CTTSite.Pages.Staff.Admin
         public bool SuccessfulCreation { get; set; }
         public string Message { get; set; }
 
+        private PasswordHasher<string> passwordHasher;
+
         public CreateStaffUserModel(IUserService userService)
         {
             _userService = userService;
+            passwordHasher = new PasswordHasher<string>();
         }
 
         public void OnGet()
@@ -38,7 +42,7 @@ namespace CTTSite.Pages.Staff.Admin
                 return Page();
             }
 
-            SuccessfulCreation = _userService.AddUser(new Models.User(Email, Password, false, true));
+            SuccessfulCreation = _userService.AddUser(new Models.User(Email, passwordHasher.HashPassword(null, Password), false, true));
             if (SuccessfulCreation == true)
             {
                 return RedirectToPage("/Index");

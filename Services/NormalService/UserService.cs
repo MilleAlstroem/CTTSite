@@ -18,15 +18,15 @@ namespace CTTSite.Services.NormalService
         public UserService(JsonFileService<User> jsonUserService)
         {
             JsonFileService = jsonUserService;
-            //_users = MockDataUser.GetMockUsers();
-            _users = JsonFileService.GetJsonObjects().ToList();
+            _users = MockDataUser.GetMockUsers();
+            //_users = JsonFileService.GetJsonObjects().ToList();
 
         }
 
 
         public List<User> GetUsers()
-        {          
-            //JsonFileService.SaveJsonObjects(_users);
+        {
+            JsonFileService.SaveJsonObjects(_users);
             return _users;
         }
 
