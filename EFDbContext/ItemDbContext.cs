@@ -14,6 +14,7 @@ namespace CTTSite.EFDbContext
             options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=CTTDB; Integrated Security=True; Connect Timeout=30; Encrypt=False");
         }   
         public DbSet<Item> Items { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public DbSet<CartItem> CartItems { get; set; }
     }
