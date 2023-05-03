@@ -19,6 +19,7 @@ namespace CTTSite.Pages.Staff.Admin
 
         [BindProperty, DataType(DataType.Password)]
         public string Password { get; set; }
+        public bool SuccessfulCreation { get; set; }
 
         public CreateStaffUserModel(IUserService userService)
         {
@@ -35,8 +36,16 @@ namespace CTTSite.Pages.Staff.Admin
             {
                 return Page();
             }
-            _userService.AddUser(new Models.User(Email, Password, false, true));
-            return RedirectToPage("/Index");
+
+            SuccessfulCreation = _userService.AddUser(new Models.User(Email, Password, false, true));
+            if (SuccessfulCreation == true)
+            {
+                return RedirectToPage("/Index");
+            }
+            else
+            {
+                return RedirectToPage("/Admin/StaffEmailExists");
+            }
         }
     }
 }

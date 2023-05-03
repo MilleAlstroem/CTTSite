@@ -35,13 +35,13 @@ namespace CTTSite.Pages.Staff
             }
             
             SuccessfulCreation = _userService.AddUser(new Models.User(Email, Password, false, false));
-            if(SuccessfulCreation = true)
+            if(SuccessfulCreation == true)
             {
                 return RedirectToPage("/Index");
             }
             else
             {
-                return Page();
+                return RedirectToPage("/Staff/ClientEmailExists");
             }
                 
         }
