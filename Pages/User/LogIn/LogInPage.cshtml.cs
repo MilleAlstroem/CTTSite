@@ -52,12 +52,12 @@ namespace CTTSite.Pages.User.LogIn
                     if (passwordHasher.VerifyHashedPassword(null, user.Password, Password) == PasswordVerificationResult.Success)
                     {
                         //LoggedInUser = user;
-                        //Models.User _user = _userService.GetUserByEmail(Email);
+                        Models.User _user = _userService.GetUserByEmail(Email);
 
                         var claims = new List<Claim> { new Claim(ClaimTypes.Name, Email) };
 
-                        //if (_user.Admin == true) claims.Add(new Claim(ClaimTypes.Role, "admin"));
-                        //if (_user.Staff == true) claims.Add(new Claim(ClaimTypes.Role, "staff"));
+                        if (_user.Admin == true) claims.Add(new Claim(ClaimTypes.Role, "admin"));
+                        if (_user.Staff == true) claims.Add(new Claim(ClaimTypes.Role, "staff"));
 
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
