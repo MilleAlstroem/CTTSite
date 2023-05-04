@@ -14,14 +14,15 @@ namespace CTTSite.Models
 
         
         [Display(Name = "Email")]
-        [Required(ErrorMessage = "Email is required")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "Email is not valid")]
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "Email must be at least 3 characters long")]
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [StringLength(50, MinimumLength = 5)]
         public string Email { get; set; }
 
-        [Display(Name = "Email")]
-        [Required(ErrorMessage = "Email is required")]
-        [StringLength(200, MinimumLength = 6, ErrorMessage = "Password must be at least 6 characters long")]
+        [Display(Name = "Password")]
+        [Required]
+        [DataType(DataType.Password)]
+        [StringLength(200, MinimumLength = 6)]
         public string Password { get; set; }
 
         [Required]

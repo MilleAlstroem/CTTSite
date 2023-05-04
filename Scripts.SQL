@@ -13,5 +13,7 @@ CREATE TABLE [dbo].[Items] (
     CONSTRAINT [PK_Items] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
-
+INSERT INTO Users (Id,Password, Email, Admin, Staff) VALUES (0,'chilterntalkingtherapies@gmail.com', 'AQAAAAEAACcQAAAAEMBg5UqcaZ3Sri2w9wHq3Q0x1tRY0O4MuLDjeGfbqT7fNHUj\u002Ba74SUZ5rnODSWo8Xw==', True, True)
+INSERT INTO Users (Id,Password, Email, Admin, Staff) VALUES (1,'TestStaff', 'AQAAAAEAACcQAAAAENZYFKnVVaZL/WqElO2cJrvLG1dux27EuLDGeItdsej658VaehzNFYiStbN6tkdGCg==', False, True)
+INSERT INTO Users (Id,Password, Email, Admin, Staff) VALUES (2,'TestClient', 'AQAAAAEAACcQAAAAEFoGoawVtV/X1DFEmG7MklX5CbL1SpsRu8S44M77tKUy1A\u002BH7GQe1cuB9L3vgQpF/g==', False, False)
 
