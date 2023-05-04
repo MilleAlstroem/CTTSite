@@ -39,7 +39,8 @@ namespace CTTSite.Services.NormalService
             {
                 _users.Add(user);
 				//JsonFileService.SaveJsonObjects(_users);
-				SaveUsers();
+				//SaveUsers();
+                DBServiceGeneric.AddObjectAsync(user);
 
 				return true;
             }
@@ -252,6 +253,9 @@ namespace CTTSite.Services.NormalService
                    orderby user.Email descending
                    select user;
         }
-        #endregion
-    }
+		#endregion
+
+
+       
+	}
 }

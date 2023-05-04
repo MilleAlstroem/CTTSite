@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CTTSite.Pages.Admin
 {
-    public class DeleteUserModel : PageModel
-    {  // Made by Christian
+    public class UpdateErrorPageModel : PageModel
+    {
         public void OnGet()
         {
         }
