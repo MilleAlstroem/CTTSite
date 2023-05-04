@@ -18,11 +18,11 @@
         <img src="@Model.Item.IMG" alt="Product image" class="img-fluid"/>
         <br />
         <form method="post">
+            Count:
+            <input asp-for="@Model.Count" class="form-control" />
+            <span asp-validation-for="@Model.Count" class="text-danger"></span>
             <div class="form-group">
-                <label asp-for="@Model.CartItem.Amount" class="control-lable"></label>
-                <input asp-for="@Model.CartItem.Amount" class="form-control"/>
-                <span asp-validation-for="@Model.CartItem.Amount" class="text-danger"></span>
-                <input type="submit" value="Add to cart" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>

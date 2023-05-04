@@ -8,6 +8,11 @@ namespace CTTSite.Services.NormalService
     {
         public DBServiceGeneric<CartItem> DBServiceGeneric;
 
+        public CartItemService(DBServiceGeneric<CartItem> dBServiceGeneric)
+        {
+            DBServiceGeneric = dBServiceGeneric;
+        }
+
         public async Task AddToCartAsync(CartItem cartItem)
         {
             await DBServiceGeneric.AddObjectAsync(cartItem);
