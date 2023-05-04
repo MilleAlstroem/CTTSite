@@ -20,6 +20,8 @@ namespace CTTSite.Services.Interface
 
         User GetUserByID(int ID);
 
+        User GetUserByEmail(string email);
+
         List<User> GetStaff();
 
         List<User> GetClients();

@@ -50,7 +50,7 @@ namespace CTTSite.Pages.Store
             //    return Page();
             //}
             Item = IItemService.GetItemByID(ID);
-            User = IUserService.GetUser(LogInPageModel.LoggedInUser.Id);
+            User = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
             CartItem.UserID = User.Id;
             CartItem.ItemID = Item.ID;
             CartItem.Amount = Count;

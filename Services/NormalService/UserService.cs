@@ -27,6 +27,7 @@ namespace CTTSite.Services.NormalService
            
             DBServiceGeneric = dBServiceGeneric;
             _users = GetUsersFromDB();
+            DBServiceGeneric.SaveObjectsAsync(_users);
         }
 
         #region Add User
@@ -60,6 +61,14 @@ namespace CTTSite.Services.NormalService
         public User GetUser(int ID)
         {
             User user = _users.Find(_user => _user.Id == ID);
+            return user;
+        }
+        #endregion
+
+        #region Get User
+        public User GetUserByEmail(string email)
+        {
+            User user = _users.Find(_user => _user.Email == email);
             return user;
         }
         #endregion

@@ -22,7 +22,9 @@ namespace CTTSite.Pages.Staff
         public string Password { get; set; }
 
         public bool SuccessfulCreation { get; set; }
+
         public string Message { get; set; }
+
         public Models.User newUser { get; set; }
 
         private PasswordHasher<string> passwordHasher;

@@ -33,7 +33,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Store/AllProductsPage">Store</a>
                         </li>
                         @{
-                            if (LogInPageModel.LoggedInUser != null && LogInPageModel.LoggedInUser.Admin == true)
+                            if (Context.User.Identity != null && Context.User.IsInRole("admin") == true)
                             {
                             <li class="nav-item">
                             <a class="nav-link text-black" asp-area="" asp-page="/Admin/CreateStaffUser">Create Staff User</a>
@@ -44,7 +44,7 @@
                             }
                          }
                         @{
-                            if (LogInPageModel.LoggedInUser != null && LogInPageModel.LoggedInUser.Staff == true)
+                            if (Context.User.Identity != null && Context.User.IsInRole("staff") == true)
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-black" asp-area="" asp-page="/Staff/CreateClientUser">Create Client User</a>
@@ -53,7 +53,7 @@
                         }
                         <ul class="navbar-nav">
                             @{
-                                if (LogInPageModel.LoggedInUser == null)
+                                if (Context.User.Identity == null)
                                 {
                                     <li class="nav-item">
                                         <a class="nav-link text-black" asp-area="" asp-page="/User/LogIn/LogInPage">Login</a>
@@ -62,7 +62,7 @@
                                 else
                                 {
                                     <li class="nav-item nav-link text-black me-3">
-                                        User: @LogInPageModel.LoggedInUser.Email
+                                        User: @Context.User.Identity.Name
                                     </li>
 
                                     <li class="nav-item">
