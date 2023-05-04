@@ -1,4 +1,5 @@
-﻿using CTTSite.Models;
+﻿using CTTSite.MockData;
+using CTTSite.Models;
 using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
@@ -20,6 +21,15 @@ namespace CTTSite.Services.NormalService
 
         public async Task AddToCartAsync(CartItem cartItem)
         {
+            int IDCount = 0;
+            foreach(CartItem listCartItem in CartItems)
+            {
+                if(IDCount < listCartItem.ID)
+                {
+                    IDCount = listCartItem.ID;
+                }
+            }
+            cartItem.ID = IDCount + 1;
             CartItems.Add(cartItem);
             JsonFileService.SaveJsonObjects(CartItems);
             //await DBServiceGeneric.AddObjectAsync(cartItem);
@@ -32,7 +42,21 @@ namespace CTTSite.Services.NormalService
 
         public List<CartItem> GetAllCartItems()
         {
+            //return MockData.MockDataCartItem.GetMockCartItems();
             return JsonFileService.GetJsonObjects().ToList();
+            //return DBServiceGeneric.GetObjectsAsync().Result.ToList();
+        }
+
+        public CartItem GetCartItemByID(int ID)
+        {
+            foreach(CartItem cartItem in CartItems)
+            {
+                if(cartItem.ID == ID)
+                {
+                    return cartItem;
+                }
+            }
+            return null;
         }
 
         public List<CartItem> GetAllCartItemsByUserID(int userID)
@@ -53,9 +77,16 @@ namespace CTTSite.Services.NormalService
             throw new NotImplementedException();
         }
 
-        public Task RemoveFromCartByIDAsync(int ID)
+        public async Task RemoveFromCartByIDAsync(int ID)
         {
-            throw new NotImplementedException();
+            CartItem cartItemToBeDeleted = null;
+            if(GetCartItemByID(ID) != null)
+            {
+                CartItems.Remove(GetCartItemByID(ID));
+                JsonFileService.SaveJsonObjects(CartItems);
+                //cartItemToBeDeleted = GetCartItemByID(ID);
+                //await DBServiceGeneric.DeleteObjectAsync(cartItemToBeDeleted);
+            }
         }
     }
 }

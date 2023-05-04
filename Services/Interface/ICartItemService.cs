@@ -10,5 +10,6 @@ namespace CTTSite.Services.Interface
         Task RemoveFromCartByIDAsync(int ID);
         Task ConvertBoolPaidByUserIDAsync(int userID);
         List<CartItem> GetOldCartItemsByID(int ID);
+        CartItem GetCartItemByID(int ID);
     }
 }

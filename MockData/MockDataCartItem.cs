@@ -12,7 +12,7 @@ namespace CTTSite.MockData
             new CartItem(4, 1, 8, 2, false),
         };
 
-        public static List<CartItem> GetMockCartItem()
+        public static List<CartItem> GetMockCartItems()
         {
             return cartItems;
         }

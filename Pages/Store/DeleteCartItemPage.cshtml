@@ -1,0 +1,31 @@
+﻿@page
+@model CTTSite.Pages.Store.DeleteCartItemPageModel
+@{
+}
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><b>Product: </b>@Model.CartItem.ID</p>
+            </div>
+            <div class="modal-footer">
+                <form method="post">
+                    <button type="submit" class="btn btn-danger">Yes</button>
+                    <a class="btn btn-primary" asp-page="SpecificUserCartPage">No</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $("#myModal").modal({ backdrop: "static" });
+            $("#myModal").modal('show')
+        })
+    </script>
+}

@@ -38,13 +38,5 @@
     "IMG": "NoImg",
     "Price": 50.99,
     "Stock": 12
-  },
-  {
-    "ID": 6,
-    "Name": "XXL Blanket",
-    "Description": "Extra soft and fluffy",
-    "IMG": "NoImg",
-    "Price": 100,
-    "Stock": 8
   }
 ]
