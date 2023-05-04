@@ -189,14 +189,15 @@ namespace CTTSite.Services.NormalService
         #endregion      
 
         #region Delete User by ID
-        public async Task DeleteUserByIDAsync(int ID)
+        public User DeleteUserByID(int ID)
         {
             User userToBeDeleted = null;
             if (GetUserByID(ID) != null)
-            {
+            {                
                 userToBeDeleted = GetUserByID(ID);
-                await DBServiceGeneric.DeleteObjectAsync(userToBeDeleted);
+				_users.Remove(userToBeDeleted);				
             }
+            return userToBeDeleted;
         }
         #endregion
 

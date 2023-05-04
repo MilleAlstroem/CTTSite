@@ -36,7 +36,7 @@ namespace CTTSite.Services.Interface
 
         List<User> SearchUserByEmail(string searchEmail);
 
-        Task DeleteUserByIDAsync(int ID);
+        User DeleteUserByID(int ID);
 
         Task UpdateUserAsync(User userN);
 
