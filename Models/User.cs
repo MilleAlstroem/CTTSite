@@ -6,10 +6,10 @@ namespace CTTSite.Models
     // Made by Christian
     public class User
     {
-        private static int nextId = 0;
+        
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         
@@ -40,7 +40,7 @@ namespace CTTSite.Models
 
         public User(string email, string password, bool admin, bool staff)
         {
-            Id = nextId++;            
+                     
             Email = email;
             Password = password;
             Admin = admin;

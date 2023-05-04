@@ -38,7 +38,7 @@ namespace CTTSite.Services.Interface
 
         Task DeleteUserByIDAsync(int ID);
 
-        Task UpdateItemAsync(User userN);
+        Task UpdateUserAsync(User userN);
 
         IEnumerable<User> SortById();
 
@@ -47,9 +47,11 @@ namespace CTTSite.Services.Interface
         IEnumerable<User> SortByEmail();
 
         IEnumerable<User> SortByEmailDescending();
-        
-      
+
+        void SaveUsers();
 
 
-    }
+
+
+	}
 }

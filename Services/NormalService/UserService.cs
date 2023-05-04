@@ -38,20 +38,27 @@ namespace CTTSite.Services.NormalService
             if (existingUser == null)
             {
                 _users.Add(user);
-                //JsonFileService.SaveJsonObjects(_users);
-                DBServiceGeneric.AddObjectAsync(user);
+				//JsonFileService.SaveJsonObjects(_users);
+				SaveUsers();
 
-                return true;
+				return true;
             }
             else
             {
                 return false;
             }
         }
-        #endregion
+		#endregion
 
-        #region Add User to DB
-        public async Task AddUserToDB(User user)
+		#region Save Users
+        public void SaveUsers()
+        {
+			DBServiceGeneric.SaveObjectsAsync(_users);
+		}
+		#endregion
+
+		#region Add User to DB
+		public async Task AddUserToDB(User user)
         {
           await DBServiceGeneric.AddObjectAsync(User);
         }
@@ -193,7 +200,7 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Update User
-        public async Task UpdateItemAsync(User userN)
+        public async Task UpdateUserAsync(User userN)
         {
             if (userN != null)
             {

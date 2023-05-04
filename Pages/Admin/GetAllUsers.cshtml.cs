@@ -27,7 +27,7 @@ namespace CTTSite.Pages.Staff.Admin
         }
         public void OnGet()
         {
-           
+           _iUserService.SaveUsers();
         }
 
 		public IActionResult OnGetAll()
