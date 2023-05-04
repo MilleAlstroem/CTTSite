@@ -21,7 +21,7 @@ namespace CTTSite.Models
 
         [Display(Name = "Email")]
         [Required(ErrorMessage = "Email is required")]
-        [StringLength(30, MinimumLength = 6, ErrorMessage = "Password must be at least 6 characters long")]
+        [StringLength(200, MinimumLength = 6, ErrorMessage = "Password must be at least 6 characters long")]
         public string Password { get; set; }
 
         [Required]

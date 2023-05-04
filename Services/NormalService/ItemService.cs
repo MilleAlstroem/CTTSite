@@ -15,10 +15,10 @@ namespace CTTSite.Services.NormalService
             Items = GetAllItems();
         }
 
-        public async Task CreateItemAsync(Item item)
-        {
-            await DBServiceGeneric.AddObjectAsync(item);
-        }
+            public async Task CreateItemAsync(Item item)
+            {
+                await DBServiceGeneric.AddObjectAsync(item);
+            }
 
         public async Task DeleteItemByIDAsync(int ID)
         {

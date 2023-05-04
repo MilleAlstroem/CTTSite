@@ -39,7 +39,7 @@ namespace CTTSite.Pages.User.LogIn
         public async Task<IActionResult> OnPost()
         {
 
-            List<Models.User> users = _userService.GetUsers();
+            List<Models.User> users = _userService.GetAllUsers();
             foreach (Models.User user in users)
             {
 

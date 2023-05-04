@@ -13,7 +13,7 @@ namespace CTTSite.Pages.Staff
     [Authorize(Roles = "staff")]
     public class CreateClientUserModel : PageModel
     {
-        private IUserService _userService;
+        private IUserService _iUserService;
         
         [BindProperty]
         public string Email { get; set; }
@@ -23,12 +23,13 @@ namespace CTTSite.Pages.Staff
 
         public bool SuccessfulCreation { get; set; }
         public string Message { get; set; }
-        
+        public Models.User newUser { get; set; }
+
         private PasswordHasher<string> passwordHasher;
 
         public CreateClientUserModel(IUserService userService)
         {
-            _userService = userService;
+            _iUserService = userService;
             passwordHasher = new PasswordHasher<string>();
         }
         public void OnGet()
@@ -95,11 +96,13 @@ namespace CTTSite.Pages.Staff
                 Message = "Password must be at least 6 characters long!!!";
                 return Page();
             }
-          
 
-            SuccessfulCreation = _userService.AddUser(new Models.User(Email, passwordHasher.HashPassword(null, Password), false, false));
+
+            newUser = new Models.User(Email, passwordHasher.HashPassword(null, Password), false, false);
+            SuccessfulCreation = _iUserService.AddUser(newUser);
             if(SuccessfulCreation == true)
             {
+                _iUserService.AddUserToDB(newUser);
                 return RedirectToPage("/Index");
             }
             else

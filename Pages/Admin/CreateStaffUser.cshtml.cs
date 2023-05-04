@@ -15,7 +15,7 @@ namespace CTTSite.Pages.Staff.Admin
     [Authorize(Roles = "admin")]
     public class CreateStaffUserModel : PageModel
     {
-        private IUserService _userService;
+        private IUserService _iUserService;
 
         [BindProperty]
         public string Email { get; set; }
@@ -30,7 +30,7 @@ namespace CTTSite.Pages.Staff.Admin
 
         public CreateStaffUserModel(IUserService userService)
         {
-            _userService = userService;
+            _iUserService = userService;
             passwordHasher = new PasswordHasher<string>();
         }
 
@@ -100,9 +100,10 @@ namespace CTTSite.Pages.Staff.Admin
             }
 
             newUser = new Models.User(Email, passwordHasher.HashPassword(null, Password), false, true); 
-            SuccessfulCreation = _userService.AddUser(newUser);
+            SuccessfulCreation = _iUserService.AddUser(newUser);
             if (SuccessfulCreation == true)
             {
+                _iUserService.AddUserToDB(newUser);
                 return RedirectToPage("/Index");
             }
             else

@@ -1,4 +1,5 @@
 ﻿using CTTSite.Models;
+using CTTSite.Services.DB;
 using CTTSite.Services.JSON;
 
 namespace CTTSite.Services.Interface
@@ -6,58 +7,47 @@ namespace CTTSite.Services.Interface
     // Made by Christian
     public interface IUserService
     {
-        List<User> GetUsers();
 
+        bool AddUser(User user);
 
-
-		List<User> GetStaff();
-
-
-		List<User> GetClients();
-
-
-		List<User> GetAdmins();
-
-
-        List<User> SortStaff();
-
-
-
-        List<User> SortAdmins();
-
-
-
-       List<User> SortClients();
-		
-
-
-
-		bool AddUser(User user);
-
-
-
-        List<User> SearchUserByEmail(string searchEmail);
-
-
+        Task AddUserToDB(User user);
 
         User GetUser(int ID);
 
+        List<User> GetUsersFromDB();
 
+        List<User> GetAllUsers();
 
-        User DeleteUser(int ID);
+        User GetUserByID(int ID);
 
+        List<User> GetStaff();
+
+        List<User> GetClients();
+
+        List<User> GetAdmins();
+
+        List<User> SortStaff();
+
+        List<User> SortAdmins();
+
+        List<User> SortClients();
+
+        List<User> SearchUserByEmail(string searchEmail);
+
+        Task DeleteUserByIDAsync(int ID);
+
+        Task UpdateItemAsync(User userN);
 
         IEnumerable<User> SortById();
 
-
         IEnumerable<User> SortByIdDescending();
-
 
         IEnumerable<User> SortByEmail();
 
-
         IEnumerable<User> SortByEmailDescending();
         
+      
+
 
     }
 }

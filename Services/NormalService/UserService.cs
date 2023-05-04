@@ -3,6 +3,7 @@ using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
 using CTTSite.MockData;
 using Microsoft.AspNetCore.Http;
+using CTTSite.Services.DB;
 
 namespace CTTSite.Services.NormalService
 {
@@ -14,84 +15,21 @@ namespace CTTSite.Services.NormalService
         private List<User> _staff { get; set; }
         private List<User> _clients { get; set; }
         private JsonFileService<User> JsonFileService { get; set; }
+        private User User { get; set; }
 
-        public UserService(JsonFileService<User> jsonUserService)
+        private DBServiceGeneric<User> DBServiceGeneric { get; set; }
+
+        public UserService(JsonFileService<User> jsonUserService, DBServiceGeneric<User> dBServiceGeneric)
         {
             JsonFileService = jsonUserService;
             //_users = MockDataUser.GetMockUsers();
-            _users = JsonFileService.GetJsonObjects().ToList();
-            
-
-		}
-
-
-        public List<User> GetStaff()
-        {
-            _staff = SortStaff();
-            return _staff;
+            //_users = JsonFileService.GetJsonObjects().ToList();
+           
+            DBServiceGeneric = dBServiceGeneric;
+            _users = GetUsersFromDB();
         }
 
-		public List<User> GetClients()
-		{
-			_clients = SortClients();
-			return _clients;
-		}
-
-		public List<User> GetAdmins()
-		{
-			_admins = SortAdmins();
-			return _admins;
-		}
-
-		public List<User> GetUsers()
-        {
-            JsonFileService.SaveJsonObjects(_users);
-            return _users;
-        }
-
-
-        public List<User> SortStaff()
-        {
-            List<User> users = new List<User>();
-            foreach(User u in _users)
-            {
-                if(u.Staff == true)
-                {
-                    users.Add(u);
-                }
-            }
-            return users;
-        }
-
-
-        public List<User> SortAdmins()
-        {
-			List<User> users = new List<User>();
-			foreach (User u in _users)
-			{
-				if (u.Admin == true)
-				{
-					users.Add(u);
-				}
-			}
-			return users;
-		}
-
-
-        public List<User> SortClients()
-        {
-			List<User> users = new List<User>();
-			foreach (User u in _users)
-			{
-				if ((u.Staff == false) && (u.Admin == false))
-				{
-					users.Add(u);
-				}
-			}
-			return users;
-		}
-
-
+        #region Add User
         public bool AddUser(User user)
         {
             User existingUser =_users.Find(_user => _user.Email.ToLower() == user.Email.ToLower());
@@ -99,7 +37,9 @@ namespace CTTSite.Services.NormalService
             if (existingUser == null)
             {
                 _users.Add(user);
-                JsonFileService.SaveJsonObjects(_users);
+                //JsonFileService.SaveJsonObjects(_users);
+                DBServiceGeneric.AddObjectAsync(user);
+
                 return true;
             }
             else
@@ -107,62 +47,195 @@ namespace CTTSite.Services.NormalService
                 return false;
             }
         }
-        
+        #endregion
 
-        public List<User> SearchUserByEmail(string searchEmail)
+        #region Add User to DB
+        public async Task AddUserToDB(User user)
         {
-            var results = _users.Where(u => u.Email.ToLower().Contains(searchEmail.ToLower()));
-            return results.ToList();   
+          await DBServiceGeneric.AddObjectAsync(User);
         }
+        #endregion
 
-
+        #region Get User
         public User GetUser(int ID)
         {
             User user = _users.Find(_user => _user.Id == ID);
             return user;
         }
+        #endregion
 
-
-        public User DeleteUser(int ID)
+        #region Get Users From DB
+        public List<User> GetUsersFromDB()
         {
             
-            User userToBeDeleted = _users.Find(_user => _user.Id == ID);
-            if (userToBeDeleted != null)
-            {
-                _users.Remove(userToBeDeleted);
+            return DBServiceGeneric.GetObjectsAsync().Result.ToList();
 
-                JsonFileService.SaveJsonObjects(_users);
-            }
-            return userToBeDeleted;
         }
+        #endregion
 
+        #region Get Users 
+        public  List<User> GetAllUsers()
+        {          
+           return _users;
+        }
+        #endregion
+
+        #region Get User by ID
+        public User GetUserByID(int ID)
+        {
+            foreach (User user in _users)
+            {
+                if (user.Id == ID)
+                {
+                    return user;
+                }
+            }
+            return null;
+        }
+        #endregion
+
+        #region Get Staff
+        public List<User> GetStaff()
+        {
+            _staff = SortStaff();
+            return _staff;
+        }
+        #endregion
+
+        #region Get Clients
+        public List<User> GetClients()
+        {
+            _clients = SortClients();
+            return _clients;
+        }
+        #endregion
+
+        #region Get Admins
+        public List<User> GetAdmins()
+        {
+            _admins = SortAdmins();
+            return _admins;
+        }
+        #endregion
+
+        #region Sort Staff
+        public List<User> SortStaff()
+        {
+            List<User> users = new List<User>();
+            foreach (User u in _users)
+            {
+                if (u.Staff == true)
+                {
+                    users.Add(u);
+                }
+            }
+            return users;
+        }
+        #endregion
+
+        #region Sort Admins
+        public List<User> SortAdmins()
+        {
+            List<User> users = new List<User>();
+            foreach (User u in _users)
+            {
+                if (u.Admin == true)
+                {
+                    users.Add(u);
+                }
+            }
+            return users;
+        }
+        #endregion
+
+        #region Sort Clients
+        public List<User> SortClients()
+        {
+            List<User> users = new List<User>();
+            foreach (User u in _users)
+            {
+                if ((u.Staff == false) && (u.Admin == false))
+                {
+                    users.Add(u);
+                }
+            }
+            return users;
+        }
+        #endregion
+
+        #region Search User by Email
+        public List<User> SearchUserByEmail(string searchEmail)
+        {
+            var results = _users.Where(u => u.Email.ToLower().Contains(searchEmail.ToLower()));
+            return results.ToList();   
+        }
+        #endregion      
+
+        #region Delete User by ID
+        public async Task DeleteUserByIDAsync(int ID)
+        {
+            User userToBeDeleted = null;
+            if (GetUserByID(ID) != null)
+            {
+                userToBeDeleted = GetUserByID(ID);
+                await DBServiceGeneric.DeleteObjectAsync(userToBeDeleted);
+            }
+        }
+        #endregion
+
+        #region Update User
+        public async Task UpdateItemAsync(User userN)
+        {
+            if (userN != null)
+            {
+                foreach (User userO in _users)
+                {
+                    if (userO.Id == userN.Id)
+                    {
+                        userO.Email = userN.Email;
+                        userO.Password = userN.Password;
+                        
+                        await DBServiceGeneric.UpdateObjectAsync(userO);
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region Sort Users by ID
         public IEnumerable<User> SortById()
         {
             return from user in _users
                    orderby user.Id
                    select user;
         }
+        #endregion
 
+        #region Sort Users by ID Descending
         public IEnumerable<User> SortByIdDescending()
         {
             return from user in _users
                    orderby user.Id descending
                    select user;
         }
+        #endregion
 
+        #region Sort Users by Email
         public IEnumerable<User> SortByEmail()
         {
             return from user in _users
                    orderby user.Email
                    select user;
         }
+        #endregion
 
+        #region Sort Users by Email Descending
         public IEnumerable<User> SortByEmailDescending()
         {
             return from user in _users
                    orderby user.Email descending
                    select user;
         }
-
+        #endregion
     }
 }

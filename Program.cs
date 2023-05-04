@@ -28,6 +28,7 @@ builder.Services.AddTransient<JsonFileService<User>>();
 builder.Services.AddDbContext<ItemDbContext>();
 builder.Services.AddTransient<DBServiceGeneric<Item>>();
 builder.Services.AddTransient<DBServiceGeneric<CartItem>>();
+builder.Services.AddTransient<DBServiceGeneric<User>>();
 
 builder.Services.Configure<CookiePolicyOptions>(options => {
     // This lambda determines whether user consent for non-essential cookies is needed for a given request. options.CheckConsentNeeded = context => true;
