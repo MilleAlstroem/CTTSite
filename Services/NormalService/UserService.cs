@@ -24,7 +24,7 @@ namespace CTTSite.Services.NormalService
             JsonFileService = jsonUserService;
             //_users = MockDataUser.GetMockUsers();
             //_users = JsonFileService.GetJsonObjects().ToList();
-           
+
             DBServiceGeneric = dBServiceGeneric;
             _users = GetUsersFromDB();
             DBServiceGeneric.SaveObjectsAsync(_users);

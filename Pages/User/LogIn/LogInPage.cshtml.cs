@@ -39,6 +39,21 @@ namespace CTTSite.Pages.User.LogIn
 
         public async Task<IActionResult> OnPost()
         {
+            if ((Email == null) && (Password == null))
+            {
+                Message = "Please enter an email address and a password!!!";
+                return Page();
+            }
+            if (string.IsNullOrEmpty(Email))
+            {
+                Message = "Please enter an email address!!!";
+                return Page();
+            }
+            if (string.IsNullOrEmpty(Password)) 
+            {
+               Message = "Please enter password!!!";
+                return Page();
+            }
 
             List<Models.User> users = _userService.GetAllUsers();
             foreach (Models.User user in users)
