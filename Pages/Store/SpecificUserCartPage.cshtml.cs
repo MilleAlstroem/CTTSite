@@ -23,6 +23,6 @@ namespace CTTSite.Pages.Store
             CartItems = ICartItemService.GetAllCartItemsByUserID(CurrentUser.Id);
             return Page();
         }
-
+        
     }
 }

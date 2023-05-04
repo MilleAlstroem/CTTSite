@@ -2,3 +2,48 @@
 @model CTTSite.Pages.Store.ShippingPageModel
 @{
 }
+
+<h4 class="text-center"><b>Shipping Information</b></h4>
+<br />
+<form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.ShippingInfo.FirstName" class="control-lable"></label>
+        <input asp-for="@Model.ShippingInfo.FirstName" class="form-control" />
+        <span asp-validation-for="@Model.ShippingInfo.FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.ShippingInfo.LastName" class="control-lable"></label>
+        <input asp-for="@Model.ShippingInfo.LastName" class="form-control" />
+        <span asp-validation-for="@Model.ShippingInfo.LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.ShippingInfo.PhoneNumber" class="control-lable"></label>
+        <input asp-for="@Model.ShippingInfo.PhoneNumber" class="form-control" />
+        <span asp-validation-for="@Model.ShippingInfo.PhoneNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.ShippingInfo.Address" class="control-lable"></label>
+        <input asp-for="@Model.ShippingInfo.Address" class="form-control" />
+        <span asp-validation-for="@Model.ShippingInfo.Address" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.ShippingInfo.City" class="control-lable"></label>
+        <input asp-for="@Model.ShippingInfo.City" class="form-control" />
+        <span asp-validation-for="@Model.ShippingInfo.City" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.ShippingInfo.County" class="control-lable"></label>
+        <input asp-for="@Model.ShippingInfo.County" class="form-control" />
+        <span asp-validation-for="@Model.ShippingInfo.County" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.ShippingInfo.PostCode" class="control-lable"></label>
+        <input asp-for="@Model.ShippingInfo.PostCode" class="form-control" />
+        <span asp-validation-for="@Model.ShippingInfo.PostCode" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Continue" class="btn btn-primary" />
+        <a asp-page="/Store/ShoppingCartPage" class="btn btn-primary">Back to Cart</a>
+    </div>
+</form>

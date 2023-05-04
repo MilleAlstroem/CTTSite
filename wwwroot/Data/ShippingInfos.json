@@ -1,0 +1,62 @@
+[
+  {
+    "ID": 1,
+    "UserID": 2,
+    "Address": "JumpStreet 69",
+    "City": "Birmingham",
+    "PostCode": "B11JS69",
+    "County": "Birmingham",
+    "PhoneNumber": "12345678901",
+    "FirstName": "Patrick",
+    "LastName": "Star",
+    "SubmissionDate": "2023-05-04T14:02:42.4925761Z"
+  },
+  {
+    "ID": 2,
+    "UserID": 2,
+    "Address": "BikiniBottom 02",
+    "City": "Birmingham",
+    "PostCode": "B11BB02",
+    "County": "Birmingham",
+    "PhoneNumber": "84267394272",
+    "FirstName": "Bob",
+    "LastName": "Sponge",
+    "SubmissionDate": "2023-05-04T14:02:42.4932311Z"
+  },
+  {
+    "ID": 3,
+    "UserID": 2,
+    "Address": "CowBoyStreet 14",
+    "City": "Leicester",
+    "PostCode": "LE1CBS14",
+    "County": "Leicester",
+    "PhoneNumber": "94979459849",
+    "FirstName": "Katie",
+    "LastName": "Perry",
+    "SubmissionDate": "2023-05-04T14:02:42.4932315Z"
+  },
+  {
+    "ID": 4,
+    "UserID": 2,
+    "Address": "StarRail 101",
+    "City": "London",
+    "PostCode": "E17AXSR101",
+    "County": "London",
+    "PhoneNumber": "11010100100",
+    "FirstName": "Bean",
+    "LastName": "Mister",
+    "SubmissionDate": "2023-05-04T14:02:42.4932317Z"
+  },
+  {
+    "ID": 5,
+    "UserID": 2,
+    "Address": null,
+    "City": null,
+    "PostCode": null,
+    "County": null,
+    "PhoneNumber": null,
+    "FirstName": null,
+    "LastName": null,
+    "SubmissionDate": "2023-05-04T16:02:56.6085328+02:00"
+  }
+]
