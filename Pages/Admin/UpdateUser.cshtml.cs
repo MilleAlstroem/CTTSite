@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CTTSite.Pages.Admin
 {
+    // Made by Christian
     public class UpdateUserModel : PageModel
     {
         private IUserService _userService;
@@ -16,7 +17,9 @@ namespace CTTSite.Pages.Admin
         }
         private PasswordHasher<string> passwordHasher;
 
+        public string Message { get; set; }
         
+
         public Models.User user { get; set; }
 
         [BindProperty]
@@ -33,9 +36,12 @@ namespace CTTSite.Pages.Admin
 
         public IActionResult OnPost(int id) 
         {
+
+            
             if(!ModelState.IsValid)
             {
-                return Page();
+                Message = "Something Went Wrong. Please Try Again";
+                return RedirectToPage("UpdateErrorPage");
 			}
 
             passwordHasher = new PasswordHasher<string>();
@@ -46,7 +52,7 @@ namespace CTTSite.Pages.Admin
             user.Admin = user.Admin;
             user.Staff = user.Staff;
 
-            _userService.SaveUsers();
+            
 			_userService.UpdateUserAsync(user);
             return RedirectToPage("GetAllUsers");
 
