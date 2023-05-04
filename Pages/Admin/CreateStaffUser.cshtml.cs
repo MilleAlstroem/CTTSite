@@ -103,8 +103,9 @@ namespace CTTSite.Pages.Staff.Admin
             SuccessfulCreation = _iUserService.AddUser(newUser);
             if (SuccessfulCreation == true)
             {
-                _iUserService.AddUserToDB(newUser);
-                return RedirectToPage("/Index");
+				_iUserService.AddUser(newUser);
+				
+				return RedirectToPage("/Index");
             }
             else
             {
