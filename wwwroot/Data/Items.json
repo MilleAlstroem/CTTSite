@@ -1,0 +1,50 @@
+[
+  {
+    "ID": 1,
+    "Name": "Gift Basket",
+    "Description": "This gift basket is perfect for self-care.",
+    "IMG": "",
+    "Price": 25,
+    "Stock": 15
+  },
+  {
+    "ID": 2,
+    "Name": "Scented candles",
+    "Description": "These scented candles gives a lovely and relaxing aroma.",
+    "IMG": "NoImg",
+    "Price": 10.50,
+    "Stock": 56
+  },
+  {
+    "ID": 3,
+    "Name": "Little book of hygge",
+    "Description": "Great book to take with you everywhere for a quick read.",
+    "IMG": "",
+    "Price": 29,
+    "Stock": 74
+  },
+  {
+    "ID": 4,
+    "Name": "Paint kit",
+    "Description": "Cozy plaint kit to get your thoughts and emotions out on a canvas.",
+    "IMG": "",
+    "Price": 12,
+    "Stock": 28
+  },
+  {
+    "ID": 5,
+    "Name": "Blanket",
+    "Description": "soft and fluffy",
+    "IMG": "NoImg",
+    "Price": 50.99,
+    "Stock": 12
+  },
+  {
+    "ID": 6,
+    "Name": "XXL Blanket",
+    "Description": "Extra soft and fluffy",
+    "IMG": "NoImg",
+    "Price": 100,
+    "Stock": 8
+  }
+]
