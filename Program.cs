@@ -26,6 +26,7 @@ builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<ICartItemService, CartItemService>();
 builder.Services.AddTransient<JsonFileService<User>>();
 builder.Services.AddTransient<JsonFileService<Item>>();
+builder.Services.AddTransient<JsonFileService<CartItem>>();
 builder.Services.AddDbContext<ItemDbContext>();
 builder.Services.AddTransient<DBServiceGeneric<Item>>();
 builder.Services.AddTransient<DBServiceGeneric<CartItem>>();

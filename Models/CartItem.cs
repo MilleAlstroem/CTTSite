@@ -41,6 +41,15 @@ namespace CTTSite.Models
             Paid = paid;
         }
 
+        public CartItem(int iD, int itemID, int amount, int userID, bool paid)
+        {
+            ID = iD;
+            ItemID = itemID;
+            Amount = amount;
+            UserID = userID;
+            Paid = paid;
+        }
+
         public CartItem()
         {
             
