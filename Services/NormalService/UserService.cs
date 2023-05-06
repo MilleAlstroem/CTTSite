@@ -5,6 +5,7 @@ using CTTSite.MockData;
 using Microsoft.AspNetCore.Http;
 using CTTSite.Services.DB;
 
+
 namespace CTTSite.Services.NormalService
 {
     // Made by Christian
@@ -16,10 +17,11 @@ namespace CTTSite.Services.NormalService
         private List<User> _clients { get; set; }
         private JsonFileService<User> JsonFileService { get; set; }
         private User User { get; set; }
+        private IEmailService EmailService { get; set; }
 
         private DBServiceGeneric<User> DBServiceGeneric { get; set; }
 
-        public UserService(JsonFileService<User> jsonUserService, DBServiceGeneric<User> dBServiceGeneric)
+        public UserService(JsonFileService<User> jsonUserService, DBServiceGeneric<User> dBServiceGeneric, IEmailService emailService)
         {
             JsonFileService = jsonUserService;
             //_users = MockDataUser.GetMockUsers();
@@ -28,7 +30,11 @@ namespace CTTSite.Services.NormalService
             DBServiceGeneric = dBServiceGeneric;
             _users = GetUsersFromDB();
             DBServiceGeneric.SaveObjectsAsync(_users);
+            EmailService = emailService;
+
         }
+
+        
 
         #region Add User
         public bool AddUser(User user)
@@ -73,7 +79,7 @@ namespace CTTSite.Services.NormalService
         }
         #endregion
 
-        #region Get User
+        #region Get User by email
         public User GetUserByEmail(string email)
         {
             User user = _users.Find(_user => _user.Email == email);
@@ -159,52 +165,7 @@ namespace CTTSite.Services.NormalService
             _admins = users;
             return _admins;
         }
-        #endregion
-
-        //#region Sort Staff
-        //public List<User> SortStaff()
-        //{
-        //    List<User> users = new List<User>();
-        //    foreach (User u in _users)
-        //    {
-        //        if (u.Staff == true)
-        //        {
-        //            users.Add(u);
-        //        }
-        //    }
-        //    return users;
-        //}
-        //#endregion
-
-        //#region Sort Admins
-        //public List<User> SortAdmins()
-        //{
-        //    List<User> users = new List<User>();
-        //    foreach (User u in _users)
-        //    {
-        //        if (u.Admin == true)
-        //        {
-        //            users.Add(u);
-        //        }
-        //    }
-        //    return users;
-        //}
-        //#endregion
-
-        //#region Sort Clients
-        //public List<User> SortClients()
-        //{
-        //    List<User> users = new List<User>();
-        //    foreach (User u in _users)
-        //    {
-        //        if ((u.Staff == false) && (u.Admin == false))
-        //        {
-        //            users.Add(u);
-        //        }
-        //    }
-        //    return users;
-        //}
-        //#endregion
+        #endregion       
 
         #region Search User by Email
         public List<User> SearchUserByEmail(string searchEmail)
@@ -284,7 +245,14 @@ namespace CTTSite.Services.NormalService
         }
 		#endregion
 
-
+        public void ForgottenPassword(string email)
+        {
+			User user = GetUserByEmail(email);
+			if (user != null)
+            {
+				EmailService.SendEmail(new Email("Your Password is: H876ts78F!7k", "Password Recovery", user.Email));
+			}
+		}
        
 	}
 }

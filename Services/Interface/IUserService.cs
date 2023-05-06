@@ -50,7 +50,10 @@ namespace CTTSite.Services.Interface
 
         void SaveUsers();
 
-       
+        void ForgottenPassword(string email);
+
+
+
 
 
 
