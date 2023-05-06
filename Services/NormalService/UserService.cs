@@ -252,7 +252,7 @@ namespace CTTSite.Services.NormalService
 			User user = GetUserByEmail(email);
 			if (user != null)
             {
-				EmailService.SendEmail(new Email("Your Password is: " + _newPassword, "Password Recovery", user.Email));
+				EmailService.SendEmail(new Email("Your Password is: " + _newPassword + "\nPlease log in with this new password and go to Edit User Details to choose a new password.", "Password Recovery", user.Email));
                 DeleteSavedNewPassword();
 			}
 		}
