@@ -1,13 +1,16 @@
 using CTTSite.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace CTTSite.Pages.Admin
 {
-    // Made by Christian
-    public class UpdateUserModel : PageModel
+	// Made by Christian
+	[Authorize(Roles = "admin")]
+	public class UpdateUserModel : PageModel
     {
         private IUserService _userService;
 

@@ -6,6 +6,7 @@ using CTTSite.Models;
 
 namespace CTTSite.Controller
 {
+	// Made by Christian
 
 	[Route("api/[controller]")]
 	[ApiController]

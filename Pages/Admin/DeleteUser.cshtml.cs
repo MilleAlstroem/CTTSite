@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using CTTSite.Services.Interface;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using CTTSite.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace CTTSite.Pages.Admin
 {
 	// Made by Christian
-
+	[Authorize(Roles = "admin")]
 	public class DeleteUserModel : PageModel
     {  
         private IUserService _iUserService;

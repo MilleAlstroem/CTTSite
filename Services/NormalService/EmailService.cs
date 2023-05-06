@@ -6,6 +6,8 @@ namespace CTTSite.Services.NormalService
 {
 	public class EmailService : IEmailService
 	{
+		// Made by Christian
+
 		private readonly IConfiguration _config;
 
 		public EmailService(IConfiguration config) 

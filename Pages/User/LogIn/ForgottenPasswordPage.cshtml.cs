@@ -8,6 +8,7 @@ namespace CTTSite.Pages.User.LogIn
 {
     public class ForgottenPasswordPageModel : PageModel
     {
+        // Made by Christian
 
         [BindProperty]
         public string Email { get; set; }
@@ -38,10 +39,22 @@ namespace CTTSite.Pages.User.LogIn
             {
                 if (Email == user.Email)
                 {
+                    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!";
+                    var stringChars = new char[8];
+                    var random = new Random();
+
+                    for (int i = 0; i < stringChars.Length; i++)
+                    {
+                        stringChars[i] = chars[random.Next(chars.Length)];
+                    }
+
+                    var NewPassword = new String(stringChars);
+                    _userService.SaveNewPassword(NewPassword);
+
                     passwordHasher = new PasswordHasher<string>();                   
                     user.Id = user.Id;
                     user.Email = user.Email;
-                    user.Password = passwordHasher.HashPassword(null, "H876ts78F!7k");
+                    user.Password = passwordHasher.HashPassword(null, NewPassword);
                     user.Admin = user.Admin;
                     user.Staff = user.Staff;
                     

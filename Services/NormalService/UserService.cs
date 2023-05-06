@@ -19,6 +19,8 @@ namespace CTTSite.Services.NormalService
         private User User { get; set; }
         private IEmailService EmailService { get; set; }
 
+        private string _newPassword { get; set; }
+
         private DBServiceGeneric<User> DBServiceGeneric { get; set; }
 
         public UserService(JsonFileService<User> jsonUserService, DBServiceGeneric<User> dBServiceGeneric, IEmailService emailService)
@@ -250,9 +252,20 @@ namespace CTTSite.Services.NormalService
 			User user = GetUserByEmail(email);
 			if (user != null)
             {
-				EmailService.SendEmail(new Email("Your Password is: H876ts78F!7k", "Password Recovery", user.Email));
+				EmailService.SendEmail(new Email("Your Password is: " + _newPassword, "Password Recovery", user.Email));
+                DeleteSavedNewPassword();
 			}
 		}
-       
-	}
+
+        public string SaveNewPassword(string password)
+        { 
+            _newPassword = password;
+            return _newPassword;
+        }
+        private void DeleteSavedNewPassword()
+        {
+            _newPassword = null;            
+        }
+
+    }
 }

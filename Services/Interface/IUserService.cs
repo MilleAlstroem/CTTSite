@@ -52,10 +52,11 @@ namespace CTTSite.Services.Interface
 
         void ForgottenPassword(string email);
 
+        string SaveNewPassword(string password);
 
 
 
 
 
-	}
+    }
 }
