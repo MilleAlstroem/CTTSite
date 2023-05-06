@@ -1,6 +1,7 @@
 ﻿namespace CTTSite.Models
 {
-	public class Email
+    // Made by Christian
+    public class Email
 	{
 		public string Body { get; set; }
 		public string Subject { get; set; }

@@ -1,8 +1,9 @@
 ﻿namespace CTTSite.Models.Forms
 {
-    public class FormActivityList
+    // Made by Christian
+    public class FormActivityList : Form
     {
-        public int Id { get; set; }
+        
         public string Pleasure { get; set; }
         public string Exercise { get; set; }
         public string Achievement { get; set; }

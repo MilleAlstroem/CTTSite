@@ -1,8 +1,9 @@
 ﻿namespace CTTSite.Models.Forms
 {
-    public class FormActivityDiary
+    // Made by Christian
+    public class FormActivityDiary : Form
     {
-        public int ID { get; set; }
+        
 
         #region Day 1
         public string Day1 { get; set; }

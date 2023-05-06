@@ -1,8 +1,9 @@
 ﻿namespace CTTSite.Models.Forms
 {
-    public class FormHotCrossBun
+    // Made by Christian
+    public class FormHotCrossBun : Form
     {
-        public int Id { get; set; }
+        
         public string Trigger { get; set; } 
         public string Thoughts { get; set; }
         public string Emotions { get; set; }
