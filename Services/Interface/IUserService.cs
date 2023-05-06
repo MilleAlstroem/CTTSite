@@ -28,11 +28,11 @@ namespace CTTSite.Services.Interface
 
         List<User> GetAdmins();
 
-        List<User> SortStaff();
+        //List<User> SortStaff();
 
-        List<User> SortAdmins();
+        //List<User> SortAdmins();
 
-        List<User> SortClients();
+        //List<User> SortClients();
 
         List<User> SearchUserByEmail(string searchEmail);
 

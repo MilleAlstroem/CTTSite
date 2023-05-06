@@ -114,7 +114,16 @@ namespace CTTSite.Services.NormalService
         #region Get Staff
         public List<User> GetStaff()
         {
-            _staff = SortStaff();
+			List<User> users = new List<User>();
+			foreach (User u in _users)
+			{
+				if (u.Staff == true)
+				{
+					users.Add(u);
+				}
+			}
+			
+			_staff = users;
             return _staff;
         }
         #endregion
@@ -122,7 +131,16 @@ namespace CTTSite.Services.NormalService
         #region Get Clients
         public List<User> GetClients()
         {
-            _clients = SortClients();
+			List<User> users = new List<User>();
+			foreach (User u in _users)
+			{
+				if ((u.Staff == false) && (u.Admin == false))
+				{
+					users.Add(u);
+				}
+			}
+			
+			_clients = users;
             return _clients;
         }
         #endregion
@@ -130,55 +148,63 @@ namespace CTTSite.Services.NormalService
         #region Get Admins
         public List<User> GetAdmins()
         {
-            _admins = SortAdmins();
+			List<User> users = new List<User>();
+			foreach (User u in _users)
+			{
+				if (u.Admin == true)
+				{
+					users.Add(u);
+				}
+			}
+            _admins = users;
             return _admins;
         }
         #endregion
 
-        #region Sort Staff
-        public List<User> SortStaff()
-        {
-            List<User> users = new List<User>();
-            foreach (User u in _users)
-            {
-                if (u.Staff == true)
-                {
-                    users.Add(u);
-                }
-            }
-            return users;
-        }
-        #endregion
+        //#region Sort Staff
+        //public List<User> SortStaff()
+        //{
+        //    List<User> users = new List<User>();
+        //    foreach (User u in _users)
+        //    {
+        //        if (u.Staff == true)
+        //        {
+        //            users.Add(u);
+        //        }
+        //    }
+        //    return users;
+        //}
+        //#endregion
 
-        #region Sort Admins
-        public List<User> SortAdmins()
-        {
-            List<User> users = new List<User>();
-            foreach (User u in _users)
-            {
-                if (u.Admin == true)
-                {
-                    users.Add(u);
-                }
-            }
-            return users;
-        }
-        #endregion
+        //#region Sort Admins
+        //public List<User> SortAdmins()
+        //{
+        //    List<User> users = new List<User>();
+        //    foreach (User u in _users)
+        //    {
+        //        if (u.Admin == true)
+        //        {
+        //            users.Add(u);
+        //        }
+        //    }
+        //    return users;
+        //}
+        //#endregion
 
-        #region Sort Clients
-        public List<User> SortClients()
-        {
-            List<User> users = new List<User>();
-            foreach (User u in _users)
-            {
-                if ((u.Staff == false) && (u.Admin == false))
-                {
-                    users.Add(u);
-                }
-            }
-            return users;
-        }
-        #endregion
+        //#region Sort Clients
+        //public List<User> SortClients()
+        //{
+        //    List<User> users = new List<User>();
+        //    foreach (User u in _users)
+        //    {
+        //        if ((u.Staff == false) && (u.Admin == false))
+        //        {
+        //            users.Add(u);
+        //        }
+        //    }
+        //    return users;
+        //}
+        //#endregion
 
         #region Search User by Email
         public List<User> SearchUserByEmail(string searchEmail)
@@ -195,7 +221,9 @@ namespace CTTSite.Services.NormalService
             if (GetUserByID(ID) != null)
             {                
                 userToBeDeleted = GetUserByID(ID);
-				_users.Remove(userToBeDeleted);				
+				_users.Remove(userToBeDeleted);
+                //DBServiceGeneric.SaveObjectsAsync(_users);
+                DBServiceGeneric.DeleteObjectAsync(userToBeDeleted);
             }
             return userToBeDeleted;
         }

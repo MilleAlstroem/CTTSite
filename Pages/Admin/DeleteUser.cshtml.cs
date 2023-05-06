@@ -35,7 +35,7 @@ namespace CTTSite.Pages.Admin
 			Models.User deletedUser = user;
 
 			_iUserService.DeleteUserByID(deletedUser.Id);
-			_iUserService.SaveUsers();
+			
 			if (deletedUser == null)
 				return RedirectToPage("/NotFound"); //NotFound er ikke defineret endnu
 
