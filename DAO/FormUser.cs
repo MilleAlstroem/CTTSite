@@ -1,7 +1,8 @@
-﻿using CTTSite.Models.Forms;
+﻿using CTTSite.Models;
+using CTTSite.Models.Forms;
 
-namespace CTTSite.Models
-{ 
+namespace CTTSite.DAO
+{
     // Made by Christian
 
     public class FormUser
