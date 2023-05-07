@@ -13,6 +13,11 @@ namespace CTTSite.Services.NormalService
             throw new NotImplementedException();
         }
 
+        public void SaveFormUserDAO(string user,Form form)
+        {
+            throw new NotImplementedException();
+        }
+
         #region Activity Diary
        
         public FormActivityDiary GetFormActivityDiary(int id)

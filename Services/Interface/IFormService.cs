@@ -8,8 +8,10 @@ namespace CTTSite.Services.Interface
     public interface IFormService
     {
         List<Form> GetForms(string email);
-        
-       
+        void SaveFormUserDAO(string user, Form form);
+
+
+
         FormActivityDiary GetFormActivityDiary(int id);
 
         void CreateFormActivityDiary(FormActivityDiary form);

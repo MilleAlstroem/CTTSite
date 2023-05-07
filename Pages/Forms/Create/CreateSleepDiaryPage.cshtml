@@ -1,0 +1,14 @@
+﻿@page
+@model CTTSite.Pages.Forms.SleepDiaryPageModel
+@{
+}
+<h1>Sleep Diary</h1>
+
+@foreach (var prop in Model.GetType().GetProperties())
+{
+    <div class="form-group">
+        <label asp-for="@prop.Name"></label>
+        <input asp-for="@prop.Name" class="form-control" placeholder="@prop." />
+        <span asp-validation-for="@prop.Name" class="text-danger"></span>
+    </div>
+})
