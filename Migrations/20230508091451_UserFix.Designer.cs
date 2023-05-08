@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTTSite.Migrations
 {
     [DbContext(typeof(ItemDbContext))]
-    [Migration("20230504075745_Razor")]
-    partial class Razor
+    [Migration("20230508091451_UserFix")]
+    partial class UserFix
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,7 +90,10 @@ namespace CTTSite.Migrations
             modelBuilder.Entity("CTTSite.Models.User", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Admin")
                         .HasColumnType("bit");
