@@ -14,7 +14,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">CTTSite</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -24,25 +24,25 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Store/AllProductsPage">Store</a>
+                            <a class="nav-link" asp-area="" asp-page="/Store/AllProductsPage">Store</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Store/SpecificUserCartPage">Cart</a>
+                            <a class="nav-link" asp-area="" asp-page="/Store/SpecificUserCartPage">Cart</a>
                         </li>
                         @{
                             if (Context.User.Identity != null && Context.User.IsInRole("admin") == true)
                             {
                             <li class="nav-item">
-                            <a class="nav-link text-black" asp-area="" asp-page="/Admin/CreateStaffUser">Create Staff User</a>
+                            <a class="nav-link" asp-area="" asp-page="/Admin/CreateStaffUser">Create Staff User</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-black" asp-area="" asp-page="/Admin/GetAllUsers">Users</a>
+                                <a class="nav-link" asp-area="" asp-page="/Admin/GetAllUsers">Users</a>
                             </li>
                             }
                          }
@@ -50,7 +50,7 @@
                             if (Context.User.Identity != null && Context.User.IsInRole("staff") == true)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-black" asp-area="" asp-page="/Staff/CreateClientUser">Create Client User</a>
+                                    <a class="nav-link" asp-area="" asp-page="/Staff/CreateClientUser">Create Client User</a>
                                 </li>
                             }
                         }
@@ -59,20 +59,20 @@
                                 if (Context.User.Identity.Name == null)
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link text-black" asp-area="" asp-page="/User/LogIn/LogInPage">Login</a>
+                                        <a class="nav-link" asp-area="" asp-page="/User/LogIn/LogInPage">Login</a>
                                     </li>
                                 }
                                 else
                                 {
-                                    <li class="nav-item nav-link text-black me-3">
+                                    <li class="nav-item nav-link me-3">
                                         User: @Context.User.Identity.Name
                                     </li>
-                                    <li class="nav-item nav-link text-black me-3">
-                                        <a class="nav-link text-black" asp-area="" asp-page="/User/LogIn/EditUserDetails">Edit User Details</a>
+                                    <li class="nav-item nav-link me-3">
+                                        <a class="nav-link" asp-area="" asp-page="/User/LogIn/EditUserDetails">Edit User Details</a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link text-black" asp-area="" asp-page="/User/LogIn/LogOutPage">Logout</a>
+                                        <a class="nav-link" asp-area="" asp-page="/User/LogIn/LogOutPage">Logout</a>
                                     </li>
                                 }
                             }
