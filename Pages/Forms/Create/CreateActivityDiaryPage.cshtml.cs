@@ -25,5 +25,26 @@ namespace CTTSite.Pages.Forms
         {
             
         }
+
+        public IActionResult OnPostSave()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            _formService.CreateFormActivityDiary(formActivityDiary);
+            return RedirectToPage("/Forms/ActivityDiaryPage");
+        }
+
+        public IActionResult OnPostSubmit()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            _formService.SaveFormUserDAO(HttpContext.User.Identity.Name, formActivityDiary);
+            _formService.SubmitFormActivityDiary(formActivityDiary);           
+            return RedirectToPage("/Forms/ActivityDiaryPage");
+        }
     }
 }

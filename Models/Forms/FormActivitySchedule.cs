@@ -101,13 +101,13 @@
         public override string ToString()
         {
             return 
-                $"Day 1: {Day1}\nMorning: {Morning1}\nAfternoon: {Afternoon1}\nEvening: {Evening1}\nScore: {Score1}\n" +
-                $"Day 2: {Day2}\nMorning: {Morning2}\nAfternoon: {Afternoon2}\nEvening: {Evening2}\nScore: {Score2}\n" +
-                $"Day 3: {Day3}\nMorning: {Morning3}\nAfternoon: {Afternoon3}\nEvening: {Evening3}\nScore: {Score3}\n" +
-                $"Day 4: {Day4}\nMorning: {Morning4}\nAfternoon: {Afternoon4}\nEvening: {Evening4}\nScore: {Score4}\n" +
-                $"Day 5: {Day5}\nMorning: {Morning5}\nAfternoon: {Afternoon5}\nEvening: {Evening5}\nScore: {Score5}\n" +
-                $"Day 6: {Day6}\nMorning: {Morning6}\nAfternoon: {Afternoon6}\nEvening: {Evening6}\nScore: {Score6}\n" +
-                $"Day 7: {Day7}\nMorning: {Morning7}\nAfternoon: {Afternoon7}\nEvening: {Evening7}\nScore: {Score7}\n";
+                $"Day 1: {Day1}\nMorning: {Morning1}\nAfternoon: {Afternoon1}\nEvening: {Evening1}\nScore: {Score1}\n\n" +
+                $"Day 2: {Day2}\nMorning: {Morning2}\nAfternoon: {Afternoon2}\nEvening: {Evening2}\nScore: {Score2}\n\n" +
+                $"Day 3: {Day3}\nMorning: {Morning3}\nAfternoon: {Afternoon3}\nEvening: {Evening3}\nScore: {Score3}\n\n" +
+                $"Day 4: {Day4}\nMorning: {Morning4}\nAfternoon: {Afternoon4}\nEvening: {Evening4}\nScore: {Score4}\n\n" +
+                $"Day 5: {Day5}\nMorning: {Morning5}\nAfternoon: {Afternoon5}\nEvening: {Evening5}\nScore: {Score5}\n\n" +
+                $"Day 6: {Day6}\nMorning: {Morning6}\nAfternoon: {Afternoon6}\nEvening: {Evening6}\nScore: {Score6}\n\n" +
+                $"Day 7: {Day7}\nMorning: {Morning7}\nAfternoon: {Afternoon7}\nEvening: {Evening7}\nScore: {Score7}\n\n";
         }
     }
 }
