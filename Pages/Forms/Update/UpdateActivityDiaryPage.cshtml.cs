@@ -7,10 +7,10 @@ using CTTSite.Models.Forms;
 
 namespace CTTSite.Pages.Forms
 {
-    public class ActivityDiaryPageModel : PageModel
+    public class UpdateActivityDiaryPageModel : PageModel
     {
         private IFormService _formService;
-        public ActivityDiaryPageModel(IFormService formService)
+        public UpdateActivityDiaryPageModel(IFormService formService)
         {
             _formService = formService;
         }
