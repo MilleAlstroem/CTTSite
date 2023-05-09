@@ -10,8 +10,25 @@ namespace CTTSite.DAO
     public class FormUser
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        [Required]
+        [ForeignKey("User")]
         public User User { get; set; }
+
+        [Required]
+        [ForeignKey("Form")]
         public Form Form { get; set; }
+
+        public FormUser()
+        {
+        }
+
+        public FormUser(User user, Form form)
+        {
+            User = user;
+            Form = form;
+        }
     }
 }

@@ -1,4 +1,37 @@
 ﻿@page
-@model CTTSite.Pages.Forms.ActivityListPageModel
+@model CTTSite.Pages.Forms.UpdateActivityListPageModel
 @{
 }
+<h1>Activity List</h1>
+
+<div class="col-md-4">
+    <form method="post">
+
+        <div class="form-group">
+            <label asp-for="@Model.formActivityList.UserEmail" class="control-lable"></label>
+            <input asp-for="@Model.formActivityList.UserEmail" class="form-control" value="@HttpContext.User.Identity.Name" readonly />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.formActivityList.Pleasure " class="control-lable">Pleasure</label>
+            <input asp-for="@Model.formActivityList.Pleasure" class="form-control" value="@Model.formActivityList.Pleasure" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.formActivityList.Exercise" class="control-lable">Exercise</label>
+            <input asp-for="@Model.formActivityList.Exercise" class="form-control" value="@Model.formActivityList.Exercise" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.formActivityList.Achievement" class="control-lable">Achievement</label>
+            <input asp-for="@Model.formActivityList.Achievement" class="form-control" value="@Model.formActivityList.Achievement" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.formActivityList.Social" class="control-lable">Social</label>
+            <input asp-for="@Model.formActivityList.Social" class="form-control" value="@Model.formActivityList.Social" />
+        </div>
+        <div class="input-group mb-3">
+            <p>Please only submit this form when all fields are filled out.</p>
+            <input type="submit" asp-page-handler="SubmitForm" value="Submit Form" class="btn btn-primary" />
+            <input type="submit" asp-page-handler="SaveForm" value="Save Form" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

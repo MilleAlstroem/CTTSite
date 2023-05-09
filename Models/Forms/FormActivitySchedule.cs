@@ -1,9 +1,18 @@
-﻿namespace CTTSite.Models.Forms
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace CTTSite.Models.Forms
 {
     // Made by Christian
-    public class FormActivitySchedule : Form
+    public class FormActivitySchedule 
     {
-        
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        public string UserEmail { get; set; }
+
 
         #region Day 1
         public string Day1 { get; set; }
@@ -59,8 +68,9 @@
         {
         }
 
-        public FormActivitySchedule(string day1, string morning1, string afternoon1, string evening1, string score1, string day2, string morning2, string afternoon2, string evening2, string score2, string day3, string morning3, string afternoon3, string evening3, string score3, string day4, string morning4, string afternoon4, string evening4, string score4, string day5, string morning5, string afternoon5, string evening5, string score5, string day6, string morning6, string afternoon6, string evening6, string score6, string day7, string morning7, string afternoon7, string evening7, string score7)
+        public FormActivitySchedule(string user, string day1, string morning1, string afternoon1, string evening1, string score1, string day2, string morning2, string afternoon2, string evening2, string score2, string day3, string morning3, string afternoon3, string evening3, string score3, string day4, string morning4, string afternoon4, string evening4, string score4, string day5, string morning5, string afternoon5, string evening5, string score5, string day6, string morning6, string afternoon6, string evening6, string score6, string day7, string morning7, string afternoon7, string evening7, string score7)
         {
+            UserEmail = user;
             Day1 = day1;
             Morning1 = morning1;
             Afternoon1 = afternoon1;
@@ -101,13 +111,13 @@
         public override string ToString()
         {
             return 
-                $"Day 1: {Day1}\nMorning: {Morning1}\nAfternoon: {Afternoon1}\nEvening: {Evening1}\nScore: {Score1}\n" +
-                $"Day 2: {Day2}\nMorning: {Morning2}\nAfternoon: {Afternoon2}\nEvening: {Evening2}\nScore: {Score2}\n" +
-                $"Day 3: {Day3}\nMorning: {Morning3}\nAfternoon: {Afternoon3}\nEvening: {Evening3}\nScore: {Score3}\n" +
-                $"Day 4: {Day4}\nMorning: {Morning4}\nAfternoon: {Afternoon4}\nEvening: {Evening4}\nScore: {Score4}\n" +
-                $"Day 5: {Day5}\nMorning: {Morning5}\nAfternoon: {Afternoon5}\nEvening: {Evening5}\nScore: {Score5}\n" +
-                $"Day 6: {Day6}\nMorning: {Morning6}\nAfternoon: {Afternoon6}\nEvening: {Evening6}\nScore: {Score6}\n" +
-                $"Day 7: {Day7}\nMorning: {Morning7}\nAfternoon: {Afternoon7}\nEvening: {Evening7}\nScore: {Score7}\n";
+                $"Day 1: {Day1}\nMorning: {Morning1}\nAfternoon: {Afternoon1}\nEvening: {Evening1}\nScore: {Score1}\n\n" +
+                $"Day 2: {Day2}\nMorning: {Morning2}\nAfternoon: {Afternoon2}\nEvening: {Evening2}\nScore: {Score2}\n\n" +
+                $"Day 3: {Day3}\nMorning: {Morning3}\nAfternoon: {Afternoon3}\nEvening: {Evening3}\nScore: {Score3}\n\n" +
+                $"Day 4: {Day4}\nMorning: {Morning4}\nAfternoon: {Afternoon4}\nEvening: {Evening4}\nScore: {Score4}\n\n" +
+                $"Day 5: {Day5}\nMorning: {Morning5}\nAfternoon: {Afternoon5}\nEvening: {Evening5}\nScore: {Score5}\n\n" +
+                $"Day 6: {Day6}\nMorning: {Morning6}\nAfternoon: {Afternoon6}\nEvening: {Evening6}\nScore: {Score6}\n\n" +
+                $"Day 7: {Day7}\nMorning: {Morning7}\nAfternoon: {Afternoon7}\nEvening: {Evening7}\nScore: {Score7}\n\n";
         }
     }
 }
