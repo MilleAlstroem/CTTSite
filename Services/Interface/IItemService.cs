@@ -8,7 +8,7 @@ namespace CTTSite.Services
         Task CreateItemAsync(Item item);
         Task UpdateItemAsync(Item itemN);
         Task DeleteItemByIDAsync(int ID);
-        Task UpdateItemStockAsync(int amount);
+        Task UpdateItemStockAsync(int itemID, int amount);
         Item GetItemByID(int ID);
     }
 }

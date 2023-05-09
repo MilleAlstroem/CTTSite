@@ -9,6 +9,8 @@ namespace CTTSite.Pages.Store
     {
         public IShippingInfoService IShippingInfoService;
         public IUserService IUserService;
+
+        [BindProperty]
         public ShippingInfo ShippingInfo { get; set; } = new ShippingInfo();
 
         public ShippingPageModel(IShippingInfoService iShippingInfoService, IUserService iUserService)

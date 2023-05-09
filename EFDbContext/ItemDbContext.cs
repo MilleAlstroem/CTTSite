@@ -18,10 +18,11 @@ namespace CTTSite.EFDbContext
         public DbSet<Item> Items { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
-
+        public DbSet<FormUser> FormUsers { get; set; }
+        public DbSet<CartItem_Order> CartItem_Order { get; set; }
         public DbSet<FormActivityDiary> FormActivityDiaries { get; set; }
         public DbSet<FormActivityList> FormActivityLists { get; set; }
-        public DbSet<FormActivitySchedule> FormActivitySchedules { get; set; }
+        public DbSet<FormActivitySchedule> FormActivitySchedules { get; set;}
         public DbSet<FormHotCrossBun> FormHotCrossBuns { get; set; }
         public DbSet<FormSleepDiary> FormSleepDiaries { get; set; }
     }
