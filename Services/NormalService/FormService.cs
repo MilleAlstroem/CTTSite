@@ -1,156 +1,413 @@
 ﻿using CTTSite.Models;
 using CTTSite.Models.Forms;
+using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
+using CTTSite.Services.JSON;
 
 // Made by Christian
 
 namespace CTTSite.Services.NormalService
 {
+
+
     public class FormService : IFormService
     {
-        public List<Form> GetForms(string email)
-        {
-            throw new NotImplementedException();
-        }
+        private DBServiceGeneric<FormActivityDiary> _activityDiaryService;
+        private DBServiceGeneric<FormActivityList> _activityListService;
+        private DBServiceGeneric<FormActivitySchedule> _activityScheduleService;
+        private DBServiceGeneric<FormHotCrossBun> _hotCrossBunService;
+        private DBServiceGeneric<FormSleepDiary> _sleepDiaryService;
+        private IEmailService _emailService;
 
-        public void SaveFormUserDAO(string user,Form form)
+        private List<FormActivityDiary> _activityDiaries { get; set; }
+        private List<FormActivityList> _activityLists { get; set; }
+        private List<FormActivitySchedule> _activitySchedules { get; set; }
+        private List<FormHotCrossBun> _hotCrossBuns { get; set; }
+        private List<FormSleepDiary> _sleepDiaries { get; set; }
+
+
+
+        public FormService(DBServiceGeneric<FormActivityDiary> activityDiaryService, DBServiceGeneric<FormActivityList> activityListService, DBServiceGeneric<FormActivitySchedule> activityScheduleService, DBServiceGeneric<FormHotCrossBun> hotCrossBunService, DBServiceGeneric<FormSleepDiary> sleepDiaryService, IEmailService emailService)
         {
-            throw new NotImplementedException();
+            _activityDiaryService = activityDiaryService;
+            _activityListService = activityListService;
+            _activityScheduleService = activityScheduleService;
+            _hotCrossBunService = hotCrossBunService;
+            _sleepDiaryService = sleepDiaryService;
+            _emailService = emailService;
+
+            _activityDiaries = _activityDiaryService.GetObjectsAsync().Result.ToList();
+            _activityLists = _activityListService.GetObjectsAsync().Result.ToList();
+            _activitySchedules = _activityScheduleService.GetObjectsAsync().Result.ToList();
+            _hotCrossBuns = _hotCrossBunService.GetObjectsAsync().Result.ToList();
+            _sleepDiaries = _sleepDiaryService.GetObjectsAsync().Result.ToList();
+
         }
+      
 
         #region Activity Diary
        
-        public FormActivityDiary GetFormActivityDiary(int id)
+        public FormActivityDiary GetFormActivityDiaryById(int id)
         {
-            throw new NotImplementedException();
+            FormActivityDiary form;
+
+            foreach (FormActivityDiary formActivityDiary in _activityDiaries) 
+            {
+                if(formActivityDiary.ID == id)
+                {
+                    form = formActivityDiary;
+                    return form;
+                }
+            }
+            return null;
         }
 
-        public void CreateFormActivityDiary(FormActivityDiary form)
+        public FormActivityDiary GetFormActivityDiaryByUserEmail(string email)
         {
-            throw new NotImplementedException();
+            FormActivityDiary form;
+            
+            foreach (FormActivityDiary formActivityDiary in _activityDiaries)
+            {
+                if (formActivityDiary.UserEmail == email)
+                {
+                    form = formActivityDiary;
+                    return form;
+                }
+            }
+            return null;
         }
 
-        public void UpdateFormActivityDiary(FormActivityDiary form)
+        public async Task CreateFormActivityDiary(FormActivityDiary form)
         {
-            throw new NotImplementedException();
+            _activityDiaries.Add(form);           
+            await _activityDiaryService.AddObjectAsync(form);
         }
 
-        public FormActivityDiary DeleteFormActivityDiary(int id)
+        public async Task UpdateFormActivityDiary(FormActivityDiary formN)
         {
-            throw new NotImplementedException();
+            if(formN != null)
+            {
+                FormActivityDiary formO = GetFormActivityDiaryById(formN.ID);
+                if(formO != null)
+                {
+                    formO = formN;
+                    await _activityDiaryService.UpdateObjectAsync(formO);
+                }
+            }
+           
         }
 
-        public void SubmitFormActivityDiary(FormActivityDiary form)
+        public async Task<FormActivityDiary> DeleteFormActivityDiary(int id)
         {
-            throw new NotImplementedException();
+            FormActivityDiary form = GetFormActivityDiaryById(id);
+            if(form != null)
+            {
+                _activityDiaries.Remove(form);
+                await _activityDiaryService.DeleteObjectAsync(form);
+                return form;
+            }
+            return null;
+        }
+
+        public async Task SubmitFormActivityDiary(FormActivityDiary form, string email)
+        {           
+            _emailService.SendEmail(new Email(form.ToString(), "Activity Diary: " + email, email));
+            _emailService.SendEmail(new Email(form.ToString(), "Activity Diary: " + email, "chilterntalkingtherapies@gmail.com"));
+            await DeleteFormActivityDiary(form.ID);
+            _activityDiaries.Remove(form);
+
         }
         #endregion
 
         #region Activity List
-        public FormActivityList GetFormActivityList(int id)
+        public FormActivityList GetFormActivityListById(int id)
         {
-            throw new NotImplementedException();
+            FormActivityList form;
+
+            foreach (FormActivityList formActivityList in _activityLists)
+            {
+                if (formActivityList.ID == id)
+                {
+                    form = formActivityList;
+                    return form;
+                }
+            }
+            return null;
         }
 
-        public void CreateFormActivityList(FormActivityList form)
+        public FormActivityList GetFormActivityListByUserEmail(string email)
         {
-            throw new NotImplementedException();
+            FormActivityList form;
+
+            foreach (FormActivityList formActivityList in _activityLists)
+            {
+                if (formActivityList.UserEmail == email)
+                {
+                    form = formActivityList;
+                    return form;
+                }
+            }
+            return null;
         }
 
-        public void UpdateFormActivityList(FormActivityList form)
+        public async Task CreateFormActivityList(FormActivityList form)
         {
-            throw new NotImplementedException();
+            _activityLists.Add(form);
+            await _activityListService.AddObjectAsync(form);
         }
 
-        public FormActivityList DeleteFormActivityList(int id)
+        public async Task UpdateFormActivityList(FormActivityList formN)
         {
-            throw new NotImplementedException();
+            if (formN != null)
+            {
+                FormActivityList formO = GetFormActivityListById(formN.ID);
+                if (formO != null)
+                {
+                    formO = formN;
+                    await _activityListService.UpdateObjectAsync(formO);
+                }
+            }
+
         }
 
-        public void SubmitFormActivityList(FormActivityList form)
+        public async Task<FormActivityList> DeleteFormActivityList(int id)
         {
-            throw new NotImplementedException();
+            FormActivityList form = GetFormActivityListById(id);
+            if (form != null)
+            {
+                _activityLists.Remove(form);
+                await _activityListService.DeleteObjectAsync(form);
+                return form;
+            }
+            return null;
+        }
+
+        public async Task SubmitFormActivityList(FormActivityList form, string email)
+        {
+            _emailService.SendEmail(new Email(form.ToString(), "Activity List: " + email, email));
+            _emailService.SendEmail(new Email(form.ToString(), "Activity List: " + email, "chilterntalkingtherapies@gmail.com"));
+            await DeleteFormActivityList(form.ID);
+            _activityLists.Remove(form);
+
         }
         #endregion
 
         #region Activity Schedule
-        public FormActivitySchedule GetFormActivitySchedule(int id)
+        public FormActivitySchedule GetFormActivityScheduleById(int id)
         {
-            throw new NotImplementedException();
+            FormActivitySchedule form;
+
+            foreach (FormActivitySchedule formActivitySchedule in _activitySchedules)
+            {
+                if (formActivitySchedule.ID == id)
+                {
+                    form = formActivitySchedule;
+                    return form;
+                }
+            }
+            return null;
         }
 
-        public void CreateFormActivitySchedule(FormActivitySchedule form)
+        public FormActivitySchedule GetFormActivityScheduleByUserEmail(string email)
         {
-            throw new NotImplementedException();
+            FormActivitySchedule form;
+
+            foreach (FormActivitySchedule formActivitySchedule in _activitySchedules)
+            {
+                if (formActivitySchedule.UserEmail == email)
+                {
+                    form = formActivitySchedule;
+                    return form;
+                }
+            }
+            return null;
         }
 
-        public void UpdateFormActivitySchedule(FormActivitySchedule form)
+        public async Task CreateFormActivitySchedule(FormActivitySchedule form)
         {
-            throw new NotImplementedException();
+            _activitySchedules.Add(form);
+            await _activityScheduleService.AddObjectAsync(form);
         }
 
-        public FormActivitySchedule DeleteFormActivitySchedule(int id)
+        public async Task UpdateFormActivitySchedule(FormActivitySchedule formN)
         {
-            throw new NotImplementedException();
+            if (formN != null)
+            {
+                FormActivitySchedule formO = GetFormActivityScheduleById(formN.ID);
+                if (formO != null)
+                {
+                    formO = formN;
+                    await _activityScheduleService.UpdateObjectAsync(formO);
+                }
+            }
+
         }
 
-        public void SubmitFormActivitySchedule(FormActivitySchedule form)
+        public async Task<FormActivitySchedule> DeleteFormActivitySchedule(int id)
         {
-            throw new NotImplementedException();
+            FormActivitySchedule form = GetFormActivityScheduleById(id);
+            if (form != null)
+            {
+                _activitySchedules.Remove(form);
+                await _activityScheduleService.DeleteObjectAsync(form);
+                return form;
+            }
+            return null;
+        }
+
+        public async Task SubmitFormActivitySchedule(FormActivitySchedule form, string email)
+        {
+            _emailService.SendEmail(new Email(form.ToString(), "Activity Schedule: " + email, email));
+            _emailService.SendEmail(new Email(form.ToString(), "Activity Schedule: " + email, "chilterntalkingtherapies@gmail.com"));
+            await DeleteFormActivitySchedule(form.ID);
+            _activitySchedules.Remove(form);
+
         }
         #endregion
 
         #region Hot Cross Bun
-        public FormHotCrossBun FormHotCrossBun(int id)
+        public FormHotCrossBun GetFormHotCrossBunById(int id)
         {
-            throw new NotImplementedException();
+            FormHotCrossBun form;
+
+            foreach (FormHotCrossBun formHotCrossBun in _hotCrossBuns)
+            {
+                if (formHotCrossBun.ID == id)
+                {
+                    form = formHotCrossBun;
+                    return form;
+                }
+            }
+            return null;
         }
 
-        public void CreateFormHotCrossBun(FormHotCrossBun form)
+        public FormHotCrossBun GetFormHotCrossBunByUserEmail(string email)
         {
-            throw new NotImplementedException();
+            FormHotCrossBun form;
+
+            foreach (FormHotCrossBun formHotCrossBun in _hotCrossBuns)
+            {
+                if (formHotCrossBun.UserEmail == email)
+                {
+                    form = formHotCrossBun;
+                    return form;
+                }
+            }
+            return null;
         }
 
-        public void UpdateFormHotCrossBun(FormHotCrossBun form)
+        public async Task CreateFormHotCrossBun(FormHotCrossBun form)
         {
-            throw new NotImplementedException();
+            _hotCrossBuns.Add(form);
+            await _hotCrossBunService.AddObjectAsync(form);
         }
 
-        public FormHotCrossBun DeleteFormHotCrossBun(int id)
+        public async Task UpdateFormHotCrossBun(FormHotCrossBun formN)
         {
-            throw new NotImplementedException();
+            if (formN != null)
+            {
+                FormHotCrossBun formO = GetFormHotCrossBunById(formN.ID);
+                if (formO != null)
+                {
+                    formO = formN;
+                    await _hotCrossBunService.UpdateObjectAsync(formO);
+                }
+            }
+
         }
 
-        public void SubmitFormHotCrossBun(FormHotCrossBun form)
+        public async Task<FormHotCrossBun> DeleteFormHotCrossBun(int id)
         {
-            throw new NotImplementedException();
+            FormHotCrossBun form = GetFormHotCrossBunById(id);
+            if (form != null)
+            {
+                _hotCrossBuns.Remove(form);
+                await _hotCrossBunService.DeleteObjectAsync(form);
+                return form;
+            }
+            return null;
+        }
+
+        public async Task SubmitFormHotCrossBun(FormHotCrossBun form, string email)
+        {
+            _emailService.SendEmail(new Email(form.ToString(), "Hot Cross Bun: " + email, email));
+            _emailService.SendEmail(new Email(form.ToString(), "Hot Cross Bun: " + email, "chilterntalkingtherapies@gmail.com"));
+            await DeleteFormActivitySchedule(form.ID);
+            _hotCrossBuns.Remove(form);
+
         }
         #endregion
 
         #region Sleep Diary
-        public FormSleepDiary GetFormSleepDiary(int id)
+        public FormSleepDiary GetFormSleepDiaryById(int id)
         {
-            throw new NotImplementedException();
+            FormSleepDiary form;
+
+            foreach (FormSleepDiary formSleepDiary in _sleepDiaries)
+            {
+                if (formSleepDiary.ID == id)
+                {
+                    form = formSleepDiary;
+                    return form;
+                }
+            }
+            return null;
         }
 
-        public void CreateFormSleepDiary(FormSleepDiary form)
+        public FormSleepDiary GetFormSleepDiaryByUserEmail(string email)
         {
-            throw new NotImplementedException();
+            FormSleepDiary form;
+
+            foreach (FormSleepDiary formSleepDiary in _sleepDiaries)
+            {
+                if (formSleepDiary.UserEmail == email)
+                {
+                    form = formSleepDiary;
+                    return form;
+                }
+            }
+            return null;
         }
 
-        public void UpdateFormSleepDiary(FormSleepDiary form)
+        public async Task CreateFormSleepDiary(FormSleepDiary form)
         {
-            throw new NotImplementedException();
+            _sleepDiaries.Add(form);
+            await _sleepDiaryService.AddObjectAsync(form);
         }
 
-        public FormSleepDiary DeleteFormSleepDiary(int id)
+        public async Task UpdateFormSleepDiary(FormSleepDiary formN)
         {
-            throw new NotImplementedException();
+            if (formN != null)
+            {
+                FormSleepDiary formO = GetFormSleepDiaryById(formN.ID);
+                if (formO != null)
+                {
+                    formO = formN;
+                    await _sleepDiaryService.UpdateObjectAsync(formO);
+                }
+            }
+
         }
 
-        public void SubmitFormSleepDiary(FormSleepDiary form)
+        public async Task<FormSleepDiary> DeleteFormSleepDiary(int id)
         {
-            throw new NotImplementedException();
+            FormSleepDiary form = GetFormSleepDiaryById(id);
+            if (form != null)
+            {
+                _sleepDiaries.Remove(form);
+                await _sleepDiaryService.DeleteObjectAsync(form);
+                return form;
+            }
+            return null;
+        }
+
+        public async Task SubmitFormSleepDiary(FormSleepDiary form, string email)
+        {
+            _emailService.SendEmail(new Email(form.ToString(), "Sleep Diary: " + email, email));
+            _emailService.SendEmail(new Email(form.ToString(), "Sleep Diary: " + email, "chilterntalkingtherapies@gmail.com"));
+            await DeleteFormActivitySchedule(form.ID);
+            _sleepDiaries.Remove(form);
+
         }
         #endregion
     }

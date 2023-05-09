@@ -7,65 +7,107 @@ namespace CTTSite.Services.Interface
 {
     public interface IFormService
     {
-        List<Form> GetForms(string email);
-        void SaveFormUserDAO(string user, Form form);
+
+        #region Activity Diary
+
+        FormActivityDiary GetFormActivityDiaryById(int id);
 
 
-
-        FormActivityDiary GetFormActivityDiary(int id);
-
-        void CreateFormActivityDiary(FormActivityDiary form);
-
-        void UpdateFormActivityDiary(FormActivityDiary form);
-
-        FormActivityDiary DeleteFormActivityDiary(int id);
-      
-        void SubmitFormActivityDiary(FormActivityDiary form);
+        FormActivityDiary GetFormActivityDiaryByUserEmail(string email);
 
 
-       
-        FormActivityList GetFormActivityList(int id);
-
-        void CreateFormActivityList(FormActivityList form);
-
-        void UpdateFormActivityList(FormActivityList form);
-
-        FormActivityList DeleteFormActivityList(int id);
-
-        void SubmitFormActivityList(FormActivityList form);
+        Task CreateFormActivityDiary(FormActivityDiary form);
 
 
-        FormActivitySchedule GetFormActivitySchedule(int id);
-
-        void CreateFormActivitySchedule(FormActivitySchedule form);
-
-        void UpdateFormActivitySchedule(FormActivitySchedule form);
-
-        FormActivitySchedule DeleteFormActivitySchedule(int id);
-
-        void SubmitFormActivitySchedule(FormActivitySchedule form);
+        Task UpdateFormActivityDiary(FormActivityDiary formN);
 
 
-        FormHotCrossBun FormHotCrossBun(int id);
-
-        void CreateFormHotCrossBun(FormHotCrossBun form);
-
-        void UpdateFormHotCrossBun(FormHotCrossBun form);
-
-        FormHotCrossBun DeleteFormHotCrossBun(int id);
-
-        void SubmitFormHotCrossBun(FormHotCrossBun form);
+        Task<FormActivityDiary> DeleteFormActivityDiary(int id);
 
 
-        FormSleepDiary GetFormSleepDiary(int id);
+        Task SubmitFormActivityDiary(FormActivityDiary form, string email);
 
-        void CreateFormSleepDiary(FormSleepDiary form);
+        #endregion
 
-        void UpdateFormSleepDiary(FormSleepDiary form);
+        #region Activity List
+        FormActivityList GetFormActivityListById(int id);
 
-        FormSleepDiary DeleteFormSleepDiary(int id);
 
-        void SubmitFormSleepDiary(FormSleepDiary form);
+        FormActivityList GetFormActivityListByUserEmail(string email);
+
+
+        Task CreateFormActivityList(FormActivityList form);
+
+
+        Task UpdateFormActivityList(FormActivityList formN);
+
+
+        Task<FormActivityList> DeleteFormActivityList(int id);
+
+
+        Task SubmitFormActivityList(FormActivityList form, string email);
+
+        #endregion
+
+        #region Activity Schedule
+        FormActivitySchedule GetFormActivityScheduleById(int id);
+
+
+        FormActivitySchedule GetFormActivityScheduleByUserEmail(string email);
+
+
+        Task CreateFormActivitySchedule(FormActivitySchedule form);
+
+
+        Task UpdateFormActivitySchedule(FormActivitySchedule formN);
+
+
+        Task<FormActivitySchedule> DeleteFormActivitySchedule(int id);
+
+
+        Task SubmitFormActivitySchedule(FormActivitySchedule form, string email);
+
+        #endregion
+
+        #region Hot Cross Bun
+        FormHotCrossBun GetFormHotCrossBunById(int id);
+
+
+        FormHotCrossBun GetFormHotCrossBunByUserEmail(string email);
+
+
+        Task CreateFormHotCrossBun(FormHotCrossBun form);
+
+
+        Task UpdateFormHotCrossBun(FormHotCrossBun formN);
+
+
+        Task<FormHotCrossBun> DeleteFormHotCrossBun(int id);
+
+
+        Task SubmitFormHotCrossBun(FormHotCrossBun form, string email);
+
+        #endregion
+
+        #region Sleep Diary
+        FormSleepDiary GetFormSleepDiaryById(int id);
+
+
+        FormSleepDiary GetFormSleepDiaryByUserEmail(string email);
+
+
+        Task CreateFormSleepDiary(FormSleepDiary form);
+
+
+        Task UpdateFormSleepDiary(FormSleepDiary formN);
+
+
+        Task<FormSleepDiary> DeleteFormSleepDiary(int id);
+
+
+        Task SubmitFormSleepDiary(FormSleepDiary form, string email);
+        
+        #endregion
 
 
     }
