@@ -74,12 +74,6 @@ namespace CTTSite.Services.NormalService
             }
         }
 
-        //TODO
-        public Task UpdateItemStockAsync(int amount)
-        {
-            throw new NotImplementedException();
-        }
-
         public Item GetItemByID(int ID) 
         { 
             foreach(Item item in Items)
@@ -90,6 +84,26 @@ namespace CTTSite.Services.NormalService
                 }
             }
             return null;
+        }
+
+        public async Task UpdateItemStockAsync(int itemID, int amount)
+        {
+            if(GetItemByID(itemID) != null)
+            {
+                if(amount > 0)
+                {
+                    GetItemByID(itemID).Stock += amount;
+                    JsonFileService.SaveJsonObjects(Items);
+                    //await DBServiceGeneric.UpdateObjectAsync(GetItemByID(itemID));
+                }
+                else
+                {
+                    GetItemByID(itemID).Stock -= amount;
+                    JsonFileService.SaveJsonObjects(Items);
+                    //await DBServiceGeneric.UpdateObjectAsync(GetItemByID(itemID));
+                }
+
+            }
         }
 
     }

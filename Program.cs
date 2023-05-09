@@ -25,15 +25,18 @@ builder.Services.AddSingleton<IItemService, ItemService>();
 builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<ICartItemService, CartItemService>();
 builder.Services.AddSingleton<IShippingInfoService, ShippingInfoService>();
+builder.Services.AddSingleton<IOrderService, OrderService>();
 builder.Services.AddSingleton<IFormService, FormService>();
 builder.Services.AddTransient<JsonFileService<User>>();
 builder.Services.AddTransient<JsonFileService<Item>>();
 builder.Services.AddTransient<JsonFileService<CartItem>>();
 builder.Services.AddTransient<JsonFileService<ShippingInfo>>();
+builder.Services.AddTransient<JsonFileService<Order>>();
 builder.Services.AddDbContext<ItemDbContext>();
 builder.Services.AddTransient<DBServiceGeneric<Item>>();
 builder.Services.AddTransient<DBServiceGeneric<CartItem>>();
 builder.Services.AddTransient<DBServiceGeneric<User>>();
+builder.Services.AddTransient<DBServiceGeneric<Order>>();
 builder.Services.AddSingleton<IEmailService, EmailService>();
 
 

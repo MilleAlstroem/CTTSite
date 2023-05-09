@@ -46,17 +46,5 @@
     "FirstName": "Bean",
     "LastName": "Mister",
     "SubmissionDate": "2023-05-04T14:02:42.4932317Z"
-  },
-  {
-    "ID": 5,
-    "UserID": 2,
-    "Address": null,
-    "City": null,
-    "PostCode": null,
-    "County": null,
-    "PhoneNumber": null,
-    "FirstName": null,
-    "LastName": null,
-    "SubmissionDate": "2023-05-04T16:02:56.6085328+02:00"
   }
 ]
