@@ -42,7 +42,7 @@ namespace CTTSite.Pages.Forms
             {
                 return Page();
             }
-            _formService.SaveFormUserDAO(HttpContext.User.Identity.Name, formActivityDiary);
+           
             _formService.SubmitFormActivityDiary(formActivityDiary);           
             return RedirectToPage("/Forms/ActivityDiaryPage");
         }

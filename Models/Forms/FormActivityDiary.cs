@@ -1,11 +1,23 @@
-﻿namespace CTTSite.Models.Forms
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace CTTSite.Models.Forms
 {
     // Made by Christian
-    public class FormActivityDiary : Form
+    public class FormActivityDiary
     {
-        
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        public string UserEmail { get; set; }
+
 
         #region Day 1
+
+
         public string Day1 { get; set; }
         public string Day1_0600 { get; set; }
         public string Day1_0700 { get; set; }
@@ -166,15 +178,16 @@
         }
 
         #region Constructor
-        public FormActivityDiary(
-            string day1, string day1_0600, string day1_0700, string day1_0800, string day1_0900, string day1_1000, string day1_1100, string day1_1200, string day1_1300, string day1_1400, string day1_1500, string day1_1600, string day1_1700, string day1_1800, string day1_1900, string day1_2000, string day1_2100, string day1_2200, string day1_2300, string day1_2400, 
-            string day2, string day2_0600, string day2_0700, string day2_0800, string day2_0900, string day2_1000, string day2_1100, string day2_1200, string day2_1300, string day2_1400, string day2_1500, string day2_1600, string day2_1700, string day2_1800, string day2_1900, string day2_2000, string day2_2100, string day2_2200, string day2_2300, string day2_2400, 
-            string day3, string day3_0600, string day3_0700, string day3_0800, string day3_0900, string day3_1000, string day3_1100, string day3_1200, string day3_1300, string day3_1400, string day3_1500, string day3_1600, string day3_1700, string day3_1800, string day3_1900, string day3_2000, string day3_2100, string day3_2200, string day3_2300, string day3_2400, 
-            string day4, string day4_0600, string day4_0700, string day4_0800, string day4_0900, string day4_1000, string day4_1100, string day4_1200, string day4_1300, string day4_1400, string day4_1500, string day4_1600, string day4_1700, string day4_1800, string day4_1900, string day4_2000, string day4_2100, string day4_2200, string day4_2300, string day4_2400, 
-            string day5, string day5_0600, string day5_0700, string day5_0800, string day5_0900, string day5_1000, string day5_1100, string day5_1200, string day5_1300, string day5_1400, string day5_1500, string day5_1600, string day5_1700, string day5_1800, string day5_1900, string day5_2000, string day5_2100, string day5_2200, string day5_2300, string day5_2400, 
-            string day6, string day6_0600, string day6_0700, string day6_0800, string day6_0900, string day6_1000, string day6_1100, string day6_1200, string day6_1300, string day6_1400, string day6_1500, string day6_1600, string day6_1700, string day6_1800, string day6_1900, string day6_2000, string day6_2100, string day6_2200, string day6_2300, string day6_2400, 
+        public FormActivityDiary(string user,
+            string day1, string day1_0600, string day1_0700, string day1_0800, string day1_0900, string day1_1000, string day1_1100, string day1_1200, string day1_1300, string day1_1400, string day1_1500, string day1_1600, string day1_1700, string day1_1800, string day1_1900, string day1_2000, string day1_2100, string day1_2200, string day1_2300, string day1_2400,
+            string day2, string day2_0600, string day2_0700, string day2_0800, string day2_0900, string day2_1000, string day2_1100, string day2_1200, string day2_1300, string day2_1400, string day2_1500, string day2_1600, string day2_1700, string day2_1800, string day2_1900, string day2_2000, string day2_2100, string day2_2200, string day2_2300, string day2_2400,
+            string day3, string day3_0600, string day3_0700, string day3_0800, string day3_0900, string day3_1000, string day3_1100, string day3_1200, string day3_1300, string day3_1400, string day3_1500, string day3_1600, string day3_1700, string day3_1800, string day3_1900, string day3_2000, string day3_2100, string day3_2200, string day3_2300, string day3_2400,
+            string day4, string day4_0600, string day4_0700, string day4_0800, string day4_0900, string day4_1000, string day4_1100, string day4_1200, string day4_1300, string day4_1400, string day4_1500, string day4_1600, string day4_1700, string day4_1800, string day4_1900, string day4_2000, string day4_2100, string day4_2200, string day4_2300, string day4_2400,
+            string day5, string day5_0600, string day5_0700, string day5_0800, string day5_0900, string day5_1000, string day5_1100, string day5_1200, string day5_1300, string day5_1400, string day5_1500, string day5_1600, string day5_1700, string day5_1800, string day5_1900, string day5_2000, string day5_2100, string day5_2200, string day5_2300, string day5_2400,
+            string day6, string day6_0600, string day6_0700, string day6_0800, string day6_0900, string day6_1000, string day6_1100, string day6_1200, string day6_1300, string day6_1400, string day6_1500, string day6_1600, string day6_1700, string day6_1800, string day6_1900, string day6_2000, string day6_2100, string day6_2200, string day6_2300, string day6_2400,
             string day7, string day7_0600, string day7_0700, string day7_0800, string day7_0900, string day7_1000, string day7_1100, string day7_1200, string day7_1300, string day7_1400, string day7_1500, string day7_1600, string day7_1700, string day7_1800, string day7_1900, string day7_2000, string day7_2100, string day7_2200, string day7_2300, string day7_2400)
         {
+            UserEmail = user;
             Day1 = day1;
             Day1_0600 = day1_0600;
             Day1_0700 = day1_0700;
@@ -462,9 +475,9 @@
                 "Day 7 2200: " + Day7_2200 + "\n" +
                 "Day 7 2300: " + Day7_2300 + "\n" +
                 "Day 7 2400: " + Day7_2400 + "\n";
-            
+
         }
         #endregion
     }
-
 }
+

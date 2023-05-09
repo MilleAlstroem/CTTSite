@@ -1,9 +1,17 @@
-﻿namespace CTTSite.Models.Forms
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace CTTSite.Models.Forms
 {
     // Made by Christian
-    public class FormSleepDiary : Form
+    public class FormSleepDiary 
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
 
+        [Required]
+        public string UserEmail { get; set; }
 
         #region Day 1
         public string Day1 { get; set; } 
@@ -96,7 +104,7 @@
         }
 
         #region ctorp
-        public FormSleepDiary(
+        public FormSleepDiary(string user,
             string day1, string day1_TimeInBed, string day1_HowLongToSleep, string day1_AmountOfTimesWokenUp, string day1_TotalTimeAwakeInNight, string day1_TimeWokenUpInMorning, string day1_TimeGottenOutOfBed, string day1_TotalTimeSpentInBed, string day1_TotalTimeSleeping, string day1_HowRestedDoYouFeel, 
             string day2, string day2_TimeInBed, string day2_HowLongToSleep, string day2_AmountOfTimesWokenUp, string day2_TotalTimeAwakeInNight, string day2_TimeWokenUpInMorning, string day2_TimeGottenOutOfBed, string day2_TotalTimeSpentInBed, string day2_TotalTimeSleeping, string day2_HowRestedDoYouFeel,
             string day3, string day3_TimeInBed, string day3_HowLongToSleep, string day3_AmountOfTimesWokenUp, string day3_TotalTimeAwakeInNight, string day3_TimeWokenUpInMorning, string day3_TimeGottenOutOfBed, string day3_TotalTimeSpentInBed, string day3_TotalTimeSleeping, string day3_HowRestedDoYouFeel, 
@@ -105,6 +113,7 @@
             string day6, string day6_TimeInBed, string day6_HowLongToSleep, string day6_AmountOfTimesWokenUp, string day6_TotalTimeAwakeInNight, string day6_TimeWokenUpInMorning, string day6_TimeGottenOutOfBed, string day6_TotalTimeSpentInBed, string day6_TotalTimeSleeping, string day6_HowRestedDoYouFeel,
             string day7, string day7_TimeInBed, string day7_HowLongToSleep, string day7_AmountOfTimesWokenUp, string day7_TotalTimeAwakeInNight, string day7_TimeWokenUpInMorning, string day7_TimeGottenOutOfBed, string day7_TotalTimeSpentInBed, string day7_TotalTimeSleeping, string day7_HowRestedDoYouFeel)
         {
+            UserEmail = user;
             Day1 = day1;
             Day1_TimeInBed = day1_TimeInBed;
             Day1_HowLongToSleep = day1_HowLongToSleep;

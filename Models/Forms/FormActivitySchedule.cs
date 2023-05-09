@@ -1,9 +1,18 @@
-﻿namespace CTTSite.Models.Forms
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace CTTSite.Models.Forms
 {
     // Made by Christian
-    public class FormActivitySchedule : Form
+    public class FormActivitySchedule 
     {
-        
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        public string UserEmail { get; set; }
+
 
         #region Day 1
         public string Day1 { get; set; }
@@ -59,8 +68,9 @@
         {
         }
 
-        public FormActivitySchedule(string day1, string morning1, string afternoon1, string evening1, string score1, string day2, string morning2, string afternoon2, string evening2, string score2, string day3, string morning3, string afternoon3, string evening3, string score3, string day4, string morning4, string afternoon4, string evening4, string score4, string day5, string morning5, string afternoon5, string evening5, string score5, string day6, string morning6, string afternoon6, string evening6, string score6, string day7, string morning7, string afternoon7, string evening7, string score7)
+        public FormActivitySchedule(string user, string day1, string morning1, string afternoon1, string evening1, string score1, string day2, string morning2, string afternoon2, string evening2, string score2, string day3, string morning3, string afternoon3, string evening3, string score3, string day4, string morning4, string afternoon4, string evening4, string score4, string day5, string morning5, string afternoon5, string evening5, string score5, string day6, string morning6, string afternoon6, string evening6, string score6, string day7, string morning7, string afternoon7, string evening7, string score7)
         {
+            UserEmail = user;
             Day1 = day1;
             Morning1 = morning1;
             Afternoon1 = afternoon1;
