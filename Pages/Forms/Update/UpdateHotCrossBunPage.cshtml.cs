@@ -12,7 +12,7 @@ namespace CTTSite.Pages.Forms
         [BindProperty]
         public FormHotCrossBun formHotCrossBun { get; set; }
 
-        public CreateHotCrossBunPageModel(IFormService formService)
+        public UpdateHotCrossBunPageModel(IFormService formService)
         {
             _formService = formService;
         }
