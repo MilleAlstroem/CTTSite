@@ -7,6 +7,11 @@
 <div class="col-md-4">
     <form method="post">
         
+        <div class="form-group">
+            <label asp-for="@Model.formActivitySchedule.UserEmail" class="control-lable"></label>
+            <input asp-for="@Model.formActivitySchedule.UserEmail" class="form-control" value="@HttpContext.User.Identity.Name" readonly />
+        </div>
+
         <h3>Day 1</h3>
         <div class="form-group">
             <label asp-for="@Model.formActivitySchedule.Day1" class="control-lable">Day 1 (Weekday, dd/mm/yyyy)</label>
