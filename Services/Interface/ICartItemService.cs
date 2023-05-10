@@ -11,5 +11,6 @@ namespace CTTSite.Services.Interface
         Task ConvertBoolPaidByUserIDAsync(int userID);
         List<CartItem> GetOldCartItemsByID(int ID);
         CartItem GetCartItemByID(int ID);
+        decimal GetTotalPriceOfCartByUserID(int userID);
     }
 }

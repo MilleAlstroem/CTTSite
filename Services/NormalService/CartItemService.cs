@@ -1,4 +1,5 @@
-﻿using CTTSite.MockData;
+﻿using CTTSite.DAO;
+using CTTSite.MockData;
 using CTTSite.Models;
 using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
@@ -8,13 +9,15 @@ namespace CTTSite.Services.NormalService
 {
     public class CartItemService : ICartItemService
     {
-        public DBServiceGeneric<CartItem> DBServiceGeneric;
+        public DBServiceGeneric<CartItem> DBServiceGenericCartItem;
+        public DBServiceGeneric<CartItem_Order> DBServiceGenericCartItem_Order;
         public JsonFileService<CartItem> JsonFileService;
         public List<CartItem> CartItems;
 
-        public CartItemService(DBServiceGeneric<CartItem> dBServiceGeneric, JsonFileService<CartItem> jsonFileService)
+        public CartItemService(DBServiceGeneric<CartItem> dBServiceGenericCartItem, JsonFileService<CartItem> jsonFileService, DBServiceGeneric<CartItem_Order> dBServiceGenericCartItem_Order)
         {
-            DBServiceGeneric = dBServiceGeneric;
+            DBServiceGenericCartItem = dBServiceGenericCartItem;
+            DBServiceGenericCartItem_Order = dBServiceGenericCartItem_Order;
             JsonFileService = jsonFileService;
             CartItems = GetAllCartItems();
         }
@@ -32,7 +35,7 @@ namespace CTTSite.Services.NormalService
             cartItem.ID = IDCount + 1;
             CartItems.Add(cartItem);
             JsonFileService.SaveJsonObjects(CartItems);
-            //await DBServiceGeneric.AddObjectAsync(cartItem);
+            //await DBServiceGenericCartItem.AddObjectAsync(cartItem);
         }
 
         public Task ConvertBoolPaidByUserIDAsync(int userID)
@@ -44,7 +47,7 @@ namespace CTTSite.Services.NormalService
         {
             //return MockData.MockDataCartItem.GetMockCartItems();
             return JsonFileService.GetJsonObjects().ToList();
-            //return DBServiceGeneric.GetObjectsAsync().Result.ToList();
+            //return DBServiceGenericCartItem.GetObjectsAsync().Result.ToList();
         }
 
         public CartItem GetCartItemByID(int ID)
@@ -85,8 +88,36 @@ namespace CTTSite.Services.NormalService
                 CartItems.Remove(GetCartItemByID(ID));
                 JsonFileService.SaveJsonObjects(CartItems);
                 //cartItemToBeDeleted = GetCartItemByID(ID);
-                //await DBServiceGeneric.DeleteObjectAsync(cartItemToBeDeleted);
+                //await DBServiceGenericCartItem.DeleteObjectAsync(cartItemToBeDeleted);
             }
         }
+
+        // TODO
+
+        //public async Task AddCartItem_OrderToJunctionTable(int ID)
+        //{
+        //    List<CartItem> TempList = GetAllCartItemsByUserID(ID);
+        //    Order order = new Order();
+        //    foreach(CartItem cartItem in TempList)
+        //    {
+        //        new CartItem_Order(cartItem.ID, );
+        //    }
+        //    await DBServiceGenericCartItem_Order.SaveObjectsAsync(TempList);
+        //}
+
+
+        public decimal GetTotalPriceOfCartByUserID(int UserID)
+        {
+            decimal TotalPrice = 0;
+            foreach(CartItem cartItem in CartItems)
+            {
+                if(cartItem.UserID == UserID && cartItem.Paid == false)
+                {
+                    TotalPrice += cartItem.Item.Price;
+                }
+            }
+            return TotalPrice;
+        }
+
     }
 }
