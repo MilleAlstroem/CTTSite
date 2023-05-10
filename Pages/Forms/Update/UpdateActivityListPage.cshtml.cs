@@ -19,9 +19,9 @@ namespace CTTSite.Pages.Forms
 
 
 
-        public void OnGet(int id)
+        public void OnGet()
         {
-            _formService.GetFormActivityList(id);
+            
         }
     }
 }

@@ -22,15 +22,6 @@ namespace CTTSite.Pages.Forms
 
         }
 
-        public IActionResult OnPost()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _formService.CreateFormSleepDiary(formSleepDiary);
-            return RedirectToPage("/FormMenuPage");
-        }
+        
     }
 }

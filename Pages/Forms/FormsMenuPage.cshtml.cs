@@ -10,7 +10,7 @@ namespace CTTSite.Pages.Forms
     public class FormsMenuPageModel : PageModel
     {
         private IFormService _formService;
-        public List<Form> forms { get; set; }
+        
 
         public FormsMenuPageModel(IFormService formService)
         {
@@ -19,14 +19,7 @@ namespace CTTSite.Pages.Forms
 
         public void OnGet()
         {
-            if(_formService.GetForms(HttpContext.User.Identity.Name) != null)
-            {
-                forms = _formService.GetForms(HttpContext.User.Identity.Name);
-            }
-            else
-            {
-                forms = null; 
-            }
+            
         }
     }
 }

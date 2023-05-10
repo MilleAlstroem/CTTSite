@@ -12,6 +12,7 @@ using CTTSite.Models;
 using CTTSite.Services;
 using CTTSite.EFDbContext;
 using CTTSite.Services.DB;
+using CTTSite.Models.Forms;
 
 
 // Edited by Christian
@@ -39,6 +40,11 @@ builder.Services.AddTransient<DBServiceGeneric<Item>>();
 builder.Services.AddTransient<DBServiceGeneric<CartItem>>();
 builder.Services.AddTransient<DBServiceGeneric<User>>();
 builder.Services.AddTransient<DBServiceGeneric<Order>>();
+builder.Services.AddTransient<DBServiceGeneric<FormActivityDiary>>();
+builder.Services.AddTransient<DBServiceGeneric<FormActivityList>>();
+builder.Services.AddTransient<DBServiceGeneric<FormActivitySchedule>>();
+builder.Services.AddTransient<DBServiceGeneric<FormHotCrossBun>>();
+builder.Services.AddTransient<DBServiceGeneric<FormSleepDiary>>();
 builder.Services.AddSingleton<IEmailService, EmailService>();
 
 
