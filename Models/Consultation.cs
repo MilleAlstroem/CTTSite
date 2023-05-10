@@ -22,5 +22,9 @@ namespace CTTSite.Models
             TelefonNummer = telefonNummer;
             BookedEmail = bookedEmail;
         }
+
+        public Consultation()
+        {
+        }
     }
 }

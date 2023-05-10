@@ -20,6 +20,7 @@
                 <th>BookedNamed</th>
                 <th>TelefonNummer</th>
                 <th>BookedEmail</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -50,7 +51,8 @@
                             @consultation.BookedEmail
                         </td>
                         <td>
-                            <a class="btn" type="button" asp-page="BookConsultationPage" asp-route-id="@consultation.ID"><i class="fa fa-trash"></i></a>
+                            <a class="btn" type="button" asp-page="UpdateConsultationPage" asp-route-id="@consultation.ID"><i class="fa fa-pencil-square-o"></i></a>
+                            <a class="btn" type="button" asp-page="DeleteConsultationPage" asp-route-id="@consultation.ID"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 }
@@ -59,4 +61,5 @@
     </table>
 </div>
 
+<a class="btn" type="button" asp-page="CreateConsultationPage">Create Consultation</a>
 <a class="btn" type="button" asp-page="/Index" >Back</a>

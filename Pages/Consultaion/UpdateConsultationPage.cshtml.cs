@@ -23,10 +23,10 @@ namespace CTTSite.Pages.Consultation
 
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
             IConsultationService.UpdateConsultation(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
         }

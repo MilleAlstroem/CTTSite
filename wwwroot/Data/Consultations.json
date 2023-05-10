@@ -1,0 +1,119 @@
+[
+  {
+    "ID": 1,
+    "StartDateTime": "2023-05-10T11:02:41.1119286+02:00",
+    "EndDateTime": "2023-05-10T12:02:41.1119329+02:00",
+    "UserID": 2,
+    "BookedNamed": "Mads Ludvigsen",
+    "TelefonNummer": "61675837",
+    "BookedEmail": "Hifnh@live.dk"
+  },
+  {
+    "ID": 2,
+    "StartDateTime": "2023-05-10T12:02:41.1122484+02:00",
+    "EndDateTime": "2023-05-10T13:02:41.112252+02:00",
+    "UserID": 2,
+    "BookedNamed": "Mads EgeLund",
+    "TelefonNummer": "61675837",
+    "BookedEmail": "Hifnh@live.dk"
+  },
+  {
+    "ID": 3,
+    "StartDateTime": "2023-05-10T13:02:41.1122523+02:00",
+    "EndDateTime": "2023-05-10T14:02:41.1122525+02:00",
+    "UserID": 2,
+    "BookedNamed": "The Queen",
+    "TelefonNummer": "61675837",
+    "BookedEmail": "Hifnh@live.dk"
+  },
+  {
+    "ID": 4,
+    "StartDateTime": "2023-05-10T14:02:41.1122527+02:00",
+    "EndDateTime": "2023-05-10T15:02:41.1122529+02:00",
+    "UserID": 2,
+    "BookedNamed": "Jennie",
+    "TelefonNummer": "61675837",
+    "BookedEmail": "Hifnh@live.dk"
+  },
+  {
+    "ID": 5,
+    "StartDateTime": "2023-05-10T15:12:00",
+    "EndDateTime": "2023-05-10T16:12:00",
+    "UserID": 1,
+    "BookedNamed": "Mads Ludvigsen",
+    "TelefonNummer": "61675837",
+    "BookedEmail": "Hifnh@live.dk"
+  },
+  {
+    "ID": 6,
+    "StartDateTime": "2023-05-10T15:12:00",
+    "EndDateTime": "2023-05-10T16:12:00",
+    "UserID": 1,
+    "BookedNamed": "Mads Ludvigsen",
+    "TelefonNummer": "61675837",
+    "BookedEmail": "Hifnh@live.dk"
+  },
+  {
+    "ID": 7,
+    "StartDateTime": "2023-05-10T15:12:00",
+    "EndDateTime": "2023-05-10T16:12:00",
+    "UserID": 1,
+    "BookedNamed": "Mads Ludvigsen",
+    "TelefonNummer": "61675837",
+    "BookedEmail": "Hifnh@live.dk"
+  },
+  {
+    "ID": 8,
+    "StartDateTime": "2023-05-10T15:12:00",
+    "EndDateTime": "2023-05-10T16:12:00",
+    "UserID": 1,
+    "BookedNamed": "Mads Ludvigsen",
+    "TelefonNummer": "61675837",
+    "BookedEmail": "Hifnh@live.dk"
+  },
+  {
+    "ID": 9,
+    "StartDateTime": "2023-05-10T15:12:00",
+    "EndDateTime": "2023-05-10T16:12:00",
+    "UserID": 1,
+    "BookedNamed": "Mads Ludvigsen",
+    "TelefonNummer": "61675837",
+    "BookedEmail": "Hifnh@live.dk"
+  },
+  {
+    "ID": 10,
+    "StartDateTime": "2023-05-10T15:12:00",
+    "EndDateTime": "2023-05-10T16:12:00",
+    "UserID": 1,
+    "BookedNamed": "Mads Ludvigsen",
+    "TelefonNummer": "61675837",
+    "BookedEmail": "Hifnh@live.dk"
+  },
+  {
+    "ID": 11,
+    "StartDateTime": "2023-05-10T15:12:00",
+    "EndDateTime": "2023-05-10T16:12:00",
+    "UserID": 1,
+    "BookedNamed": "Mads Ludvigsen",
+    "TelefonNummer": "61675837",
+    "BookedEmail": "Hifnh@live.dk"
+  },
+  {
+    "ID": 12,
+    "StartDateTime": "2023-05-10T15:12:00",
+    "EndDateTime": "2023-05-10T16:12:00",
+    "UserID": 1,
+    "BookedNamed": "Mads Ludvigsen",
+    "TelefonNummer": "61675837",
+    "BookedEmail": "Hifnh@live.dk"
+  },
+  {
+    "ID": 13,
+    "StartDateTime": "2023-05-10T15:12:00",
+    "EndDateTime": "2023-05-10T16:12:00",
+    "UserID": 1,
+    "BookedNamed": "Mads Ludvigsen",
+    "TelefonNummer": "61675837",
+    "BookedEmail": "Hifnh@live.dk"
+  }
+]

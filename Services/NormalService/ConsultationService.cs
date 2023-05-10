@@ -18,42 +18,48 @@ namespace CTTSite.Services.NormalService
             ConsultationsList = GetAllConsultations();
         }
 
-
-        public void CreateConsultation(Consultation consultation)
-        {
-            ConsultationsList.Add(consultation);
-
-            //DBServiceGeneric.AddObjectAsync(consultation);
-            JsonFileService.SaveJsonObjects(ConsultationsList);
-        }
-
-        public void DeleteConsultation(int ID)
-        {
-            foreach(Consultation consultation in ConsultationsList)
-            {
-                if (ID == consultation.ID)
-                {
-                    ConsultationsList.Remove(consultation);
-                }
-            }
-            JsonFileService.SaveJsonObjects(ConsultationsList);
-        }
-
         public List<Consultation> GetAllConsultations()
         {
-            return MockData.MockDataConsultation.GetAllConsultations();
+            return JsonFileService.GetJsonObjects().ToList();
+            //return MockData.MockDataConsultation.GetAllConsultations();
         }
 
         public Consultation GetConsultationByID(int ID)
         {
             foreach (Consultation consultation in ConsultationsList)
             {
-                if(consultation.ID == ID)
+                if (consultation.ID == ID)
                 {
                     return consultation;
                 }
             }
             return null;
+        }
+
+        public void CreateConsultation(Consultation consultation)
+        {
+            int IDCount = 0;
+            foreach(Consultation listConsultation in ConsultationsList)
+            {
+                if(IDCount < listConsultation.ID)
+                {
+                    IDCount = listConsultation.ID;
+                }
+            }
+            consultation.ID = IDCount + 1;
+            ConsultationsList.Add(consultation);
+            //DBServiceGeneric.AddObjectAsync(consultation);
+            JsonFileService.SaveJsonObjects(ConsultationsList);
+        }
+
+        public void DeleteConsultation(int ID)
+        {
+            Consultation consultationToBeDeleted = null; 
+            if(GetConsultationByID(ID) != null)
+            {
+                ConsultationsList.Remove(GetConsultationByID(ID));
+                JsonFileService.SaveJsonObjects(ConsultationsList);
+            }
         }
 
         public Consultation UpdateConsultation(Consultation consultationN)
@@ -70,16 +76,11 @@ namespace CTTSite.Services.NormalService
                         consultationO.BookedNamed = consultationN.BookedNamed;
                         consultationO.TelefonNummer = consultationN.TelefonNummer;
                         consultationO.BookedEmail = consultationN.BookedEmail;
-                        JsonFileService.SaveJsonObjects(ConsultationsList);
-                        return consultationO;
                     }
+                    JsonFileService.SaveJsonObjects(ConsultationsList);
                 }
-                return null;
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
     }
 }
