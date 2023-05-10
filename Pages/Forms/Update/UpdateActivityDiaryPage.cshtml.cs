@@ -17,7 +17,9 @@ namespace CTTSite.Pages.Forms
         }
 
         public string message { get; set; }
-        public FormActivityDiary formActivityDiary { get; set; }
+
+        [BindProperty]
+        public FormActivityDiary formActivityDiary { get; set; } = new FormActivityDiary();
 
         public void OnGet(int id)
         {
