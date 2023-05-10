@@ -22,7 +22,7 @@ namespace CTTSite.Services.Interface
         Task UpdateFormActivityDiary(FormActivityDiary formN);
 
 
-        Task<FormActivityDiary> DeleteFormActivityDiary(int id);
+        Task DeleteFormActivityDiary(FormActivityDiary form);
 
 
         Task SubmitFormActivityDiary(FormActivityDiary form, string email);
@@ -30,8 +30,9 @@ namespace CTTSite.Services.Interface
         #endregion
 
         #region Activity List
-        FormActivityList GetFormActivityListById(int id);
 
+
+        FormActivityList GetFormActivityListById(int id);
 
         FormActivityList GetFormActivityListByUserEmail(string email);
 
@@ -42,7 +43,7 @@ namespace CTTSite.Services.Interface
         Task UpdateFormActivityList(FormActivityList formN);
 
 
-        Task<FormActivityList> DeleteFormActivityList(int id);
+        Task DeleteFormActivityList(FormActivityList form);
 
 
         Task SubmitFormActivityList(FormActivityList form, string email);
@@ -62,7 +63,7 @@ namespace CTTSite.Services.Interface
         Task UpdateFormActivitySchedule(FormActivitySchedule formN);
 
 
-        Task<FormActivitySchedule> DeleteFormActivitySchedule(int id);
+        Task DeleteFormActivitySchedule(FormActivitySchedule form);
 
 
         Task SubmitFormActivitySchedule(FormActivitySchedule form, string email);
@@ -82,7 +83,7 @@ namespace CTTSite.Services.Interface
         Task UpdateFormHotCrossBun(FormHotCrossBun formN);
 
 
-        Task<FormHotCrossBun> DeleteFormHotCrossBun(int id);
+        Task DeleteFormHotCrossBun(FormHotCrossBun form);
 
 
         Task SubmitFormHotCrossBun(FormHotCrossBun form, string email);
@@ -102,11 +103,11 @@ namespace CTTSite.Services.Interface
         Task UpdateFormSleepDiary(FormSleepDiary formN);
 
 
-        Task<FormSleepDiary> DeleteFormSleepDiary(int id);
+        Task DeleteFormSleepDiary(FormSleepDiary form);
 
 
         Task SubmitFormSleepDiary(FormSleepDiary form, string email);
-        
+       
         #endregion
 
 

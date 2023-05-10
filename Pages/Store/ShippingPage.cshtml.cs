@@ -9,18 +9,29 @@ namespace CTTSite.Pages.Store
     {
         public IShippingInfoService IShippingInfoService;
         public IUserService IUserService;
+        public ICartItemService ICartItemService;
+        public IOrderService IOrderService;
 
         [BindProperty]
         public ShippingInfo ShippingInfo { get; set; } = new ShippingInfo();
 
-        public ShippingPageModel(IShippingInfoService iShippingInfoService, IUserService iUserService)
+        [BindProperty]
+        public Order order { get; set; } = new Order();
+
+        public List<CartItem> CartItems { get; set; }
+
+        public ShippingPageModel(IShippingInfoService iShippingInfoService, IUserService iUserService, ICartItemService iCartItemService, IOrderService iOrderService)
         {
             IShippingInfoService = iShippingInfoService;
             IUserService = iUserService;
+            ICartItemService=iCartItemService;
+            IOrderService = iOrderService;
         }
 
         public void OnGet()
         {
+            Models.User CurrentUser = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
+            CartItems = ICartItemService.GetAllCartItemsByUserID(CurrentUser.Id);
         }
 
         public IActionResult OnPost()
@@ -29,6 +40,12 @@ namespace CTTSite.Pages.Store
             ShippingInfo.UserID = CurrentUser.Id;
             ShippingInfo.SubmissionDate = DateTime.Now;
             IShippingInfoService.CreateShippingInfo(ShippingInfo);
+            order.UserID = CurrentUser.Id;
+            order.Shipped = false;
+            order.Cancelled = false;
+            order.TotalPrice = ICartItemService.GetTotalPriceOfCartByUserID(CurrentUser.Id);
+            IOrderService.CreateOrderAsync(order);
+            ICartItemService.ConvertBoolPaidByUserIDAsync(CurrentUser.Id);
             return RedirectToPage("SpecificUserCartPage");
         }
     }

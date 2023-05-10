@@ -22,8 +22,8 @@ namespace CTTSite.Services.NormalService
         public List<Order> GetAllOrders()
         {
             //return DBServiceGeneric.GetObjectsAsync().Result.ToList();
-            //return JsonFileService.GetJsonObjects().ToList();
-            return MockData.MockDataOrder.GetMockOrders();
+            return JsonFileService.GetJsonObjects().ToList();
+            //return MockData.MockDataOrder.GetMockOrders();
         }
         public Order GetOrderByID(int ID)
         {

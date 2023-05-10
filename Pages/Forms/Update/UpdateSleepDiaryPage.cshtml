@@ -5,6 +5,7 @@
 <h1>Sleep Diary</h1>
 
 <div class="col-md-4">
+    <h3 class="text-danger"> @Model.message</h3>
     <form method="post">
 
         <div class="form-group">
@@ -203,7 +204,7 @@
         </div>
         <div class="form-group">
             <label asp-for="@Model.formSleepDiary.Day5_AmountOfTimesWokenUp" class="control-lable">How many times did you wake up?</label>
-            <input asp-for="@Model.formSleepDiary.Day5_AmountOfTimesWokenUp" class="form-control" value="Model.formSleepDiary.Day5_AmountOfTimesWokenUp" />
+            <input asp-for="@Model.formSleepDiary.Day5_AmountOfTimesWokenUp" class="form-control" value="@Model.formSleepDiary.Day5_AmountOfTimesWokenUp" />
         </div>
         <div class="form-group">
             <label asp-for="@Model.formSleepDiary.Day5_TotalTimeAwakeInNight" class="control-lable">How long in total were you awake during the night?</label>

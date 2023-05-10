@@ -2,11 +2,11 @@
 @model CTTSite.Pages.Forms.CreateActivityListPageModel
 @{
 }
-<h1>Activity List</h1>
+<h1>Create Activity List</h1>
 
 <div class="col-md-4">
     <form method="post">
-        
+        <div hidden="hidden">
         <div class="form-group">
             <label asp-for="@Model.formActivityList.UserEmail" class="control-lable"></label>
             <input asp-for="@Model.formActivityList.UserEmail" class="form-control" value="@HttpContext.User.Identity.Name" readonly />
@@ -28,10 +28,17 @@
             <label asp-for="@Model.formActivityList.Social" class="control-lable">Social</label>
             <input asp-for="@Model.formActivityList.Social" class="form-control" value="Please Fill Out Before Submission" />
         </div>
+        </div>
+
         <div class="input-group mb-3">
-            <p>Please only submit this form when all fields are filled out.</p>
-            
-            <input type="submit" asp-page-handler="SaveForm" value="Save Form" class="btn btn-primary" />
+            <h5 class="container-fluid">
+                Use this activity list to identify different activities to add into your week.<br /><br />
+                This sheet is used as part of Behavioural Activation in CBT to increase your activities when you struggle with motivation.<br /><br />
+                Don't rule anything out, think of lots of ideas, then add them gradually into your week!<br /><br />
+            </h5>
+            <p>After creating the form, you will be able to find it on the "Forms" page under "My Forms"</p>
+           <input type="submit" asp-page-handler="SaveForm" value="Create new Form" class="btn btn-primary" />
+            <a class="btn" type="button" href="/Forms/FormsMenuPage">Back</a>
         </div>
 </form>
 </div>

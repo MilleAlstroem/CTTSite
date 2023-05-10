@@ -12,7 +12,7 @@ namespace CTTSite.Pages.Forms
         private IFormService _formService;
 
         [BindProperty]
-        public FormHotCrossBun formHotCrossBun { get; set; }
+        public FormHotCrossBun formHotCrossBun { get; set; } = new FormHotCrossBun();
 
         public CreateHotCrossBunPageModel(IFormService formService)
         {
@@ -24,6 +24,13 @@ namespace CTTSite.Pages.Forms
         public void OnGet()
         {
             
+        }
+
+        public IActionResult OnPostSaveForm()
+        {
+
+            _formService.CreateFormHotCrossBun(formHotCrossBun);
+            return RedirectToPage("/Forms/FormsMenuPage");
         }
     }
 }

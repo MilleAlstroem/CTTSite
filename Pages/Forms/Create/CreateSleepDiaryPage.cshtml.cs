@@ -13,7 +13,7 @@ namespace CTTSite.Pages.Forms
         private IFormService _formService;
 
         [BindProperty]
-        public FormSleepDiary formSleepDiary { get; set; }
+        public FormSleepDiary formSleepDiary { get; set; } = new FormSleepDiary();
 
         public CreateSleepDiaryPageModel(IFormService formService)
         {
@@ -25,6 +25,11 @@ namespace CTTSite.Pages.Forms
 
         }
 
-        
+        public IActionResult OnPostSaveForm()
+        {
+            _formService.CreateFormSleepDiary(formSleepDiary);
+            return RedirectToPage("/Forms/FormsMenuPage");
+        }
+
     }
 }

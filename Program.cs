@@ -13,6 +13,7 @@ using CTTSite.Services;
 using CTTSite.EFDbContext;
 using CTTSite.Services.DB;
 using CTTSite.Models.Forms;
+using CTTSite.DAO;
 
 
 // Edited by Christian
@@ -41,6 +42,7 @@ builder.Services.AddTransient<DBServiceGeneric<CartItem>>();
 builder.Services.AddTransient<DBServiceGeneric<User>>();
 builder.Services.AddTransient<DBServiceGeneric<Order>>();
 builder.Services.AddTransient<DBServiceGeneric<Consultation>>();
+builder.Services.AddTransient<DBServiceGeneric<CartItem_Order>>();
 builder.Services.AddTransient<DBServiceGeneric<FormActivityDiary>>();
 builder.Services.AddTransient<DBServiceGeneric<FormActivityList>>();
 builder.Services.AddTransient<DBServiceGeneric<FormActivitySchedule>>();

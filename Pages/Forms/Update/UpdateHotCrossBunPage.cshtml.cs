@@ -11,6 +11,7 @@ namespace CTTSite.Pages.Forms
 
         [BindProperty]
         public FormHotCrossBun formHotCrossBun { get; set; }
+        public string message { get; set; }
 
         public UpdateHotCrossBunPageModel(IFormService formService)
         {
@@ -21,7 +22,55 @@ namespace CTTSite.Pages.Forms
 
         public void OnGet()
         {
+            if (_formService.GetFormHotCrossBunByUserEmail(HttpContext.User.Identity.Name) != null)
+            {
+                formHotCrossBun = _formService.GetFormHotCrossBunByUserEmail(HttpContext.User.Identity.Name);
+            }
+            else
+            {
+                RedirectToPage("/Forms/FormsMenuPage");
+            }
+        }
 
+        public IActionResult OnPostSubmitForm()
+        {
+            bool filledOut = false;
+
+           
+            
+            if ((formHotCrossBun.Emotions == "Please Fill Out Before Submission") || (formHotCrossBun.Thoughts == "Please Fill Out Before Submission") || (formHotCrossBun.Physical == "Please Fill Out Before Submission") || (formHotCrossBun.Behaviours == "Please Fill Out Before Submission"))
+            {
+                filledOut = false;
+                message = "Please fill out the form before submission or save the form for later";
+            }
+            else
+            {
+                filledOut = true;
+            }
+           
+
+            if (filledOut)
+            {
+                _formService.UpdateFormHotCrossBun(formHotCrossBun);
+                
+
+                _formService.SubmitFormHotCrossBun(formHotCrossBun, formHotCrossBun.UserEmail);
+                _formService.DeleteFormHotCrossBun(formHotCrossBun);
+                return RedirectToPage("/Forms/FormsMenuPage");
+            }
+            else
+            {
+                _formService.UpdateFormHotCrossBun(formHotCrossBun);
+                formHotCrossBun = _formService.GetFormHotCrossBunById(formHotCrossBun.ID);
+
+                return Page();
+            }
+        }
+
+        public IActionResult OnPostSaveForm()
+        {
+            _formService.UpdateFormHotCrossBun(formHotCrossBun);
+            return RedirectToPage("/Forms/FormsMenuPage");
         }
     }
 }
