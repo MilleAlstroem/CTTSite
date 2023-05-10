@@ -7,12 +7,12 @@ namespace CTTSite.MockData
 
         public static List<Consultation> consultationsList = new List<Consultation>()
         {
-            new Consultation(1, DateTime.Now, DateTime.Now.AddHours(1), 2, "Mads Ludvigsen","61675837", "Hifnh@live.dk"),
-            new Consultation(2, DateTime.Now.AddHours(1), DateTime.Now.AddHours(2), 2, "Mads EgeLund","61675837", "Hifnh@live.dk"),
-            new Consultation(3, DateTime.Now.AddHours(2), DateTime.Now.AddHours(3), 2, "The Queen","61675837", "Hifnh@live.dk"),
-            new Consultation(4, DateTime.Now.AddHours(3), DateTime.Now.AddHours(4), 2, "Jennie","61675837", "Hifnh@live.dk"),
+            //new Consultation(1, "10-05-2023", new TimeSpan(10, 0, 0), new TimeSpan(11, 0, 0), 1, " ", " ", " "),
+            //new Consultation(2, "10-05-2023", new TimeSpan(11, 0, 0), new TimeSpan(12, 0, 0), 1, " ", " ", " "),
+            //new Consultation(3, "10-05-2023", new TimeSpan(12, 0, 0), new TimeSpan(13, 0, 0), 1, " ", " ", " "),
+            //new Consultation(4, "10-05-2023", new TimeSpan(13, 0, 0), new TimeSpan(14, 0, 0), 1, " ", " ", " "),
+            //new Consultation(5, "10-05-2023", new TimeSpan(14, 0, 0), new TimeSpan(15, 0, 0), 1, " ", " ", " ")
         };
-
 
         public static List<Consultation> GetAllConsultations()
         {

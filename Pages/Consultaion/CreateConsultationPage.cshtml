@@ -6,31 +6,20 @@
 
 <form method="post">
     <div class="form-group">
-        <label asp-for="@Model.Consultation.StartDateTime" class="control-lable"></label>
-        <input asp-for="@Model.Consultation.StartDateTime" class="form-control" />
-        <span asp-validation-for="@Model.Consultation.StartDateTime" class="text-danger"></span>
+        <label asp-for="Consultation.Date" class="control-label"></label>
+        <input asp-for="Consultation.Date" class="form-control" type="date" />
+        <span asp-validation-for="Consultation.Date" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Consultation.EndDateTime" class="control-lable"></label>
-        <input asp-for="@Model.Consultation.EndDateTime" class="form-control" />
-        <span asp-validation-for="@Model.Consultation.EndDateTime" class="text-danger"></span>
+        <label asp-for="@Model.Consultation.StartTime" class="control-lable"></label>
+        <input asp-for="@Model.Consultation.StartTime" class="form-control" type="time"/>
+        <span asp-validation-for="@Model.Consultation.StartTime" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Consultation.BookedNamed" class="control-lable"></label>
-        <input asp-for="@Model.Consultation.BookedNamed" class="form-control" />
-        <span asp-validation-for="@Model.Consultation.BookedNamed" class="text-danger"></span>
+        <label asp-for="@Model.Consultation.EndTime" class="control-lable"></label>
+        <input asp-for="@Model.Consultation.EndTime" class="form-control" type="time"/>
+        <span asp-validation-for="@Model.Consultation.EndTime" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="@Model.Consultation.TelefonNummer" class="control-lable"></label>
-        <input asp-for="@Model.Consultation.TelefonNummer" class="form-control" />
-        <span asp-validation-for="@Model.Consultation.TelefonNummer" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.Consultation.BookedEmail" class="control-lable"></label>
-        <input asp-for="@Model.Consultation.BookedEmail" class="form-control" />
-        <span asp-validation-for="@Model.Consultation.BookedEmail" class="text-danger"></span>
-    </div>
-
     <div class="form-group">
         <input type="submit" value="Create" class="btn btn-primary" />
     </div>

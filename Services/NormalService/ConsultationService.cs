@@ -8,20 +8,21 @@ namespace CTTSite.Services.NormalService
     public class ConsultationService : IConsultationService
     {
         public List<Consultation> ConsultationsList;
-        //public DBServiceGeneric<Consultation> DBServiceGeneric;
+        public DBServiceGeneric<Consultation> DBServiceGeneric;
         public JsonFileService<Consultation> JsonFileService;
 
-        public ConsultationService(/*DBServiceGeneric<Consultation> dBServiceGeneric,*/ JsonFileService<Consultation> jsonFileService)
+        public ConsultationService(DBServiceGeneric<Consultation> dBServiceGeneric, JsonFileService<Consultation> jsonFileService)
         {
-            //DBServiceGeneric = dBServiceGeneric;
+            DBServiceGeneric = dBServiceGeneric;
             JsonFileService = jsonFileService;
             ConsultationsList = GetAllConsultations();
         }
 
         public List<Consultation> GetAllConsultations()
         {
-            return JsonFileService.GetJsonObjects().ToList();
-            //return MockData.MockDataConsultation.GetAllConsultations();
+            //return DBServiceGeneric.GetAllObjectsAsync().Result.ToList();
+            //return JsonFileService.GetJsonObjects().ToList();
+            return MockData.MockDataConsultation.GetAllConsultations();
         }
 
         public Consultation GetConsultationByID(int ID)
@@ -48,7 +49,7 @@ namespace CTTSite.Services.NormalService
             }
             consultation.ID = IDCount + 1;
             ConsultationsList.Add(consultation);
-            //DBServiceGeneric.AddObjectAsync(consultation);
+            DBServiceGeneric.AddObjectAsync(consultation);
             JsonFileService.SaveJsonObjects(ConsultationsList);
         }
 
@@ -70,15 +71,16 @@ namespace CTTSite.Services.NormalService
                 {
                     if (consultationO.ID == consultationN.ID)
                     {
-                        consultationO.StartDateTime = consultationN.StartDateTime;
-                        consultationO.EndDateTime = consultationN.EndDateTime;
+                        consultationO.Date = consultationN.Date;
+                        consultationO.StartTime = consultationN.StartTime;
+                        consultationO.EndTime = consultationN.EndTime;
                         consultationO.UserID = consultationN.UserID;
                         consultationO.BookedNamed = consultationN.BookedNamed;
                         consultationO.TelefonNummer = consultationN.TelefonNummer;
                         consultationO.BookedEmail = consultationN.BookedEmail;
-                    }
-                    JsonFileService.SaveJsonObjects(ConsultationsList);
+                    }                    
                 }
+                JsonFileService.SaveJsonObjects(ConsultationsList);
             }
             return null;
         }

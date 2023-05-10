@@ -1,32 +1,40 @@
+using CTTSite.Models;
 using CTTSite.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Globalization;
 
 namespace CTTSite.Pages.Consultation
 {
     public class CreateConsultationModel : PageModel
     {
-        public IConsultationService IConsultationService;
-        public IUserService IUserService;
+        public IConsultationService _consultationService;
+        public readonly IUserService _userService;
 
         [BindProperty]
-        public Models.Consultation Consultation { get; set; }
+        public Models.Consultation Consultation { get; set; } = new Models.Consultation();
 
-        public CreateConsultationModel(IConsultationService iConsultationService, IUserService iUserService)
+        public CreateConsultationModel(IConsultationService consultationService, IUserService userService)
         {
-            IConsultationService = iConsultationService;
-            IUserService = iUserService;
+            _consultationService = consultationService;
+            _userService = userService;
         }
 
         public void OnGet()
         {
-
         }
 
-        public void OnPost() 
+        public IActionResult OnPost()
         {
-            Consultation.UserID = 1; // i need the HTTP.Name thing to return me a id nr.
-            IConsultationService.CreateConsultation(Consultation);
+            Consultation.Date = Consultation.Date.Date;
+            Consultation.StartTime = Consultation.StartTime;
+            Consultation.EndTime = Consultation.EndTime;
+            Consultation.UserID = 2; // Get the user ID from the appropriate source
+            Consultation.BookedNamed = " ";
+            Consultation.TelefonNummer = " ";
+            Consultation.BookedEmail = " ";
+            _consultationService.CreateConsultation(Consultation);
+            return RedirectToPage("GetAllConsultaionsPage");
         }
     }
 }
