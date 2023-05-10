@@ -34,19 +34,17 @@ namespace CTTSite.Pages.Forms
         {
             bool filledOut = false;
 
-            foreach (var property in formSleepDiary.GetType().GetProperties())
+            
+            if ((formSleepDiary.Day2_TimeWokenUpInMorning == "Please Fill Out Before Submission") || (formSleepDiary.Day5_TotalTimeSleeping == "Please Fill Out Before Submission") || (formSleepDiary.Day7_HowRestedDoYouFeel == "Please Fill Out Before Submission"))
             {
-                if (property.GetValue(formSleepDiary) == "Please Fill Out Before Submission")
-                {
-                    filledOut = false;
-                    message = "Please fill out the form before submission or save the form for later";
-                    break;
-                }
-                else
-                {
-                    filledOut = true;
-                }
+                filledOut = false;
+                message = "Please fill out the form before submission or save the form for later";                   
             }
+            else
+            {
+                filledOut = true;
+            }
+            
 
             if (filledOut)
             {

@@ -36,19 +36,18 @@ namespace CTTSite.Pages.Forms
         {
             bool filledOut = false;
 
-            foreach (var property in formHotCrossBun.GetType().GetProperties())
+           
+            
+            if ((formHotCrossBun.Emotions == "Please Fill Out Before Submission") || (formHotCrossBun.Thoughts == "Please Fill Out Before Submission") || (formHotCrossBun.Physical == "Please Fill Out Before Submission") || (formHotCrossBun.Behaviours == "Please Fill Out Before Submission"))
             {
-                if (property.GetValue(formHotCrossBun) == "Please Fill Out Before Submission")
-                {
-                    filledOut = false;
-                    message = "Please fill out the form before submission or save the form for later";
-                    break;
-                }
-                else
-                {
-                    filledOut = true;
-                }
+                filledOut = false;
+                message = "Please fill out the form before submission or save the form for later";
             }
+            else
+            {
+                filledOut = true;
+            }
+           
 
             if (filledOut)
             {

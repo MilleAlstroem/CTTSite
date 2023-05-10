@@ -36,19 +36,17 @@ namespace CTTSite.Pages.Forms
         {
             bool filledOut = false;
 
-            foreach (var property in formActivitySchedule.GetType().GetProperties())
-            {
-                if (property.GetValue(formActivitySchedule) == "Please Fill Out Before Submission")
+            
+                if ((formActivitySchedule.Score7 == "Please Fill Out Before Submission") || (formActivitySchedule.Afternoon2 == "Please Fill Out Before Submission"))
                 {
                     filledOut = false;
                     message = "Please fill out the form before submission or save the form for later";
-                    break;
                 }
                 else
                 {
                     filledOut = true;
                 }
-            }
+            
 
             if (filledOut)
             {
