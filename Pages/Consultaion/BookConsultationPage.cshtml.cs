@@ -9,7 +9,7 @@ namespace CTTSite.Pages.Consultation
         public IConsultationService IConsultationService;
 
         [BindProperty]
-        public Models.Consultation consultation;
+        public Models.Consultation Consultation { get; set; }
 
         public BookConsultationPageModel(IConsultationService iConsultationService)
         {
@@ -18,7 +18,7 @@ namespace CTTSite.Pages.Consultation
 
         public void OnGet(int ID)
         {
-            consultation = IConsultationService.GetConsultationByID(ID);
+            Consultation = IConsultationService.GetConsultationByID(ID);
         }
 
         public IActionResult OnPost()
@@ -27,7 +27,7 @@ namespace CTTSite.Pages.Consultation
             {
                 return Page();
             }
-            IConsultationService.UpdateConsultation(consultation);
+            IConsultationService.UpdateConsultation(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
         }
     }
