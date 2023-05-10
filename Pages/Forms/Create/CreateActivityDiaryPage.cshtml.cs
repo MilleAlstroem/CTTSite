@@ -26,6 +26,11 @@ namespace CTTSite.Pages.Forms
             
         }
 
+        public IActionResult OnPostSaveForm() 
+        { 
+            _formService.CreateFormActivityDiary(formActivityDiary);
+            return RedirectToPage("/Update/UpdateActivityDiaryPage");
+        }
         
 
         

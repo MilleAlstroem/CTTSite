@@ -6,8 +6,7 @@ namespace CTTSite.Models.Forms
     public class Form
     {
         // Made by Christian
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+       
         public int ID { get; set; }
     }
 }

@@ -17,9 +17,9 @@ namespace CTTSite.Pages.Forms
 
         public FormActivityDiary formActivityDiary { get; set; }
 
-        public void OnGet()
+        public void OnGet(int id)
         {
-           
+           formActivityDiary = _formService.GetFormActivityDiaryById(id);
         }
     }
 }
