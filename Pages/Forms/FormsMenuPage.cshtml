@@ -4,12 +4,12 @@
 }
 <h1>Forms</h1>
 
-
+<div class="row" style="margin-top: 4%">
 @if ((Model.formActivityDiary != null) || (Model.formActivityList != null) || (Model.formActivitySchedule != null) || (Model.formHotCrossBun != null) || (Model.formSleepDiary != null))
 {
     <h3>My Forms</h3>
 }
-<div class="row">
+
 @if(Model.formActivityDiary != null)
 {
     <div style="width:20%">
@@ -76,12 +76,12 @@
     </div>
 }
 </div>
-<div class="row">
+<div class="row" style="margin-top: 4%">
 @if ((Model.formActivityDiary == null) || (Model.formActivityList == null) || (Model.formActivitySchedule == null) || (Model.formHotCrossBun == null) || (Model.formSleepDiary == null))
 {
     <h3>Create New Forms</h3>
 }
-
+    
 @if (Model.formActivityDiary == null)
 {
     <div style="width:20%">
