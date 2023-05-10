@@ -3,10 +3,11 @@
 @{
 }
 <body style="background-color:#f6d8cc;">
-<h1>Forms</h1>
-    
 
-<div class="row">
+<h1>Forms</h1>
+
+
+    <div class="row" style="margin: 4%">
 @if ((Model.formActivityDiary != null) || (Model.formActivityList != null) || (Model.formActivitySchedule != null) || (Model.formHotCrossBun != null) || (Model.formSleepDiary != null))
 {
     <h3>My Forms</h3>
@@ -78,7 +79,7 @@
     </div>
 }
 </div>
-<div class="row" style="margin: 4%  ">
+<div class="row" style="margin: 4%">
 @if ((Model.formActivityDiary == null) || (Model.formActivityList == null) || (Model.formActivitySchedule == null) || (Model.formHotCrossBun == null) || (Model.formSleepDiary == null))
 {
     <h3>Create New Forms</h3>

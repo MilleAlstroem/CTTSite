@@ -14,7 +14,10 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #f6d8cc;
+    background-image: url('../formimages/speechbubble.png');
+    background-repeat: no-repeat;
 }
 
 * {
