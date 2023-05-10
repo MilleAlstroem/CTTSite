@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 
 namespace CTTSite.Models
@@ -6,19 +7,17 @@ namespace CTTSite.Models
     public class Consultation
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
-        [Required]
-        public TimeSpan StartTime { get; set; }
-        
-        [Required]
+        public TimeSpan StartTime { get; set; }        
+
         public TimeSpan EndTime { get; set; }
 
-        [Required]
         public int UserID { get; set; }
         public string BookedNamed { get; set; }
         public string TelefonNummer { get; set; }

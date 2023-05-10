@@ -8,16 +8,16 @@ namespace CTTSite.Pages.Consultation
 {
     public class CreateConsultationModel : PageModel
     {
-        public IConsultationService _consultationService;
-        public readonly IUserService _userService;
+        public IConsultationService IConsultationService;
+        public IUserService IUserService;
 
         [BindProperty]
         public Models.Consultation Consultation { get; set; } = new Models.Consultation();
 
         public CreateConsultationModel(IConsultationService consultationService, IUserService userService)
         {
-            _consultationService = consultationService;
-            _userService = userService;
+            IConsultationService = consultationService;
+            IUserService = userService;
         }
 
         public void OnGet()
@@ -33,7 +33,7 @@ namespace CTTSite.Pages.Consultation
             Consultation.BookedNamed = " ";
             Consultation.TelefonNummer = " ";
             Consultation.BookedEmail = " ";
-            _consultationService.CreateConsultation(Consultation);
+            IConsultationService.CreateConsultation(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
         }
     }

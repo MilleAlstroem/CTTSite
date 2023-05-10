@@ -20,9 +20,9 @@ namespace CTTSite.Services.NormalService
 
         public List<Consultation> GetAllConsultations()
         {
-            //return DBServiceGeneric.GetAllObjectsAsync().Result.ToList();
+            return DBServiceGeneric.GetObjectsAsync().Result.ToList();
             //return JsonFileService.GetJsonObjects().ToList();
-            return MockData.MockDataConsultation.GetAllConsultations();
+            //return MockData.MockDataConsultation.GetAllConsultations();
         }
 
         public Consultation GetConsultationByID(int ID)
@@ -39,18 +39,19 @@ namespace CTTSite.Services.NormalService
 
         public void CreateConsultation(Consultation consultation)
         {
-            int IDCount = 0;
-            foreach(Consultation listConsultation in ConsultationsList)
-            {
-                if(IDCount < listConsultation.ID)
-                {
-                    IDCount = listConsultation.ID;
-                }
-            }
-            consultation.ID = IDCount + 1;
+            //int IDCount = 0;
+            //foreach(Consultation listConsultation in ConsultationsList)
+            //{
+            //    if(IDCount < listConsultation.ID)
+            //    {
+            //        IDCount = listConsultation.ID;
+            //    }
+            //}
+            //consultation.ID = IDCount + 1;
+            consultation.Date = consultation.Date.Date;
             ConsultationsList.Add(consultation);
             DBServiceGeneric.AddObjectAsync(consultation);
-            JsonFileService.SaveJsonObjects(ConsultationsList);
+            //JsonFileService.SaveJsonObjects(ConsultationsList);
         }
 
         public void DeleteConsultation(int ID)

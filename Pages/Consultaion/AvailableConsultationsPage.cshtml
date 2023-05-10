@@ -3,8 +3,6 @@
 @{
 }
 
-
-
 <br />
 <h1 class="text-center"><b>Available Consultations</b></h1>
 <br />
@@ -13,8 +11,8 @@
         <thead>
             <tr class="btn-secondary active">
                 <th>Date</th>
-                <th>StartDateTime</th>
-                <th>EndDateTime</th>
+                <th>Start Time</th>
+                <th>End Time</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -25,13 +23,13 @@
                 {
                     <tr class="btn-secondary">
                         <td>
-                            @consultation.Date
+                            @consultation.Date.ToString("dd-MM-yyyy")
                         </td>
                         <td>
-                            @consultation.StartTime
+                            @consultation.StartTime.ToString("hh':'mm")
                         </td>
                         <td>
-                            @consultation.EndTime
+                            @consultation.EndTime.ToString("hh':'mm")
                         </td>
                         <td>
                             <a class="btn" type="button" asp-page="BookConsultationPage" asp-route-id="@consultation.ID"><i class="fa fa-pencil-square-o"></i></a>

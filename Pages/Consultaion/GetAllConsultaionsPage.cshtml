@@ -34,13 +34,13 @@
                             @consultation.ID
                         </td>
                         <td>
-                            @consultation.Date
+                            @consultation.Date.ToString("dd-MM-yyyy")
                         </td>
                         <td>
-                            @consultation.StartTime
+                            @consultation.StartTime.ToString("hh':'mm")
                         </td>
                         <td>
-                            @consultation.EndTime
+                            @consultation.EndTime.ToString("hh':'mm")
                         </td>
                         <td>
                             @consultation.UserID
