@@ -2,7 +2,7 @@
 @model CTTSite.Pages.Forms.CreateActivityDiaryPageModel
 @{
 }
-<h1>Activity Diary</h1>
+<h1>Create Activity Diary</h1>
 
 <div class="col-md-4">
     <form method="post">
@@ -599,6 +599,7 @@
         <div class="input-group mb-3">           
             
             <input type="submit" asp-page-handler="SaveForm" asp-page="Update/UpdateActivityDiaryPage" asp-route-id="@Model.formActivityDiary.ID">  value="Create new Form" class="btn btn-primary" />
+            <a class="btn" type="button" asp-page="/FormsMenuPage">Back</a>
         </div>
     </form>
 

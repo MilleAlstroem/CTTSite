@@ -12,6 +12,8 @@ namespace CTTSite.Pages.Forms
         [BindProperty]
         public FormActivityList formActivityList { get; set; }
 
+
+        public string message { get; set; } 
         public UpdateActivityListPageModel(IFormService formService)
         {
             _formService = formService;
@@ -19,9 +21,58 @@ namespace CTTSite.Pages.Forms
 
 
 
-        public void OnGet()
+        public void OnGet(int id)
         {
-            
+            if (_formService.GetFormActivityListById(id) != null)
+            {
+                formActivityList = _formService.GetFormActivityListById(id);
+            }
+            else
+            {
+                RedirectToPage("/Forms/FormsMenuPage");
+            }
+        }
+
+        public IActionResult OnPostSubmitForm()
+        {
+            bool filledOut = false;
+
+            foreach (var property in formActivityList.GetType().GetProperties())
+            {
+                if (property.GetValue(formActivityList) == "Please Fill Out Before Submission")
+                {
+                    filledOut = false;
+                    message = "Please fill out the form before submission or save the form for later";
+                    break;
+                }
+                else
+                {
+                    filledOut = true;
+                }
+            }
+
+            if (filledOut)
+            {
+                _formService.UpdateFormActivityList(formActivityList);
+                FormActivityList submitForm = _formService.GetFormActivityListById(formActivityList.ID);
+
+                _formService.SubmitFormActivityList(submitForm, submitForm.UserEmail);
+                _formService.DeleteFormActivityList(submitForm.ID);
+                return RedirectToPage("/Forms/FormsMenuPage");
+            }
+            else
+            {
+                _formService.UpdateFormActivityList(formActivityList);
+                formActivityList = _formService.GetFormActivityListById(formActivityList.ID);
+
+                return Page();
+            }
+        }
+
+        public IActionResult OnPostSaveForm()
+        {
+            _formService.UpdateFormActivityList(formActivityList);
+            return RedirectToPage("/Forms/FormsMenuPage");
         }
     }
 }

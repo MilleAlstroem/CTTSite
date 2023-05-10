@@ -25,6 +25,11 @@ namespace CTTSite.Pages.Forms
 
         }
 
-        
+        public IActionResult OnPostSaveForm()
+        {
+            _formService.CreateFormSleepDiary(formSleepDiary);
+            return RedirectToPage("/Update/UpdateSleepDiaryPage");
+        }
+
     }
 }

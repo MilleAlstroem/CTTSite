@@ -15,7 +15,7 @@
 	</div>
 	<div class="form-group">
 		<label asp-for="@Model.Email" class="control-label"></label>
-		<input asp-for="@Model.Email" value="@Model.user.Email" class="form-control" />
+		<input asp-for="@Model.Email" value="@Model.user.Email" class="form-control" readonly />
 		<span asp-validation-for="@Model.user.Email" class="text-danger"></span>
 	</div>
 	<div class="form-group">

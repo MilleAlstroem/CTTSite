@@ -25,5 +25,11 @@ namespace CTTSite.Pages.Forms
         {
             
         }
+
+        public IActionResult OnPostSaveForm()
+        {
+            _formService.CreateFormHotCrossBun(formHotCrossBun);
+            return RedirectToPage("/Update/UpdateHotCrossBunPage");
+        }
     }
 }

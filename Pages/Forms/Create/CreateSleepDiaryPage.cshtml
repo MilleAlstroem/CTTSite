@@ -6,7 +6,7 @@
 
 <div class="col-md-4">
     <form method="post">
-
+        <div display="none">
         <div class="form-group">
             <label asp-for="@Model.formSleepDiary.UserEmail" class="control-lable"></label>
             <input asp-for="@Model.formSleepDiary.UserEmail" class="form-control" value="@HttpContext.User.Identity.Name" readonly />
@@ -319,10 +319,12 @@
         </div>
 
 
+        </div>
+
         <div class="input-group mb-3">
-            <p>Please only submit this form when all fields are filled out.</p>
-            
-            <input type="submit" asp-page-handler="SaveForm" value="Save Form" class="btn btn-primary" />
+
+            <input type="submit" asp-page-handler="SaveForm" asp-page="Update/UpdateSleepDiaryPage" asp-route-id="@Model.formSleepDiary.ID">  value="Create new Form" class="btn btn-primary" />
+            <a class="btn" type="button" asp-page="/FormsMenuPage">Back</a>
         </div>
     </form>
 
