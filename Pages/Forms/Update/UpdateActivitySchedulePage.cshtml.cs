@@ -22,9 +22,9 @@ namespace CTTSite.Pages.Forms
 
         public void OnGet(int id)
         {
-            if (_formService.GetFormActivityScheduleById(id) != null)
+            if (_formService.GetFormActivityScheduleByUserEmail(HttpContext.User.Identity.Name) != null)
             {
-                formActivitySchedule = _formService.GetFormActivityScheduleById(id);
+                formActivitySchedule = _formService.GetFormActivityScheduleByUserEmail(HttpContext.User.Identity.Name);
             }
             else
             {

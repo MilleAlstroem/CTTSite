@@ -21,9 +21,9 @@ namespace CTTSite.Pages.Forms
 
         public void OnGet(int id)
         {
-            if (_formService.GetFormActivityDiaryById(id) != null)
+            if (_formService.GetFormActivityDiaryByUserEmail(HttpContext.User.Identity.Name) != null)
             {
-                formActivityDiary = _formService.GetFormActivityDiaryById(id);
+                formActivityDiary = _formService.GetFormActivityDiaryByUserEmail(HttpContext.User.Identity.Name);
             }
            else
             {

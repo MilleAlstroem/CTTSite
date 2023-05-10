@@ -20,9 +20,9 @@ namespace CTTSite.Pages.Forms
 
         public void OnGet(int id)
         {
-            if (_formService.GetFormSleepDiaryById(id) != null)
+            if (_formService.GetFormSleepDiaryByUserEmail(HttpContext.User.Identity.Name) != null)
             {
-                formSleepDiary = _formService.GetFormSleepDiaryById(id);
+                formSleepDiary = _formService.GetFormSleepDiaryByUserEmail(HttpContext.User.Identity.Name);
             }
             else
             {

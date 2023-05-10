@@ -23,9 +23,9 @@ namespace CTTSite.Pages.Forms
 
         public void OnGet(int id)
         {
-            if (_formService.GetFormActivityListById(id) != null)
+            if (_formService.GetFormActivityListByUserEmail(HttpContext.User.Identity.Name) != null)
             {
-                formActivityList = _formService.GetFormActivityListById(id);
+                formActivityList = _formService.GetFormActivityListByUserEmail(HttpContext.User.Identity.Name);
             }
             else
             {
