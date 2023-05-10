@@ -12,14 +12,18 @@ namespace CTTSite.Services.NormalService
         public DBServiceGeneric<CartItem> DBServiceGenericCartItem;
         public DBServiceGeneric<CartItem_Order> DBServiceGenericCartItem_Order;
         public JsonFileService<CartItem> JsonFileService;
+        public IItemService IItemService;
         public List<CartItem> CartItems;
+        public List<Item> Items;
 
-        public CartItemService(DBServiceGeneric<CartItem> dBServiceGenericCartItem, JsonFileService<CartItem> jsonFileService, DBServiceGeneric<CartItem_Order> dBServiceGenericCartItem_Order)
+        public CartItemService(DBServiceGeneric<CartItem> dBServiceGenericCartItem, JsonFileService<CartItem> jsonFileService, DBServiceGeneric<CartItem_Order> dBServiceGenericCartItem_Order, IItemService iItemService)
         {
             DBServiceGenericCartItem = dBServiceGenericCartItem;
             DBServiceGenericCartItem_Order = dBServiceGenericCartItem_Order;
             JsonFileService = jsonFileService;
+            IItemService = iItemService;
             CartItems = GetAllCartItems();
+            Items = IItemService.GetAllItems();
         }
 
         public async Task AddToCartAsync(CartItem cartItem)
@@ -38,9 +42,14 @@ namespace CTTSite.Services.NormalService
             //await DBServiceGenericCartItem.AddObjectAsync(cartItem);
         }
 
-        public Task ConvertBoolPaidByUserIDAsync(int userID)
+        public async Task ConvertBoolPaidByUserIDAsync(int UserID)
         {
-            throw new NotImplementedException();
+            foreach (CartItem cartItem in GetAllCartItemsByUserID(UserID))
+            {
+                cartItem.Paid = true;
+            }
+            JsonFileService.SaveJsonObjects(CartItems);
+            //await DBServiceGenericCartItem.UpdateObjectsAsync(CartItems);
         }
 
         public List<CartItem> GetAllCartItems()
@@ -62,12 +71,12 @@ namespace CTTSite.Services.NormalService
             return null;
         }
 
-        public List<CartItem> GetAllCartItemsByUserID(int userID)
+        public List<CartItem> GetAllCartItemsByUserID(int UserID)
         {
             List<CartItem> cartItemsByUserID = new List<CartItem>();
             foreach(CartItem cartItem in CartItems)
             {
-                if(cartItem.UserID == userID)
+                if(cartItem.UserID == UserID && cartItem.Paid == false)
                 {
                     cartItemsByUserID.Add(cartItem);
                 }
@@ -109,11 +118,15 @@ namespace CTTSite.Services.NormalService
         public decimal GetTotalPriceOfCartByUserID(int UserID)
         {
             decimal TotalPrice = 0;
-            foreach(CartItem cartItem in CartItems)
+
+            foreach(CartItem cartItem in GetAllCartItemsByUserID(UserID))
             {
-                if(cartItem.UserID == UserID && cartItem.Paid == false)
+                foreach (Item item in Items)
                 {
-                    TotalPrice += cartItem.Item.Price;
+                    if (item.ID == cartItem.ItemID)
+                    {
+                        TotalPrice += item.Price * cartItem.Amount;
+                    }
                 }
             }
             return TotalPrice;

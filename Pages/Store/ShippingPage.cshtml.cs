@@ -45,6 +45,7 @@ namespace CTTSite.Pages.Store
             order.Cancelled = false;
             order.TotalPrice = ICartItemService.GetTotalPriceOfCartByUserID(CurrentUser.Id);
             IOrderService.CreateOrderAsync(order);
+            ICartItemService.ConvertBoolPaidByUserIDAsync(CurrentUser.Id);
             return RedirectToPage("SpecificUserCartPage");
         }
     }
