@@ -4,6 +4,7 @@
 }
 <h1>Forms</h1>
 
+
 @if ((Model.formActivityDiary != null) || (Model.formActivityList != null) || (Model.formActivitySchedule != null) || (Model.formHotCrossBun != null) || (Model.formSleepDiary != null))
 {
     <h3>My Forms</h3>
@@ -14,7 +15,7 @@
     <div style="width:20%">
         <a class="text-decoration-none text-black" asp-page="/Forms/Update/UpdateActivityDiaryPage">
             <div class="card align-content-center" style="background-color:#f6d8cc;">
-                <img src="" alt="IMG.Name" class="card-img-top img-fluid">
+                <img src="~/formimages/activitydiary.jpg" class="card-img-top img-fluid" alt="IMG.activitydiary" />
                 <div class="card-body text-center">
                     <h4 class="card-title"><b>Activity Diary</b></h4>
                 </div>
@@ -27,7 +28,7 @@
     <div style="width:20%">
         <a class="text-decoration-none text-black" asp-page="/Forms/Update/UpdateActivityListPage" >
             <div class="card align-content-center" style="background-color:#f6d8cc;">
-                <img src="" alt="IMG.Name" class="card-img-top img-fluid">
+                <img src="~/formimages/activitylist.jpg" alt="IMG.activitylist" class="card-img-top img-fluid" />
                 <div class="card-body text-center">
                     <h4 class="card-title"><b>Activity List</b></h4>
                 </div>
@@ -40,7 +41,7 @@
     <div style="width:20%">
         <a class="text-decoration-none text-black" asp-page="/Forms/Update/UpdateActivitySchedulePage" >
             <div class="card align-content-center" style="background-color:#f6d8cc;">
-                <img src="" alt="IMG.Name" class="card-img-top img-fluid">
+                <img src="~/formimages/activityschedule.jpg" alt="IMG.activityschedule" class="card-img-top img-fluid" />
                 <div class="card-body text-center">
                     <h4 class="card-title"><b>Activity Schedule</b></h4>
                 </div>
@@ -53,7 +54,7 @@
     <div style="width:20%">
         <a class="text-decoration-none text-black" asp-page="/Forms/Update/UpdateHotCrossBunPage">
             <div class="card align-content-center" style="background-color:#f6d8cc;">
-                <img src="" alt="IMG.Name" class="card-img-top img-fluid">
+                <img src="~/formimages/hotcrossbun.jpg" alt="IMG.hotcrossbun" class="card-img-top img-fluid" />
                 <div class="card-body text-center">
                     <h4 class="card-title"><b>Hot Cross Bun</b></h4>
                 </div>
@@ -66,7 +67,7 @@
     <div style="width:20%">
         <a class="text-decoration-none text-black" asp-page="/Forms/Update/UpdateSleepDiaryPage" >
             <div class="card align-content-center" style="background-color:#f6d8cc;">
-                <img src="" alt="IMG.Name" class="card-img-top img-fluid">
+                <img src="~/formimages/sleepdiary.jpg" alt="IMG.sleepdiary" class="card-img-top img-fluid" />
                 <div class="card-body text-center">
                     <h4 class="card-title"><b>Sleep Diary</b></h4>
                 </div>
@@ -85,7 +86,7 @@
     <div style="width:20%">
         <a class="text-decoration-none text-black" asp-page="/Forms/Create/CreateActivityDiaryPage">
             <div class="card align-content-center" style="background-color:#f6d8cc;">
-                <img src="" alt="IMG.Name" class="card-img-top img-fluid">
+                <img src="~/formimages/activitydiary.jpg" class="card-img-top img-fluid" alt="IMG.activitydiary" />
                 <div class="card-body text-center">
                     <h4 class="card-title"><b>Activity Diary</b></h4>
                 </div>
@@ -98,7 +99,7 @@
     <div style="width:20%">
         <a class="text-decoration-none text-black" asp-page="/Forms/Create/CreateActivityListPage">
             <div class="card align-content-center" style="background-color:#f6d8cc;">
-                <img src="" alt="IMG.Name" class="card-img-top img-fluid">
+                <img src="~/formimages/activitylist.jpg" alt="IMG.activitylist" class="card-img-top img-fluid" />
                 <div class="card-body text-center">
                     <h4 class="card-title"><b>Activity List</b></h4>
                 </div>
@@ -111,9 +112,9 @@
     <div style="width:20%">
         <a class="text-decoration-none text-black" asp-page="/Forms/Create/CreateActivitySchedulePage">
             <div class="card align-content-center" style="background-color:#f6d8cc;">
-                <img src="" alt="IMG.Name" class="card-img-top img-fluid">
+                <img src="~/formimages/activityschedule.jpg" alt="IMG.activityschedule" class="card-img-top img-fluid" />
                 <div class="card-body text-center">
-                    <h4 class="card-title"><b>Activity Schedule</b></h4>
+                    <h4 class="card-title"><b>Activity Schedule</b></h4>                   
                 </div>
             </div>
         </a>
@@ -124,7 +125,7 @@
     <div style="width:20%">
         <a class="text-decoration-none text-black" asp-page="/Forms/Create/CreateHotCrossBunPage">
             <div class="card align-content-center" style="background-color:#f6d8cc;">
-                <img src="" alt="IMG.Name" class="card-img-top img-fluid">
+                <img src="~/formimages/hotcrossbun.jpg" alt="IMG.hotcrossbun" class="card-img-top img-fluid" />
                 <div class="card-body text-center">
                     <h4 class="card-title"><b>Hot Cross Bun</b></h4>
                 </div>
@@ -137,7 +138,7 @@
     <div style="width:20%">
         <a class="text-decoration-none text-black" asp-page="/Forms/Create/CreateSleepDiaryPage">
             <div class="card align-content-center" style="background-color:#f6d8cc;">
-                <img src="" alt="IMG.Name" class="card-img-top img-fluid">
+                <img src="~/formimages/sleepdiary.jpg" alt="IMG.sleepdiary" class="card-img-top img-fluid" />
                 <div class="card-body text-center">
                     <h4 class="card-title"><b>Sleep Diary</b></h4>
                 </div>

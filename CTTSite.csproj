@@ -12,6 +12,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\FormImages\ActivityDiary.jpg" />
+    <None Include="wwwroot\FormImages\ActivityList.jpg" />
+    <None Include="wwwroot\FormImages\ActivitySchedule.jpg" />
+    <None Include="wwwroot\FormImages\HotCrossBun.jpg" />
+    <None Include="wwwroot\FormImages\SleepDiary.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MailKit" Version="4.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
