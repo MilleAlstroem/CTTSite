@@ -12,7 +12,7 @@ namespace CTTSite.Pages.Forms
         private IFormService _formService;
 
         [BindProperty]
-        public FormActivityDiary formActivityDiary { get; set; }
+        public FormActivityDiary formActivityDiary { get; set; } = new FormActivityDiary();
 
         public CreateActivityDiaryPageModel(IFormService formService)
         {
@@ -29,7 +29,7 @@ namespace CTTSite.Pages.Forms
         public IActionResult OnPostSaveForm() 
         { 
             _formService.CreateFormActivityDiary(formActivityDiary);
-            return RedirectToPage("/Update/UpdateActivityDiaryPage");
+            return RedirectToPage("/Forms/FormsMenuPage");
         }
         
 

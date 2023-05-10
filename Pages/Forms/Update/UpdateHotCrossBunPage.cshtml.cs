@@ -20,11 +20,11 @@ namespace CTTSite.Pages.Forms
 
 
 
-        public void OnGet(int id)
+        public void OnGet()
         {
-            if (_formService.GetFormHotCrossBunById(id) != null)
+            if (_formService.GetFormHotCrossBunByUserEmail(HttpContext.User.Identity.Name) != null)
             {
-                formHotCrossBun = _formService.GetFormHotCrossBunById(id);
+                formHotCrossBun = _formService.GetFormHotCrossBunByUserEmail(HttpContext.User.Identity.Name);
             }
             else
             {
@@ -53,10 +53,10 @@ namespace CTTSite.Pages.Forms
             if (filledOut)
             {
                 _formService.UpdateFormHotCrossBun(formHotCrossBun);
-                FormHotCrossBun submitForm = _formService.GetFormHotCrossBunById(formHotCrossBun.ID);
+                
 
-                _formService.SubmitFormHotCrossBun(submitForm, submitForm.UserEmail);
-                _formService.DeleteFormHotCrossBun(submitForm.ID);
+                _formService.SubmitFormHotCrossBun(formHotCrossBun, formHotCrossBun.UserEmail);
+                _formService.DeleteFormHotCrossBun(formHotCrossBun);
                 return RedirectToPage("/Forms/FormsMenuPage");
             }
             else

@@ -53,10 +53,10 @@ namespace CTTSite.Pages.Forms
             if (filledOut)
             {
                 _formService.UpdateFormActivitySchedule(formActivitySchedule);
-                FormActivitySchedule submitForm = _formService.GetFormActivityScheduleById(formActivitySchedule.ID);
+                
 
-                _formService.SubmitFormActivitySchedule(submitForm, submitForm.UserEmail);
-                _formService.DeleteFormActivitySchedule(submitForm.ID);
+                _formService.SubmitFormActivitySchedule(formActivitySchedule, formActivitySchedule.UserEmail);
+                _formService.DeleteFormActivitySchedule(formActivitySchedule);
                 return RedirectToPage("/Forms/FormsMenuPage");
             }
             else

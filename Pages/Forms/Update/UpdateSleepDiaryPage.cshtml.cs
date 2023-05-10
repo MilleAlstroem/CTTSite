@@ -51,10 +51,10 @@ namespace CTTSite.Pages.Forms
             if (filledOut)
             {
                 _formService.UpdateFormSleepDiary(formSleepDiary);
-                FormSleepDiary submitForm = _formService.GetFormSleepDiaryById(formSleepDiary.ID);
+               
 
-                _formService.SubmitFormSleepDiary(submitForm, submitForm.UserEmail);
-                _formService.DeleteFormSleepDiary(submitForm.ID);
+                _formService.SubmitFormSleepDiary(formSleepDiary, formSleepDiary.UserEmail);
+                _formService.DeleteFormSleepDiary(formSleepDiary);
                 return RedirectToPage("/Forms/FormsMenuPage");
             }
             else

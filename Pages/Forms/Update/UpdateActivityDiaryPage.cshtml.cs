@@ -52,10 +52,10 @@ namespace CTTSite.Pages.Forms
             if (filledOut)
             {
                _formService.UpdateFormActivityDiary(formActivityDiary);
-                FormActivityDiary submitForm = _formService.GetFormActivityDiaryById(formActivityDiary.ID);
+                
 
-               _formService.SubmitFormActivityDiary(submitForm, submitForm.UserEmail);
-               _formService.DeleteFormActivityDiary(submitForm.ID);
+               _formService.SubmitFormActivityDiary(formActivityDiary, formActivityDiary.UserEmail);
+               _formService.DeleteFormActivityDiary(formActivityDiary);
                 return RedirectToPage("/Forms/FormsMenuPage");
             }
             else

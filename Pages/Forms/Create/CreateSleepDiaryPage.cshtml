@@ -2,11 +2,11 @@
 @model CTTSite.Pages.Forms.CreateSleepDiaryPageModel
 @{
 }
-<h1>Sleep Diary</h1>
+<h1>Create Sleep Diary</h1>
 
 <div class="col-md-4">
     <form method="post">
-        <div display="none">
+        <div hidden="hidden">
         <div class="form-group">
             <label asp-for="@Model.formSleepDiary.UserEmail" class="control-lable"></label>
             <input asp-for="@Model.formSleepDiary.UserEmail" class="form-control" value="@HttpContext.User.Identity.Name" readonly />
@@ -322,9 +322,9 @@
         </div>
 
         <div class="input-group mb-3">
-
-            <input type="submit" asp-page-handler="SaveForm" asp-page="Update/UpdateSleepDiaryPage" asp-route-id="@Model.formSleepDiary.ID">  value="Create new Form" class="btn btn-primary" />
-            <a class="btn" type="button" asp-page="/FormsMenuPage">Back</a>
+            <p>After creating the form, you will be able to find it on the "Forms" page under "My Forms"</p>
+            <input type="submit" asp-page-handler="SaveForm" asp-page="/Forms/FormsMenuPage" value="Create new Form" class="btn btn-primary" />
+            <a class="btn" type="button" asp-page="/Forms/FormsMenuPage">Back</a>
         </div>
     </form>
 

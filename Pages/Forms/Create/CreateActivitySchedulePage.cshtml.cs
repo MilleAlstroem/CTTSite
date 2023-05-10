@@ -12,7 +12,7 @@ namespace CTTSite.Pages.Forms
         private IFormService _formService;
 
         [BindProperty]
-        public FormActivitySchedule formActivitySchedule { get; set; }
+        public FormActivitySchedule formActivitySchedule { get; set; } = new FormActivitySchedule();
 
         public CreateActivitySchedulePageModel(IFormService formService)
         {
@@ -29,7 +29,7 @@ namespace CTTSite.Pages.Forms
         public IActionResult OnPostSaveForm()
         {
             _formService.CreateFormActivitySchedule(formActivitySchedule);
-            return RedirectToPage("/Update/UpdateActivitySchedulePage");
+            return RedirectToPage("/Forms/FormsMenuPage");
         }
     }
 }

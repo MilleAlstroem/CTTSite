@@ -11,8 +11,8 @@ namespace CTTSite.Pages.Forms
     {
         private IFormService _formService;
 
-        [BindProperty]
-        public FormActivityList formActivityList { get; set; }
+        [BindProperty] 
+        public FormActivityList formActivityList { get; set; } = new FormActivityList();
 
         public CreateActivityListPageModel(IFormService formService)
         {
@@ -29,7 +29,7 @@ namespace CTTSite.Pages.Forms
         public IActionResult OnPostSaveForm()
         {
             _formService.CreateFormActivityList(formActivityList);
-            return RedirectToPage("/Update/UpdateActivityListPage");
+            return RedirectToPage("/Forms/FormsMenuPage");
         }
     }
 }

@@ -54,10 +54,10 @@ namespace CTTSite.Pages.Forms
             if (filledOut)
             {
                 _formService.UpdateFormActivityList(formActivityList);
-                FormActivityList submitForm = _formService.GetFormActivityListById(formActivityList.ID);
+                
 
-                _formService.SubmitFormActivityList(submitForm, submitForm.UserEmail);
-                _formService.DeleteFormActivityList(submitForm.ID);
+                _formService.SubmitFormActivityList(formActivityList, formActivityList.UserEmail);
+                _formService.DeleteFormActivityList(formActivityList);
                 return RedirectToPage("/Forms/FormsMenuPage");
             }
             else
