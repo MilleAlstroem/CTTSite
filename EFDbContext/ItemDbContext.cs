@@ -18,7 +18,8 @@ namespace CTTSite.EFDbContext
         public DbSet<Item> Items { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
-        public DbSet<CartItem_Order> CartItem_Order { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<CartItem_Order> CartItem_Orders { get; set; }
         public DbSet<Consultation> Consultations { get; set; }
         public DbSet<FormActivityDiary> FormActivityDiaries { get; set; }
         public DbSet<FormActivityList> FormActivityLists { get; set; }

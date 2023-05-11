@@ -21,9 +21,9 @@ namespace CTTSite.Pages.Consultaion
             Consultation = IConsultationService.GetConsultationByID(ID);
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
-            IConsultationService.DeleteConsultation(Consultation.ID);
+            await IConsultationService.DeleteConsultation(Consultation);
             return RedirectToPage("/Index");
         }
     }

@@ -1,4 +1,5 @@
-﻿using CTTSite.Models;
+﻿using CTTSite.DAO;
+using CTTSite.Models;
 
 namespace CTTSite.Services.Interface
 {
@@ -10,5 +11,6 @@ namespace CTTSite.Services.Interface
         Task CancelOrderByIDAsync(int ID);
         List<Order> GetOrdersByUserID(int UserID);
         Order GetOrderByID(int ID);
+        void AddCartItemsToOrder();
     }
 }
