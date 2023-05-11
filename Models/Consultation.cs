@@ -38,5 +38,16 @@ namespace CTTSite.Models
         public Consultation()
         {
         }
+
+        public override string ToString()
+        {
+            return 
+                "Date for the Consultation: " + Date.Date + "\n" +
+                "Start time for it: " + StartTime + "\n" +
+                "End time for it: " + EndTime + "\n" +
+                "Client's name: " + BookedNamed + "\n" +
+                "Client's TelefonNummer: " + TelefonNummer + "\n" +
+                "Client's Email: " + BookedEmail + "\n";
+        }
     }
 }

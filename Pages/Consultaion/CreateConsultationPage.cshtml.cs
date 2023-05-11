@@ -24,16 +24,16 @@ namespace CTTSite.Pages.Consultation
         {
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             Consultation.Date = Consultation.Date.Date;
             Consultation.StartTime = Consultation.StartTime;
             Consultation.EndTime = Consultation.EndTime;
             Consultation.UserID = 2; // Get the user ID from the appropriate source
-            Consultation.BookedNamed = " ";
-            Consultation.TelefonNummer = " ";
-            Consultation.BookedEmail = " ";
-            IConsultationService.CreateConsultation(Consultation);
+            Consultation.BookedNamed = "";
+            Consultation.TelefonNummer = "";
+            Consultation.BookedEmail = "";
+            await IConsultationService.CreateConsultation(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
         }
     }
