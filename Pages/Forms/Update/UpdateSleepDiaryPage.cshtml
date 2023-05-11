@@ -4,22 +4,28 @@
 }
 <h1>Sleep Diary</h1>
 
-<div class="col-md-4">
+<div class="col-md-12">
     <h3 class="text-danger"> @Model.message</h3>
     <form method="post">
 
+        <div class="container-fluid">
+            <div class="row">
         <div class="form-group">
             <label asp-for="@Model.formSleepDiary.UserEmail" class="control-lable"></label>
             <input asp-for="@Model.formSleepDiary.UserEmail" class="form-control" value="@HttpContext.User.Identity.Name" readonly />
         </div>
+            </div>
+            <br />
 
+            <div class="row">
+                <div class="col-md-6">
         <h3>Day 1</h3>
         <div class="form-group">
             <label asp-for="@Model.formSleepDiary.Day1" class="control-lable">Day 1 (Weekday, dd/mm/yyyy)</label>
             <input asp-for="@Model.formSleepDiary.Day1" class="form-control" value="@Model.formSleepDiary.Day1" />
         </div>
         <div class="form-group">
-            <label asp-for="@Model.formSleepDiary.Day1_TimeInBed" class="control-lable">What time did you go to bed?</label>
+            <label asp-for="@Model.formSleepDiary.Day1_TimeInBed" clhttps://localhost:7130/ass="control-lable">What time did you go to bed?</label>
             <input asp-for="@Model.formSleepDiary.Day1_TimeInBed" class="form-control" value="@Model.formSleepDiary.Day1_TimeInBed" />
         </div>
         <div class="form-group">
@@ -54,9 +60,9 @@
             <label asp-for="@Model.formSleepDiary.Day1_HowRestedDoYouFeel" class="control-lable">How rested do you feel? (1 = very bad, 5 = very good)</label>
             <input asp-for="@Model.formSleepDiary.Day1_HowRestedDoYouFeel" class="form-control" value="@Model.formSleepDiary.Day1_HowRestedDoYouFeel" />
         </div>
+        </div>
 
-
-
+                <div class="col-md-6">
         <h3>Day 2</h3>
         <div class="form-group">
             <label asp-for="@Model.formSleepDiary.Day2" class="control-lable">Day 2 (Weekday, dd/mm/yyyy)</label>
@@ -98,9 +104,12 @@
             <label asp-for="@Model.formSleepDiary.Day2_HowRestedDoYouFeel" class="control-lable">How rested do you feel? (1 = very bad, 5 = very good)</label>
             <input asp-for="@Model.formSleepDiary.Day2_HowRestedDoYouFeel" class="form-control" value="@Model.formSleepDiary.Day2_HowRestedDoYouFeel" />
         </div>
+                </div>
+            </div>
+            <br />
 
-
-
+            <div class="row">
+                <div class="col-md-6">
         <h3>Day 3</h3>
         <div class="form-group">
             <label asp-for="@Model.formSleepDiary.Day3" class="control-lable">Day 3 (Weekday, dd/mm/yyyy)</label>
@@ -142,9 +151,9 @@
             <label asp-for="@Model.formSleepDiary.Day3_HowRestedDoYouFeel" class="control-lable">How rested do you feel? (1 = very bad, 5 = very good)</label>
             <input asp-for="@Model.formSleepDiary.Day3_HowRestedDoYouFeel" class="form-control" value="@Model.formSleepDiary.Day3_HowRestedDoYouFeel" />
         </div>
+                </div>
 
-
-
+                    <div class="col-md-6">
         <h3>Day 4</h3>
         <div class="form-group">
             <label asp-for="@Model.formSleepDiary.Day4" class="control-lable">Day 4 (Weekday, dd/mm/yyyy)</label>
@@ -186,9 +195,12 @@
             <label asp-for="@Model.formSleepDiary.Day4_HowRestedDoYouFeel" class="control-lable">How rested do you feel? (1 = very bad, 5 = very good)</label>
             <input asp-for="@Model.formSleepDiary.Day4_HowRestedDoYouFeel" class="form-control" value="@Model.formSleepDiary.Day4_HowRestedDoYouFeel" />
         </div>
+                    </div>
+                </div>
+                <br />
 
-
-
+                    <div class="row">
+                        <div class="col-md-6">
         <h3>Day 5</h3>
         <div class="form-group">
             <label asp-for="@Model.formSleepDiary.Day5" class="control-lable">Day 5 (Weekday, dd/mm/yyyy)</label>
@@ -230,9 +242,9 @@
             <label asp-for="@Model.formSleepDiary.Day5_HowRestedDoYouFeel" class="control-lable">How rested do you feel? (1 = very bad, 5 = very good)</label>
             <input asp-for="@Model.formSleepDiary.Day5_HowRestedDoYouFeel" class="form-control" value="@Model.formSleepDiary.Day5_HowRestedDoYouFeel" />
         </div>
+                </div>
 
-
-
+                                <div class="col-md-6">
         <h3>Day 6</h3>
         <div class="form-group">
             <label asp-for="@Model.formSleepDiary.Day6" class="control-lable">Day 6 (Weekday, dd/mm/yyyy)</label>
@@ -274,9 +286,12 @@
             <label asp-for="@Model.formSleepDiary.Day6_HowRestedDoYouFeel" class="control-lable">How rested do you feel? (1 = very bad, 5 = very good)</label>
             <input asp-for="@Model.formSleepDiary.Day6_HowRestedDoYouFeel" class="form-control" value="@Model.formSleepDiary.Day6_HowRestedDoYouFeel" />
         </div>
+                                </div>
+                            </div>
+                            <br />
 
-
-
+                            <div class="row">
+                                <div class="col-md-6">
         <h3>Day 7</h3>
         <div class="form-group">
             <label asp-for="@Model.formSleepDiary.Day7" class="control-lable">Day 7 (Weekday, dd/mm/yyyy)</label>
@@ -318,13 +333,32 @@
             <label asp-for="@Model.formSleepDiary.Day7_HowRestedDoYouFeel" class="control-lable">How rested do you feel? (1 = very bad, 5 = very good)</label>
             <input asp-for="@Model.formSleepDiary.Day7_HowRestedDoYouFeel" class="form-control" value="@Model.formSleepDiary.Day7_HowRestedDoYouFeel" />
         </div>
+                </div>
+                <div class="col-md-6"></div>
+</div>
 
+            <br />
+            <div class="row">
+                <div class="input-group col-mb-12 text-center">
+                    <p>Please only submit this form when all fields are filled out.</p>
+                </div>
+            </div>
+            <div class="row">
 
-        <div class="input-group mb-3">
-            <p>Please only submit this form when all fields are filled out.</p>
-            <input type="submit" asp-page-handler="SubmitForm" value="Submit Form" class="btn btn-primary" />
-            <input type="submit" asp-page-handler="SaveForm" value="Save Form" class="btn btn-primary" />
-        </div>
+                <div class="input-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3 text-center">
+                        <input type="submit" asp-page-handler="SaveForm" value="Save Form" class="btn btn-dark" />
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3 text-center">
+                        <input type="submit" asp-page-handler="SubmitForm" value="Submit Form" class="btn btn-danger" />
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+
+        </div> <!-- end of container div -->
     </form>
 
 </div>
