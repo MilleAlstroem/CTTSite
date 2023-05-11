@@ -4,9 +4,9 @@ namespace CTTSite.Services.Interface
 {
     public interface IConsultationService
     {
-        void CreateConsultation(Consultation consultation);
-        void DeleteConsultation(int ID);
-        Consultation UpdateConsultation(Consultation consultationN);
+        Task CreateConsultation(Consultation consultation);
+        Task DeleteConsultation(int ID);
+        Task UpdateConsultation(Consultation consultationN);
         Consultation GetConsultationByID(int ID);
         List<Consultation> GetAllConsultations();
 

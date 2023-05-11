@@ -25,7 +25,7 @@ namespace CTTSite.Pages.Admin
 
 		public IActionResult OnGet(int id)
         {
-			user = _iUserService.GetUser(id);
+			user = _iUserService.GetUserByID(id);
 			if (user == null)
 				return RedirectToPage("/NotFound"); //NotFound er ikke defineret endnu
 
