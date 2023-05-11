@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
 
 namespace CTTSite.Pages.Store
 {
@@ -23,6 +24,7 @@ namespace CTTSite.Pages.Store
         public Models.User User { get; set; }
 
         [BindProperty]
+        [Range(1, 10)]
         public int Count { get; set; }
 
         public SpecificProductPageModel(IItemService iItemService, ICartItemService iCartService, IUserService iUserService)
@@ -30,7 +32,7 @@ namespace CTTSite.Pages.Store
             IItemService = iItemService;
             ICartItemService = iCartService;
             IUserService = iUserService;
-        }
+    }
 
         public void OnGet(int ID)
         {
