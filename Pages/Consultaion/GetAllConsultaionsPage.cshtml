@@ -1,0 +1,69 @@
+﻿@page
+@model CTTSite.Pages.Consultation.GetAllConsultaionsPageModel
+@{
+}
+
+
+
+
+<br />
+<h1 class="text-center"><b>Consultations</b></h1>
+<br />
+<div class="test">
+    <table class="table table-bordered table-hover" width="60%">
+        <thead>
+            <tr class="btn-secondary active">
+                <th>ID</th>
+                <th>Date</th>
+                <th>StartDateTime</th>
+                <th>EndDateTime</th>
+                <th>UserID</th>
+                <th>BookedNamed</th>
+                <th>TelefonNummer</th>
+                <th>BookedEmail</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (@Model.ConsultationsList != null)
+            {
+                foreach (Models.Consultation consultation in Model.ConsultationsList)
+                {
+                    <tr class="btn-secondary">
+                        <td>
+                            @consultation.ID
+                        </td>
+                        <td>
+                            @consultation.Date.ToString("dd-MM-yyyy")
+                        </td>
+                        <td>
+                            @consultation.StartTime.ToString("hh':'mm")
+                        </td>
+                        <td>
+                            @consultation.EndTime.ToString("hh':'mm")
+                        </td>
+                        <td>
+                            @consultation.UserID
+                        </td>
+                        <td>
+                            @consultation.BookedNamed
+                        </td>
+                        <td>
+                            @consultation.TelefonNummer
+                        </td>
+                        <td>
+                            @consultation.BookedEmail
+                        </td>
+                        <td>
+                            <a class="btn" type="button" asp-page="UpdateConsultationPage" asp-route-id="@consultation.ID"><i class="fa fa-pencil-square-o"></i></a>
+                            <a class="btn" type="button" asp-page="DeleteConsultationPage" asp-route-id="@consultation.ID"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<a class="btn" type="button" asp-page="CreateConsultationPage">Create Consultation</a>
+<a class="btn" type="button" asp-page="/Index" >Back</a>

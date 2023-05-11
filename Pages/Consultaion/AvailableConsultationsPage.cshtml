@@ -1,0 +1,42 @@
+﻿@page
+@model CTTSite.Pages.Consultaion.AvailableConsultationsPageModel
+@{
+}
+
+<br />
+<h1 class="text-center"><b>Available Consultations</b></h1>
+<br />
+<div class="test">
+    <table class="table table-bordered table-hover" width="60%">
+        <thead>
+            <tr class="btn-secondary active">
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (@Model.ConsultationsList != null)
+            {
+                foreach (Models.Consultation consultation in Model.ConsultationsList)
+                {
+                    <tr class="btn-secondary">
+                        <td>
+                            @consultation.Date.ToString("dd-MM-yyyy")
+                        </td>
+                        <td>
+                            @consultation.StartTime.ToString("hh':'mm")
+                        </td>
+                        <td>
+                            @consultation.EndTime.ToString("hh':'mm")
+                        </td>
+                        <td>
+                            <a class="btn" type="button" asp-page="BookConsultationPage" asp-route-id="@consultation.ID"><i class="fa fa-pencil-square-o"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

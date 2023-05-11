@@ -1,0 +1,12 @@
+[
+  {
+    "ID": 1,
+    "Date": "2023-05-10T00:00:00",
+    "StartTime": "15:00:00",
+    "EndTime": "16:00:00",
+    "UserID": 2,
+    "BookedNamed": " ",
+    "TelefonNummer": " ",
+    "BookedEmail": " "
+  }
+]

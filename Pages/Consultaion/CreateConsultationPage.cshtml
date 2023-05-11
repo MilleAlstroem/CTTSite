@@ -1,0 +1,26 @@
+﻿@page
+@model CTTSite.Pages.Consultation.CreateConsultationModel
+@{
+}
+
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Consultation.Date" class="control-label"></label>
+        <input asp-for="Consultation.Date" class="form-control" type="date" />
+        <span asp-validation-for="Consultation.Date" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Consultation.StartTime" class="control-lable"></label>
+        <input asp-for="@Model.Consultation.StartTime" class="form-control" type="time"/>
+        <span asp-validation-for="@Model.Consultation.StartTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Consultation.EndTime" class="control-lable"></label>
+        <input asp-for="@Model.Consultation.EndTime" class="form-control" type="time"/>
+        <span asp-validation-for="@Model.Consultation.EndTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
