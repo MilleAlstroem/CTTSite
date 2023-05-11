@@ -16,16 +16,18 @@ namespace CTTSite.Services.NormalService
         private List<User> _staff { get; set; }
         private List<User> _clients { get; set; }
         private JsonFileService<User> JsonFileService { get; set; }
+
         private User User { get; set; }
         private IEmailService EmailService { get; set; }
+        private DBServiceGeneric<User> DBServiceGeneric { get; set; }
 
         private string _newPassword { get; set; }
 
-        private DBServiceGeneric<User> DBServiceGeneric { get; set; }
+        
 
-        public UserService(JsonFileService<User> jsonUserService, DBServiceGeneric<User> dBServiceGeneric, IEmailService emailService)
+        public UserService(DBServiceGeneric<User> dBServiceGeneric, IEmailService emailService)
         {
-            JsonFileService = jsonUserService;
+            
             //_users = MockDataUser.GetMockUsers();
             //_users = JsonFileService.GetJsonObjects().ToList();
 
@@ -39,6 +41,11 @@ namespace CTTSite.Services.NormalService
         
 
         #region Add User
+        /// <summary>
+        /// Adds a new user to the list of users as well as to the database. Checks before adding if the user already exists.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>True if user does not already exist. False if user already exists</returns>
         public bool AddUser(User user)
         {
             User existingUser =_users.Find(_user => _user.Email.ToLower() == user.Email.ToLower());
@@ -60,18 +67,14 @@ namespace CTTSite.Services.NormalService
 		#endregion
 
 		#region Save Users
+        /// <summary>
+        /// Saves the list of users stored in UserService to the database.
+        /// </summary>
         public void SaveUsers()
         {
 			DBServiceGeneric.SaveObjectsAsync(_users);
 		}
-		#endregion
-
-		#region Add User to DB
-		public async Task AddUserToDB(User user)
-        {
-          await DBServiceGeneric.AddObjectAsync(User);
-        }
-        #endregion
+		#endregion		
 
         #region Get User
         public User GetUser(int ID)
@@ -80,6 +83,12 @@ namespace CTTSite.Services.NormalService
             return user;
         }
         #endregion
+
+        public int GetUserIdByEmail(string email)
+        {
+            User user = _users.Find(_user => _user.Email == email);
+            return user.Id;
+        }
 
         #region Get User by email
         public User GetUserByEmail(string email)
@@ -245,8 +254,9 @@ namespace CTTSite.Services.NormalService
                    orderby user.Email descending
                    select user;
         }
-		#endregion
+        #endregion
 
+        #region Forgotten Password 
         public void ForgottenPassword(string email)
         {
 			User user = GetUserByEmail(email);
@@ -256,16 +266,21 @@ namespace CTTSite.Services.NormalService
                 DeleteSavedNewPassword();
 			}
 		}
+        #endregion
 
+        #region Save New Password 
         public string SaveNewPassword(string password)
         { 
             _newPassword = password;
             return _newPassword;
         }
+        #endregion
+
+        #region Delete Saved Password
         private void DeleteSavedNewPassword()
         {
             _newPassword = null;            
         }
-
+        #endregion
     }
 }

@@ -9,10 +9,10 @@ namespace CTTSite.Services.Interface
     {
 
         bool AddUser(User user);
-
-        Task AddUserToDB(User user);
-
+      
         User GetUser(int ID);
+
+        int GetUserIdByEmail(string email)
 
         List<User> GetUsersFromDB();
 
