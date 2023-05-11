@@ -11,9 +11,11 @@ using System.Reflection;
 namespace CTTSite.Services.NormalService
 {
 
-
+    /// <summary>
+    ///  This class is used to handle all form related functions.
+    /// </summary>
     public class FormService : IFormService
-    {
+    {       
         private DBServiceGeneric<FormActivityDiary> _activityDiaryService;
         private DBServiceGeneric<FormActivityList> _activityListService;
         private DBServiceGeneric<FormActivitySchedule> _activityScheduleService;
@@ -21,6 +23,10 @@ namespace CTTSite.Services.NormalService
         private DBServiceGeneric<FormSleepDiary> _sleepDiaryService;
         private IEmailService _emailService;
 
+
+        /// <summary>
+        ///  These lists are used to store the forms from the database.
+        /// </summary>
         private List<FormActivityDiary> _activityDiaries { get; set; }
         private List<FormActivityList> _activityLists { get; set; }
         private List<FormActivitySchedule> _activitySchedules { get; set; }
@@ -48,7 +54,11 @@ namespace CTTSite.Services.NormalService
 
 
         #region Activity Diary
-
+        /// <summary>
+        ///  This method is used to get an activity diary from the list of activity diaries via it's id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>FormActivityDiary</returns>
         public FormActivityDiary GetFormActivityDiaryById(int id)
         {
             _activityDiaries = _activityDiaryService.GetObjectsAsync().Result.ToList();
@@ -65,6 +75,11 @@ namespace CTTSite.Services.NormalService
             return null;
         }
 
+        /// <summary>
+        /// This method is used to get an activity diary from the list of activity diaries via it's User Email.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>FormActivityDiary</returns>
         public FormActivityDiary GetFormActivityDiaryByUserEmail(string email)
         {
             _activityDiaries = _activityDiaryService.GetObjectsAsync().Result.ToList();
@@ -81,6 +96,11 @@ namespace CTTSite.Services.NormalService
             return null;
         }
 
+        /// <summary>
+        /// This method is used to create a new FormActivityDiary and add it to the list and database.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns>Void</returns>
         public async Task CreateFormActivityDiary(FormActivityDiary form)
         {
             _activityDiaries = _activityDiaryService.GetObjectsAsync().Result.ToList();
@@ -88,6 +108,11 @@ namespace CTTSite.Services.NormalService
             await _activityDiaryService.AddObjectAsync(form);
         }
 
+        /// <summary>
+        /// This method is used to update an existing FormActivityDiary in the list and database.
+        /// </summary>
+        /// <param name="formN"></param>
+        /// <returns>Void</returns>
         public async Task UpdateFormActivityDiary(FormActivityDiary formN)
         {
             if (formN != null)
@@ -110,6 +135,12 @@ namespace CTTSite.Services.NormalService
 
         }
 
+
+        /// <summary>
+        /// This method is used to delete an existing FormActivityDiary from the list and database.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns>Void</returns>
         public async Task DeleteFormActivityDiary(FormActivityDiary form)
         {
 
@@ -122,6 +153,12 @@ namespace CTTSite.Services.NormalService
 
         }
 
+        /// <summary>
+        /// This method is used to submit an existing FormActivityDiary and send it to the user and admin email.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <param name="email"></param>
+        /// <returns>Void</returns>
         public async Task SubmitFormActivityDiary(FormActivityDiary form, string email)
         {
             _emailService.SendEmail(new Email(form.ToString(), "Activity Diary: " + email, email));
@@ -132,7 +169,11 @@ namespace CTTSite.Services.NormalService
 
         #region Activity List
 
-        
+        /// <summary>
+        ///  This method is used to get an activity list from the list of activity lists via it's id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>FormActivityList</returns>
         public FormActivityList GetFormActivityListById(int id)
         {
             _activityLists = _activityListService.GetObjectsAsync().Result.ToList();
@@ -149,6 +190,11 @@ namespace CTTSite.Services.NormalService
             return null;
         }
 
+        /// <summary>
+        /// This method is used to get an activity list from the list of activity lists via it's User Email.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>FormActivityList</returns>
         public FormActivityList GetFormActivityListByUserEmail(string email)
         {
             _activityLists = _activityListService.GetObjectsAsync().Result.ToList();
@@ -165,6 +211,11 @@ namespace CTTSite.Services.NormalService
             return null;
         }
 
+        /// <summary>
+        ///  This method is used to create a new FormActivityList and add it to the list and database.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns>Void</returns>
         public async Task CreateFormActivityList(FormActivityList form)
         {
             _activityLists = _activityListService.GetObjectsAsync().Result.ToList();
@@ -194,6 +245,11 @@ namespace CTTSite.Services.NormalService
 
         }
 
+        /// <summary>
+        ///  This method is used to delete an existing FormActivityList from the list and database.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns>Void</returns>
         public async Task DeleteFormActivityList(FormActivityList form)
         {
 
@@ -206,6 +262,12 @@ namespace CTTSite.Services.NormalService
 
         }
 
+        /// <summary>
+        /// This method is used to submit an existing FormActivityList and send it to the user and admin email.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <param name="email"></param>
+        /// <returns>Void</returns>
         public async Task SubmitFormActivityList(FormActivityList form, string email)
         {
             _emailService.SendEmail(new Email(form.ToString(), "Activity List: " + email, email));
@@ -215,6 +277,12 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Activity Schedule
+
+        /// <summary>
+        ///  This method is used to get an activity schedule from the list of activity schedules via it's id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>FormActivityList</returns>
         public FormActivitySchedule GetFormActivityScheduleById(int id)
         {
             _activitySchedules = _activityScheduleService.GetObjectsAsync().Result.ToList();
@@ -231,6 +299,11 @@ namespace CTTSite.Services.NormalService
             return null;
         }
 
+        /// <summary>
+        ///  This method is used to get an activity schedule from the list of activity schedules via it's User Email.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>FormActivityList</returns>
         public FormActivitySchedule GetFormActivityScheduleByUserEmail(string email)
         {
             _activitySchedules = _activityScheduleService.GetObjectsAsync().Result.ToList();
@@ -247,6 +320,11 @@ namespace CTTSite.Services.NormalService
             return null;
         }
 
+        /// <summary>
+        ///  This method is used to create a new FormActivitySchedule and add it to the list and database.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns>Void</returns>
         public async Task CreateFormActivitySchedule(FormActivitySchedule form)
         {
             _activitySchedules = _activityScheduleService.GetObjectsAsync().Result.ToList();
@@ -254,6 +332,11 @@ namespace CTTSite.Services.NormalService
             await _activityScheduleService.AddObjectAsync(form);
         }
 
+        /// <summary>
+        ///  This method is used to update an existing FormActivitySchedule and update it in the list and database.
+        /// </summary>
+        /// <param name="formN"></param>
+        /// <returns>Void</returns>
         public async Task UpdateFormActivitySchedule(FormActivitySchedule formN)
         {
             if (formN != null)
@@ -276,6 +359,11 @@ namespace CTTSite.Services.NormalService
 
         }
 
+        /// <summary>
+        ///  This method is used to delete an existing FormActivitySchedule from the list and database.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns>Void</returns>
         public async Task DeleteFormActivitySchedule(FormActivitySchedule form)
         {
 
@@ -288,6 +376,12 @@ namespace CTTSite.Services.NormalService
 
         }
 
+        /// <summary>
+        ///  This method is used to submit an existing FormActivitySchedule and send it to the user and admin email.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <param name="email"></param>
+        /// <returns>Void</returns>
         public async Task SubmitFormActivitySchedule(FormActivitySchedule form, string email)
         {
             _emailService.SendEmail(new Email(form.ToString(), "Activity Schedule: " + email, email));
@@ -297,6 +391,12 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Hot Cross Bun
+
+        /// <summary>
+        ///  This method is used to get a hot cross bun from the list of hot cross buns via it's id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>FormHotCrossBun</returns>
         public FormHotCrossBun GetFormHotCrossBunById(int id)
         {
             _hotCrossBuns = _hotCrossBunService.GetObjectsAsync().Result.ToList();
@@ -313,6 +413,11 @@ namespace CTTSite.Services.NormalService
             return null;
         }
 
+        /// <summary>
+        ///  This method is used to get a hot cross bun from the list of hot cross buns via it's User Email.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>FormHotCrossBun</returns>
         public FormHotCrossBun GetFormHotCrossBunByUserEmail(string email)
         {
             _hotCrossBuns = _hotCrossBunService.GetObjectsAsync().Result.ToList();
@@ -329,6 +434,11 @@ namespace CTTSite.Services.NormalService
             return null;
         }
 
+        /// <summary>
+        /// This method is used to create a new FormHotCrossBun and add it to the list and database.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns>Void</returns>
         public async Task CreateFormHotCrossBun(FormHotCrossBun form)
         {
             _hotCrossBuns = _hotCrossBunService.GetObjectsAsync().Result.ToList();
@@ -336,6 +446,11 @@ namespace CTTSite.Services.NormalService
             await _hotCrossBunService.AddObjectAsync(form);
         }
 
+        /// <summary>
+        ///  This method is used to update an existing FormHotCrossBun and update it in the list and database.
+        /// </summary>
+        /// <param name="formN"></param>
+        /// <returns>Void</returns>
         public async Task UpdateFormHotCrossBun(FormHotCrossBun formN)
         {
             if (formN != null)
@@ -358,6 +473,11 @@ namespace CTTSite.Services.NormalService
 
         }
 
+        /// <summary>
+        ///  This method is used to delete an existing FormHotCrossBun from the list and database.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns>Void</returns>
         public async Task DeleteFormHotCrossBun(FormHotCrossBun form)
         {
             
@@ -370,6 +490,12 @@ namespace CTTSite.Services.NormalService
             
         }
 
+        /// <summary>
+        ///  This method is used to submit an existing FormHotCrossBun and send it to the user and admin email.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <param name="email"></param>
+        /// <returns>Void</returns>
         public async Task SubmitFormHotCrossBun(FormHotCrossBun form, string email)
         {
             _emailService.SendEmail(new Email(form.ToString(), "Hot Cross Bun: " + email, email));
@@ -379,6 +505,12 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Sleep Diary
+
+        /// <summary>
+        ///  This method is used to create a new FormSleepDiary and add it to the list and database.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>FormSleepDiary</returns>
         public FormSleepDiary GetFormSleepDiaryById(int id)
         {
             _sleepDiaries = _sleepDiaryService.GetObjectsAsync().Result.ToList();
@@ -395,6 +527,11 @@ namespace CTTSite.Services.NormalService
             return null;
         }
 
+        /// <summary>
+        ///  This method is used to get a sleep diary from the list of sleep diaries via it's User Email.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>FormSleepDiary</returns>
         public FormSleepDiary GetFormSleepDiaryByUserEmail(string email)
         {
             _sleepDiaries = _sleepDiaryService.GetObjectsAsync().Result.ToList();
@@ -411,6 +548,11 @@ namespace CTTSite.Services.NormalService
             return null;
         }
 
+        /// <summary>
+        ///  This method is used to create a new FormSleepDiary and add it to the list and database.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns>Void</returns>
         public async Task CreateFormSleepDiary(FormSleepDiary form)
         {
             _sleepDiaries = _sleepDiaryService.GetObjectsAsync().Result.ToList();
@@ -418,6 +560,11 @@ namespace CTTSite.Services.NormalService
             await _sleepDiaryService.AddObjectAsync(form);
         }
 
+        /// <summary>
+        ///  This method is used to update an existing FormSleepDiary and update it in the list and database.
+        /// </summary>
+        /// <param name="formN"></param>
+        /// <returns>Void</returns>
         public async Task UpdateFormSleepDiary(FormSleepDiary formN)
         {
             if (formN != null)
@@ -440,6 +587,12 @@ namespace CTTSite.Services.NormalService
 
         }
 
+
+        /// <summary>
+        ///  This method is used to delete an existing FormSleepDiary from the list and database.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns>Void</returns>
         public async Task DeleteFormSleepDiary(FormSleepDiary form)
         {
 
@@ -452,6 +605,12 @@ namespace CTTSite.Services.NormalService
 
         }
 
+        /// <summary>
+        ///  This method is used to submit an existing FormSleepDiary and send it to the user and admin email.
+        /// </summary>
+        /// <param name="form"></param>
+        /// <param name="email"></param>
+        /// <returns>Void</returns>
         public async Task SubmitFormSleepDiary(FormSleepDiary form, string email)
         {
             _emailService.SendEmail(new Email(form.ToString(), "Sleep Diary: " + email, email));

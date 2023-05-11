@@ -1,4 +1,5 @@
 ﻿using CTTSite.Models;
+using CTTSite.Models.Forms;
 using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
@@ -7,15 +8,17 @@ namespace CTTSite.Services.NormalService
 {
     public class ConsultationService : IConsultationService
     {
+        public IEmailService IEmailService;
         public List<Consultation> ConsultationsList;
         public DBServiceGeneric<Consultation> DBServiceGeneric;
         public JsonFileService<Consultation> JsonFileService;
 
-        public ConsultationService(DBServiceGeneric<Consultation> dBServiceGeneric, JsonFileService<Consultation> jsonFileService)
+        public ConsultationService(DBServiceGeneric<Consultation> dBServiceGeneric, JsonFileService<Consultation> jsonFileService, IEmailService iEmailService)
         {
             DBServiceGeneric = dBServiceGeneric;
             JsonFileService = jsonFileService;
             ConsultationsList = GetAllConsultations();
+            IEmailService = iEmailService;
         }
 
         public List<Consultation> GetAllConsultations()
@@ -54,14 +57,14 @@ namespace CTTSite.Services.NormalService
             //JsonFileService.SaveJsonObjects(ConsultationsList);
         }
 
-        public async Task DeleteConsultation(int ID)
+        public async Task DeleteConsultation(Consultation consultation)
         {
             Consultation consultationToBeDeleted = null; 
-            if(GetConsultationByID(ID) != null)
+            if(consultation != null)
             {
-                ConsultationsList.Remove(GetConsultationByID(ID));
+                ConsultationsList.Remove(consultation);
                 //JsonFileService.SaveJsonObjects(ConsultationsList);
-                await DBServiceGeneric.DeleteObjectAsync(GetConsultationByID(ID));
+                await DBServiceGeneric.DeleteObjectAsync(consultation);
             }
         }
 
@@ -82,9 +85,16 @@ namespace CTTSite.Services.NormalService
                         consultationO.BookedEmail = consultationN.BookedEmail;
                     }                    
                 }
-                JsonFileService.SaveJsonObjects(ConsultationsList);
+                //JsonFileService.SaveJsonObjects(ConsultationsList);
                 await DBServiceGeneric.UpdateObjectAsync(consultationN);
             }
+        }
+
+        public async Task SubmitConsultationByEmail(Consultation consultation, string email)
+        {
+            IEmailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, email));
+            IEmailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, "chilterntalkingtherapies@gmail.com"));
+            await DBServiceGeneric.DeleteObjectAsync(consultation);
         }
     }
 }

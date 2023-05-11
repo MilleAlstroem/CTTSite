@@ -21,13 +21,13 @@ namespace CTTSite.Pages.Consultation
             Consultation = IConsultationService.GetConsultationByID(id);
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             //if (!ModelState.IsValid)
             //{
             //    return Page();
             //}
-            IConsultationService.UpdateConsultation(Consultation);
+            await IConsultationService.UpdateConsultation(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
         }
     }
