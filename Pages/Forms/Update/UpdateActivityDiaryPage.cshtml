@@ -4,16 +4,19 @@
 }
 <h1>Activity Diary</h1>
 
-<div class="col-md-4">
+<div class="col-md-12">
 
     <h3 class="text-danger"> @Model.message</h3>
     <form method="post">
-
+        <div class="container-fluid">
         <div class="form-group">
             <label asp-for="@Model.formActivityDiary.UserEmail" class="control-lable"></label>
             <input asp-for="@Model.formActivityDiary.UserEmail" class="form-control" value="@HttpContext.User.Identity.Name" readonly />
         </div>
+        <br />
 
+        <div class="row">
+            <div class="col-md-6">
         <h3>Day 1</h3>
         <div class="form-group">
             <label asp-for="@Model.formActivityDiary.Day1" class="control-lable">Day 1 (Weekday, dd/mm/yyyy)</label>
@@ -95,8 +98,9 @@
             <label asp-for="@Model.formActivityDiary.Day1_2400" class="control-lable">24:00</label>
             <input asp-for="@Model.formActivityDiary.Day1_2400" class="form-control" value="@Model.formActivityDiary.Day1_2400" />
         </div>
+        </div>
 
-
+        <div class="col-md-6">
         <h3>Day 2</h3>
         <div class="form-group">
             <label asp-for="@Model.formActivityDiary.Day2" class="control-lable">Day 2 (Weekday, dd/mm/yyyy)</label>
@@ -178,8 +182,12 @@
             <label asp-for="@Model.formActivityDiary.Day2_2400" class="control-lable">24:00</label>
             <input asp-for="@Model.formActivityDiary.Day2_2400" class="form-control" value="@Model.formActivityDiary.Day2_2400" />
         </div>
+        </div>
+        </div>
+            <br />
 
-
+        <div class="row">
+            <div class="col-md-6">
         <h3>Day 3</h3>
         <div class="form-group">
             <label asp-for="@Model.formActivityDiary.Day3" class="control-lable">Day 3 (Day, dd/mm/yyyy)</label>
@@ -261,8 +269,9 @@
             <label asp-for="@Model.formActivityDiary.Day3_2400" class="control-lable">24:00</label>
             <input asp-for="@Model.formActivityDiary.Day3_2400" class="form-control" value="@Model.formActivityDiary.Day3_2400" />
         </div>
+        </div>
 
-
+         <div class="col-md-6">
         <h3>Day 4</h3>
         <div class="form-group">
             <label asp-for="@Model.formActivityDiary.Day4" class="control-lable">Day 4 (Day, dd/mm/yyyy)</label>
@@ -344,9 +353,12 @@
             <label asp-for="@Model.formActivityDiary.Day4_2400" class="control-lable">24:00</label>
             <input asp-for="@Model.formActivityDiary.Day4_2400" class="form-control" value="@Model.formActivityDiary.Day4_2400" />
         </div>
+        </div>
+        </div>
+            <br />
 
-
-
+        <div class="row">
+            <div class="col-md-6">
         <h3>Day 5</h3>
         <div class="form-group">
             <label asp-for="@Model.formActivityDiary.Day5" class="control-lable">Day 5 (Day, dd/mm/yyyy)</label>
@@ -428,9 +440,9 @@
             <label asp-for="@Model.formActivityDiary.Day5_2400" class="control-lable">24:00</label>
             <input asp-for="@Model.formActivityDiary.Day5_2400" class="form-control" value="@Model.formActivityDiary.Day5_2400" />
         </div>
+        </div>
 
-
-
+        <div class="col-md-6">
         <h3>Day 6</h3>
         <div class="form-group">
             <label asp-for="@Model.formActivityDiary.Day6" class="control-lable">Day 6 (Day, dd/mm/yyyy)</label>
@@ -512,8 +524,12 @@
             <label asp-for="@Model.formActivityDiary.Day6_2400" class="control-lable">24:00</label>
             <input asp-for="@Model.formActivityDiary.Day6_2400" class="form-control" value="@Model.formActivityDiary.Day6_2400" />
         </div>
+        </div>
+            </div>
+            <br />
 
-
+        <div class="row">
+            <div class="col-md-6">
         <h3>Day 7</h3>
         <div class="form-group">
             <label asp-for="@Model.formActivityDiary.Day7" class="control-lable">Day 7 (Day, dd/mm/yyyy)</label>
@@ -595,13 +611,32 @@
             <label asp-for="@Model.formActivityDiary.Day7_2400" class="control-lable">24:00</label>
             <input asp-for="@Model.formActivityDiary.Day7_2400" class="form-control" value="@Model.formActivityDiary.Day7_2400" />
         </div>
-     
-        <div class="input-group mb-3">
-            <p>Please only submit this form when all fields are filled out.</p>
-            <input type="submit" asp-page-handler="SubmitForm" value="Submit Form" class="btn btn-primary" />
-            <input type="submit" asp-page-handler="SaveForm" value="Save Form" class="btn btn-primary" />
         </div>
-        
+                    <div class="col-md-6"></div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="input-group col-mb-12 text-center">
+                    <p>Please only submit this form when all fields are filled out.</p>                 
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="input-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3">
+                        <input type="submit" asp-page-handler="SaveForm" value="Save Form" class="btn btn-dark" />
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3">
+                        <input type="submit" asp-page-handler="SubmitForm" value="Submit Form" class="btn btn-danger" />
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+
+     </div>
+                
     </form>
 
 </div>
