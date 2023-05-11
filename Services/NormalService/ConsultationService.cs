@@ -37,7 +37,7 @@ namespace CTTSite.Services.NormalService
             return null;
         }
 
-        public void CreateConsultation(Consultation consultation)
+        public async Task CreateConsultation(Consultation consultation)
         {
             //int IDCount = 0;
             //foreach(Consultation listConsultation in ConsultationsList)
@@ -50,21 +50,22 @@ namespace CTTSite.Services.NormalService
             //consultation.ID = IDCount + 1;
             consultation.Date = consultation.Date.Date;
             ConsultationsList.Add(consultation);
-            DBServiceGeneric.AddObjectAsync(consultation);
+            await DBServiceGeneric.AddObjectAsync(consultation);
             //JsonFileService.SaveJsonObjects(ConsultationsList);
         }
 
-        public void DeleteConsultation(int ID)
+        public async Task DeleteConsultation(int ID)
         {
             Consultation consultationToBeDeleted = null; 
             if(GetConsultationByID(ID) != null)
             {
                 ConsultationsList.Remove(GetConsultationByID(ID));
-                JsonFileService.SaveJsonObjects(ConsultationsList);
+                //JsonFileService.SaveJsonObjects(ConsultationsList);
+                await DBServiceGeneric.DeleteObjectAsync(GetConsultationByID(ID));
             }
         }
 
-        public Consultation UpdateConsultation(Consultation consultationN)
+        public async Task UpdateConsultation(Consultation consultationN)
         {
             if (consultationN != null)
             {
@@ -82,8 +83,8 @@ namespace CTTSite.Services.NormalService
                     }                    
                 }
                 JsonFileService.SaveJsonObjects(ConsultationsList);
+                await DBServiceGeneric.UpdateObjectAsync(consultationN);
             }
-            return null;
         }
     }
 }
