@@ -96,6 +96,33 @@
     "Amount": 1,
     "UserID": 3,
     "User": null,
-    "Paid": false
+    "Paid": true
+  },
+  {
+    "ID": 12,
+    "ItemID": 4,
+    "Item": null,
+    "Amount": 2,
+    "UserID": 3,
+    "User": null,
+    "Paid": true
+  },
+  {
+    "ID": 13,
+    "ItemID": 5,
+    "Item": null,
+    "Amount": 4,
+    "UserID": 3,
+    "User": null,
+    "Paid": true
+  },
+  {
+    "ID": 14,
+    "ItemID": 1,
+    "Item": null,
+    "Amount": 2,
+    "UserID": 3,
+    "User": null,
+    "Paid": true
   }
 ]

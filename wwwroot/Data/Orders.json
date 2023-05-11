@@ -50,8 +50,36 @@
   },
   {
     "ID": 8,
-    "UserID": 5,
-    "TotalPrice": 25,
+    "UserID": 3,
+    "TotalPrice": 29,
+    "Shipped": false,
+    "Cancelled": false
+  },
+  {
+    "ID": 9,
+    "UserID": 3,
+    "TotalPrice": 24,
+    "Shipped": false,
+    "Cancelled": false
+  },
+  {
+    "ID": 10,
+    "UserID": 3,
+    "TotalPrice": 24,
+    "Shipped": false,
+    "Cancelled": false
+  },
+  {
+    "ID": 11,
+    "UserID": 3,
+    "TotalPrice": 203.96,
+    "Shipped": false,
+    "Cancelled": false
+  },
+  {
+    "ID": 12,
+    "UserID": 3,
+    "TotalPrice": 50,
     "Shipped": false,
     "Cancelled": false
   }

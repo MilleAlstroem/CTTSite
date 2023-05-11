@@ -34,7 +34,7 @@ namespace CTTSite.Pages.Store
             CartItems = ICartItemService.GetAllCartItemsByUserID(CurrentUser.Id);
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPostCreateOrder()
         {
             Models.User CurrentUser = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
             ShippingInfo.UserID = CurrentUser.Id;
@@ -45,8 +45,9 @@ namespace CTTSite.Pages.Store
             order.Cancelled = false;
             order.TotalPrice = ICartItemService.GetTotalPriceOfCartByUserID(CurrentUser.Id);
             IOrderService.CreateOrderAsync(order);
+            IOrderService.AddCartItemsToOrder();
             ICartItemService.ConvertBoolPaidByUserIDAsync(CurrentUser.Id);
-            return RedirectToPage("SpecificUserCartPage");
+            return RedirectToPage("/Store/OrderConfirmationPage");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using CTTSite.Models;
+﻿using CTTSite.DAO;
+using CTTSite.Models;
 using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
@@ -8,15 +9,20 @@ namespace CTTSite.Services.NormalService
     public class OrderService : IOrderService
     {
         public DBServiceGeneric<Order> DBServiceGeneric;
+        public DBServiceGeneric<CartItem_Order> DBServiceGenericCIO;
         public JsonFileService<Order> JsonFileService;
+        public ICartItemService ICartItemService;
         public List<Order> Orders;
+        public int lastOrderID = 0;
 
-        public OrderService(DBServiceGeneric<Order> dBServiceGeneric, JsonFileService<Order> jsonFileService)
+        public OrderService(DBServiceGeneric<Order> dBServiceGeneric, JsonFileService<Order> jsonFileService, ICartItemService iCartItemService, DBServiceGeneric<CartItem_Order> dBServiceGenericCIO)
         {
             DBServiceGeneric = dBServiceGeneric;
             JsonFileService = jsonFileService;
             Orders = GetAllOrders();
             JsonFileService.SaveJsonObjects(Orders);
+            ICartItemService=iCartItemService;
+            DBServiceGenericCIO=dBServiceGenericCIO;
         }
 
         public List<Order> GetAllOrders()
@@ -61,6 +67,7 @@ namespace CTTSite.Services.NormalService
                 }
             }
             order.ID = IDCount + 1;
+            lastOrderID = order.ID;
             Orders.Add(order);
             JsonFileService.SaveJsonObjects(Orders);
             //await DBServiceGeneric.AddObjectAsync(order);
@@ -84,5 +91,19 @@ namespace CTTSite.Services.NormalService
         {
             throw new NotImplementedException();
         }
+
+        public void AddCartItemsToOrder()
+        {
+            Order order = GetOrderByID(lastOrderID);
+            List<CartItem_Order> cartItem_Orders = new List<CartItem_Order>();
+            foreach(CartItem cartItem in ICartItemService.GetAllCartItemsByUserID(order.UserID))
+            {
+                cartItem_Orders.Add(new CartItem_Order(cartItem, order));
+                DBServiceGenericCIO.AddObjectAsync(new CartItem_Order(cartItem, order));
+            }   
+            
+            //DBServiceGenericCIO.SaveObjectsAsync(cartItem_Orders);
+        }
+
     }
 }
