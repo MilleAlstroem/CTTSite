@@ -12,7 +12,7 @@ namespace CTTSite.Services.Interface
       
         User GetUser(int ID);
 
-        int GetUserIdByEmail(string email)
+        int GetUserIdByEmail(string email);
 
         List<User> GetUsersFromDB();
 
