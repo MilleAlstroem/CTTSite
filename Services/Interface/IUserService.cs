@@ -9,8 +9,6 @@ namespace CTTSite.Services.Interface
     {
 
         bool AddUser(User user);
-      
-        User GetUser(int ID);
 
         int GetUserIdByEmail(string email);
 

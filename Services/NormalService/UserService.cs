@@ -9,33 +9,55 @@ using CTTSite.Services.DB;
 namespace CTTSite.Services.NormalService
 {
     // Made by Christian
+
+    /// <summary>
+    /// This class is used to handle all user and login related functions.
+    /// </summary>
     public class UserService : IUserService
     {
+        /// <summary>
+        /// List of all users
+        /// </summary>
         private List<User> _users { get; set; }
-        private List<User> _admins { get; set; }
-        private List<User> _staff { get; set; }
-        private List<User> _clients { get; set; }
-        private JsonFileService<User> JsonFileService { get; set; }
 
-        private User User { get; set; }
+        /// <summary>
+        /// List of all admins
+        /// </summary>
+        private List<User> _admins { get; set; }
+
+        /// <summary>
+        /// List of all staff
+        /// </summary>
+        private List<User> _staff { get; set; }
+
+        /// <summary>
+        /// List of all clients
+        /// </summary>
+        private List<User> _clients { get; set; }        
+
+        /// <summary>
+        /// Dependency Injection for EmailService to allow for sending emails
+        /// </summary>
         private IEmailService EmailService { get; set; }
+
+        /// <summary>
+        /// Dependency Injection for DBServiceGeneric to allow for database access
+        /// </summary>
         private DBServiceGeneric<User> DBServiceGeneric { get; set; }
 
+        /// <summary>
+        /// The new unhashed password that is generated when a user requests a new password
+        /// </summary>
         private string _newPassword { get; set; }
 
         
 
         public UserService(DBServiceGeneric<User> dBServiceGeneric, IEmailService emailService)
         {
-            
-            //_users = MockDataUser.GetMockUsers();
-            //_users = JsonFileService.GetJsonObjects().ToList();
-
             DBServiceGeneric = dBServiceGeneric;
             _users = GetUsersFromDB();
             DBServiceGeneric.SaveObjectsAsync(_users);
             EmailService = emailService;
-
         }
 
         
@@ -75,22 +97,27 @@ namespace CTTSite.Services.NormalService
 			DBServiceGeneric.SaveObjectsAsync(_users);
 		}
 		#endregion		
+        
 
-        #region Get User
-        public User GetUser(int ID)
-        {
-            User user = _users.Find(_user => _user.Id == ID);
-            return user;
-        }
-        #endregion
-
+        #region Get User ID by Email
+        /// <summary>
+        /// Gets the ID of a user by email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>user.id as an int</returns>
         public int GetUserIdByEmail(string email)
         {
             User user = _users.Find(_user => _user.Email == email);
             return user.Id;
         }
+        #endregion
 
         #region Get User by email
+       /// <summary>
+       /// Gets a user by email
+       /// </summary>
+       /// <param name="email"></param>
+       /// <returns>User Object</returns>
         public User GetUserByEmail(string email)
         {
             User user = _users.Find(_user => _user.Email == email);
@@ -99,6 +126,10 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Get Users From DB
+        /// <summary>
+        /// Gets all users from the database
+        /// </summary>
+        /// <returns></returns>
         public List<User> GetUsersFromDB()
         {
             
@@ -108,6 +139,10 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Get Users 
+        /// <summary>
+        /// Gets All Users from the list of users
+        /// </summary>
+        /// <returns></returns>
         public  List<User> GetAllUsers()
         {          
            return _users;
@@ -115,6 +150,11 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Get User by ID
+        /// <summary>
+        /// Finds a user by ID
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns>User Object</returns>
         public User GetUserByID(int ID)
         {
             foreach (User user in _users)
@@ -129,6 +169,10 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Get Staff
+        /// <summary>
+        /// Gets all staff members from the list of users
+        /// </summary>
+        /// <returns>List of users</returns>
         public List<User> GetStaff()
         {
 			List<User> users = new List<User>();
@@ -146,6 +190,10 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Get Clients
+        /// <summary>
+        /// Gets all clients from the list of users
+        /// </summary>
+        /// <returns>List of users</returns>
         public List<User> GetClients()
         {
 			List<User> users = new List<User>();
@@ -163,6 +211,10 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Get Admins
+        /// <summary>
+        /// Gets all admins from the list of users
+        /// </summary>
+        /// <returns>List of users</returns>
         public List<User> GetAdmins()
         {
 			List<User> users = new List<User>();
@@ -179,6 +231,11 @@ namespace CTTSite.Services.NormalService
         #endregion       
 
         #region Search User by Email
+        /// <summary>
+        /// Searches for a user by email
+        /// </summary>
+        /// <param name="searchEmail"></param>
+        /// <returns>List of users with emails like search string</returns>
         public List<User> SearchUserByEmail(string searchEmail)
         {
             var results = _users.Where(u => u.Email.ToLower().Contains(searchEmail.ToLower()));
@@ -187,6 +244,11 @@ namespace CTTSite.Services.NormalService
         #endregion      
 
         #region Delete User by ID
+        /// <summary>
+        /// Deletes a user by ID from the list of users as well as from the database
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns>Deleted User</returns>
         public User DeleteUserByID(int ID)
         {
             User userToBeDeleted = null;
@@ -202,6 +264,11 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Update User
+        /// <summary>
+        /// Updates a user in the list of users as well as in the database
+        /// </summary>
+        /// <param name="userN"></param>
+        /// <returns>Void</returns>
         public async Task UpdateUserAsync(User userN)
         {
             if (userN != null)
@@ -221,6 +288,10 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Sort Users by ID
+        /// <summary>
+        /// Orgenises users by ID in ascending order
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<User> SortById()
         {
             return from user in _users
@@ -230,6 +301,10 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Sort Users by ID Descending
+        /// <summary>
+        /// Orgenises users by ID in descending order
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<User> SortByIdDescending()
         {
             return from user in _users
@@ -239,6 +314,10 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Sort Users by Email
+        /// <summary>
+        /// Orgenises users by Email in ascending order
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<User> SortByEmail()
         {
             return from user in _users
@@ -248,6 +327,10 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Sort Users by Email Descending
+        /// <summary>
+        /// Orgenises users by Email in descending order
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<User> SortByEmailDescending()
         {
             return from user in _users
@@ -257,6 +340,10 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Forgotten Password 
+        /// <summary>
+        /// Resets a users password and sends it to their email
+        /// </summary>
+        /// <param name="email"></param>
         public void ForgottenPassword(string email)
         {
 			User user = GetUserByEmail(email);
@@ -269,6 +356,11 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Save New Password 
+        /// <summary>
+        /// Saves new password unhashed to be sent to user
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public string SaveNewPassword(string password)
         { 
             _newPassword = password;
@@ -277,10 +369,15 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Delete Saved Password
+        /// <summary>
+        /// Deletes saved unhashed password. Used after password has been sent to user.
+        /// </summary>
         private void DeleteSavedNewPassword()
         {
             _newPassword = null;            
         }
         #endregion
+
+       
     }
 }

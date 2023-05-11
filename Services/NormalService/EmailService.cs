@@ -4,6 +4,9 @@ using MimeKit;
 
 namespace CTTSite.Services.NormalService
 {
+	/// <summary>
+	/// This class is used to send emails to the desired recipient
+	/// </summary>
 	public class EmailService : IEmailService
 	{
 		// Made by Christian
@@ -15,6 +18,10 @@ namespace CTTSite.Services.NormalService
 		     _config = config;
 		}
 
+		/// <summary>
+		/// Sends an email to the desired recipient
+		/// </summary>
+		/// <param name="request"></param>
 		public void SendEmail(Email request)
 		{
 			var email = new MimeMessage();
