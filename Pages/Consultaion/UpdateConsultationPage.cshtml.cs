@@ -27,6 +27,13 @@ namespace CTTSite.Pages.Consultation
             //{
             //    return Page();
             //}
+            Consultation.Date = Consultation.Date.Date;
+            Consultation.StartTime = Consultation.StartTime;
+            Consultation.EndTime = Consultation.EndTime;
+            Consultation.UserID = 2; // Get the user ID from the appropriate source
+            Consultation.BookedNamed = "";
+            Consultation.TelefonNummer = "";
+            Consultation.BookedEmail = "";
             await IConsultationService.UpdateConsultation(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
         }
