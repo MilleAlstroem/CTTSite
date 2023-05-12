@@ -98,8 +98,8 @@ namespace CTTSite.Services.NormalService
             List<CartItem_Order> cartItem_Orders = new List<CartItem_Order>();
             foreach(CartItem cartItem in ICartItemService.GetAllCartItemsByUserID(order.UserID))
             {
-                cartItem_Orders.Add(new CartItem_Order(cartItem, order));
-                DBServiceGenericCIO.AddObjectAsync(new CartItem_Order(cartItem, order));
+                cartItem_Orders.Add(new CartItem_Order(cartItem.ID, order.ID));
+                DBServiceGenericCIO.AddObjectAsync(new CartItem_Order(cartItem.ID, order.ID));
             }   
             
             //DBServiceGenericCIO.SaveObjectsAsync(cartItem_Orders);
