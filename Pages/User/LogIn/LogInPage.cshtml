@@ -2,10 +2,14 @@
 @model CTTSite.Pages.User.LogIn.LogInPageModel
 @{
 }
-<div class="container">
+<div class="container-fluid">
     <div class="text-danger">
         @Model.Message
     </div>
+    <div class="row">
+        <div class="col-md-6">
+<h1 class="text-center"><b>Log In</b></h1>
+            <br />
     <form method="post">
         <div class="form-group">
             <label asp-for="Email" class="col-form-label "></label>
@@ -25,4 +29,9 @@
             <a href="ForgottenPasswordPage" class="btn btn-outline-dark">Forgotten Password</a>
         </div>           
     </form>
+        </div>
+        <div class="col-md-6">
+            <img src="~/photos/welcomeback.png" class="responsive" />
+            </div>
+    </div>
 </div>

@@ -7,6 +7,9 @@
 <h3 class="text-danger">
 	@Model.Message
 </h3>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
 <form method="post">
 	<div class="form-group">
 		<label asp-for="@Model.user.Id" class="control-label"></label>
@@ -30,3 +33,9 @@
 		</div>
 	</p>
 </form>
+		</div>
+	</div>
+</div>
+<div>
+	<a asp-page="/Index" class="btn btn-outline-dark">Back to Home</a>
+</div>
