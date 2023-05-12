@@ -103,13 +103,13 @@ namespace CTTSite.Services.NormalService
 
         public async Task AddCartItemsToOrder()
         {
-            Order order = GetOrderByID(lastOrderID);
+            int orderID = lastOrderID;
 
-            if (order != null)
+            if (orderID != null)
             {
                 foreach (CartItem cartItem in CartItems)
                 {
-                    CartItem_Order cartItemOrder = new CartItem_Order(cartItem.ID, order.ID);
+                    CartItem_Order cartItemOrder = new CartItem_Order(cartItem.ID, orderID);
 
                     await DBServiceGenericCIO.AddObjectAsync(cartItemOrder);
                 }
