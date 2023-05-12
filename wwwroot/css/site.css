@@ -122,3 +122,13 @@ body {
     width: 100%;
     max-height: 50px;
 }
+.greenBackground {
+    background-image: url('../formimages/speechbubblegreenrev.png');
+    background-repeat: no-repeat;
+    background-position: left;
+}
+.blueBackground {
+    background-image: url('../formimages/speechbubblebluerev.png');
+    background-repeat: no-repeat;
+    background-position: right;
+}
