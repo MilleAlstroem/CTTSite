@@ -1,9 +1,11 @@
 ﻿using CTTSite.DAO;
+using CTTSite.EFDbContext;
 using CTTSite.MockData;
 using CTTSite.Models;
 using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
+using Microsoft.EntityFrameworkCore;
 
 namespace CTTSite.Services.NormalService
 {
@@ -71,15 +73,17 @@ namespace CTTSite.Services.NormalService
             return null;
         }
 
-        public List<CartItem> GetAllCartItemsByUserID(int UserID)
+        public List<CartItem> GetAllCartItemsByUserID(int userID)
         {
             List<CartItem> cartItemsByUserID = new List<CartItem>();
-            foreach(CartItem cartItem in CartItems)
+            using (var context = new ItemDbContext())
             {
-                if(cartItem.UserID == UserID && cartItem.Paid == false)
-                {
-                    cartItemsByUserID.Add(cartItem);
-                }
+                var cartItems = context.CartItems
+                    .Include(ci => ci.Item)
+                    .Where(ci => ci.UserID == userID && !ci.Paid)
+                    .ToList();
+
+                cartItemsByUserID.AddRange(cartItems);
             }
             return cartItemsByUserID;
         }

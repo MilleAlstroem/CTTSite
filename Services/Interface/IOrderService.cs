@@ -12,6 +12,6 @@ namespace CTTSite.Services.Interface
         List<Order> GetOrdersByUserID(int UserID);
         Order GetOrderByID(int ID);
         Task<List<CartItem>> GetOldOrderByOrderID(int ID);
-        Task AddCartItemsToOrder();
+        Task AddCartItemsToOrder(int ID);
     }
 }

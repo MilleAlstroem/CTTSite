@@ -2,28 +2,36 @@ using CTTSite.Models;
 using CTTSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Threading.Tasks;
 
 namespace CTTSite.Pages.Store
 {
     public class CreateProductPageModel : PageModel
     {
-        public IItemService ItemService;
+        private readonly IItemService _itemService;
 
         [BindProperty]
         public Item Item { get; set; }
 
-        public CreateProductPageModel(IItemService iItemService)
+        public CreateProductPageModel(IItemService itemService)
         {
-            ItemService = iItemService;
+            _itemService = itemService;
         }
 
-        public async Task<IActionResult> OnPostAsync() 
-        { 
-            if(!ModelState.IsValid)
+        public void OnGet()
+        {
+            
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
-            await ItemService.CreateItemAsync(Item);
+
+            await _itemService.CreateItemAsync(Item);
+
             return RedirectToPage("AllProductsPage");
         }
     }

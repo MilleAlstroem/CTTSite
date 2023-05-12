@@ -5,8 +5,11 @@ namespace CTTSite.Pages.Store
 {
     public class OrderConfirmationPageModel : PageModel
     {
-        public void OnGet()
+        public int OrderID { get; set; }
+
+        public void OnGet(int ID)
         {
+            OrderID = ID;
         }
     }
 }

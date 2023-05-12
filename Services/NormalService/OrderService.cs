@@ -25,7 +25,6 @@ namespace CTTSite.Services.NormalService
             DBServiceGenericCIO = dBServiceGenericCIO;
             DBServiceGenericCartItem = dBServiceGenericCartItem;
             Orders = GetAllOrders();
-            CartItems = ICartItemService.GetAllCartItems();
         }
 
         public List<Order> GetAllOrders()
@@ -101,9 +100,10 @@ namespace CTTSite.Services.NormalService
         //    throw new NotImplementedException();
         //}
 
-        public async Task AddCartItemsToOrder()
+        public async Task AddCartItemsToOrder(int ID)
         {
             int orderID = lastOrderID;
+            CartItems = ICartItemService.GetAllCartItemsByUserID(ID);
 
             if (orderID != null)
             {

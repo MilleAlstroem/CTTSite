@@ -47,18 +47,16 @@ namespace CTTSite.Pages.Store
 
         public async Task<IActionResult> OnPostAsync(int ID)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
             Item = IItemService.GetItemByID(ID);
             User = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
-            CartItem.UserID = User.Id;
-            CartItem.ItemID = Item.ID;
+
+            CartItem.ItemID = ID;
             CartItem.Amount = Count;
+            CartItem.UserID = User.Id;
             CartItem.Paid = false;
+
             await ICartItemService.AddToCartAsync(CartItem);
-            return RedirectToPage("SpecificProductPage", ID);
+            return RedirectToPage("SpecificProductPage", Item.ID);
         }
     }
 }

@@ -45,7 +45,7 @@ namespace CTTSite.Pages.Store
             order.Cancelled = false;
             order.TotalPrice = ICartItemService.GetTotalPriceOfCartByUserID(CurrentUser.Id);
             IOrderService.CreateOrderAsync(order);
-            IOrderService.AddCartItemsToOrder();
+            IOrderService.AddCartItemsToOrder(CurrentUser.Id);
             ICartItemService.ConvertBoolPaidByUserIDAsync(CurrentUser.Id);
             return RedirectToPage("/Store/OrderConfirmationPage");
         }

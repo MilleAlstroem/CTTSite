@@ -9,6 +9,8 @@ namespace CTTSite.Pages.Store
     {
         public ICartItemService ICartItemService;
         public IUserService IUserService;
+
+        [BindProperty]
         public List<CartItem> CartItems { get; set; }
 
         public SpecificUserCartPageModel(ICartItemService iCartItemService, IUserService iUserService)
