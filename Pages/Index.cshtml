@@ -31,7 +31,7 @@
             </p>
             @if (HttpContext.User.Identity.Name == null)
             {
-                <a class="btn btn-dark" type="button" asp-page="" asp-route-id="">Book consultation</a>
+                    <a class="btn btn-dark" asp-area="" asp-page="/Consultaion/AvailableConsultationsPage">Book Consultation</a>
             }
                
         </div>
