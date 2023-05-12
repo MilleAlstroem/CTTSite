@@ -3,32 +3,35 @@
 @{
 }
 <h1>Create a new Staff Member Login</h1>
+<br />
 
 <div class="row">
     <div class="container">
     <div class=" text-danger">
             @Model.Message
     </div>
-    <div class="col-md-4">
+    <div class="col-md-12">
+            <br />
         <form method="post">
             <div class="form-group">
                 <label asp-for="@Model.Email" class="control-lable"></label>
                 <input asp-for="@Model.Email" class="form-control" />
                 <span asp-validation-for="@Model.newUser.Email" class="text-danger"></span>
             </div>
+                <br />
             <div class="form-group">
                 <label asp-for="@Model.Password" class="control-lable"></label>
                 <input asp-for="@Model.Password" class="form-control" />
                 <span asp-validation-for="@Model.newUser.Password" class="text-danger"></span>
 
             </div>
+                <br />
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-dark" />
+                    <a asp-page="/Index" class="btn btn-outline-dark">Back to Home</a>
             </div>
         </form>
     </div>
 </div>
-<div>
-    <a asp-page="/Index">Back to Home</a>
 </div>
