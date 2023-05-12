@@ -25,7 +25,7 @@ namespace CTTSite.Services.NormalService
 		public void SendEmail(Email request)
 		{
 			var email = new MimeMessage();
-			email.From.Add(MailboxAddress.Parse("CTT_Test@outlook.com")); // Add your email address
+			email.From.Add(MailboxAddress.Parse("EmailUserName")); // Add your email address
 			email.To.Add(MailboxAddress.Parse(request.To)); // Add the recipient's email address
 			email.Subject = request.Subject; // Add the subject of the email
 			email.Body = new TextPart(MimeKit.Text.TextFormat.Plain) { Text = request.Body }; // Add the body of the email
