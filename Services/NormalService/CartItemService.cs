@@ -28,18 +28,18 @@ namespace CTTSite.Services.NormalService
 
         public async Task AddToCartAsync(CartItem cartItem)
         {
-            int IDCount = 0;
-            foreach(CartItem listCartItem in CartItems)
-            {
-                if(IDCount < listCartItem.ID)
-                {
-                    IDCount = listCartItem.ID;
-                }
-            }
-            cartItem.ID = IDCount + 1;
+            //int IDCount = 0;
+            //foreach(CartItem listCartItem in CartItems)
+            //{
+            //    if(IDCount < listCartItem.ID)
+            //    {
+            //        IDCount = listCartItem.ID;
+            //    }
+            //}
+            //cartItem.ID = IDCount + 1;
             CartItems.Add(cartItem);
-            JsonFileService.SaveJsonObjects(CartItems);
-            //await DBServiceGenericCartItem.AddObjectAsync(cartItem);
+            //JsonFileService.SaveJsonObjects(CartItems);
+            await DBServiceGenericCartItem.AddObjectAsync(cartItem);
         }
 
         public async Task ConvertBoolPaidByUserIDAsync(int UserID)
@@ -47,16 +47,16 @@ namespace CTTSite.Services.NormalService
             foreach (CartItem cartItem in GetAllCartItemsByUserID(UserID))
             {
                 cartItem.Paid = true;
+                await DBServiceGenericCartItem.UpdateObjectAsync(cartItem);
             }
-            JsonFileService.SaveJsonObjects(CartItems);
-            //await DBServiceGenericCartItem.UpdateObjectsAsync(CartItems);
+            //JsonFileService.SaveJsonObjects(CartItems);
         }
 
         public List<CartItem> GetAllCartItems()
         {
             //return MockData.MockDataCartItem.GetMockCartItems();
-            return JsonFileService.GetJsonObjects().ToList();
-            //return DBServiceGenericCartItem.GetObjectsAsync().Result.ToList();
+            //return JsonFileService.GetJsonObjects().ToList();
+            return DBServiceGenericCartItem.GetObjectsAsync().Result.ToList();
         }
 
         public CartItem GetCartItemByID(int ID)
@@ -95,25 +95,11 @@ namespace CTTSite.Services.NormalService
             if(GetCartItemByID(ID) != null)
             {
                 CartItems.Remove(GetCartItemByID(ID));
-                JsonFileService.SaveJsonObjects(CartItems);
+                //JsonFileService.SaveJsonObjects(CartItems);
                 //cartItemToBeDeleted = GetCartItemByID(ID);
-                //await DBServiceGenericCartItem.DeleteObjectAsync(cartItemToBeDeleted);
+                await DBServiceGenericCartItem.DeleteObjectAsync(cartItemToBeDeleted);
             }
         }
-
-        // TODO
-
-        //public async Task AddCartItem_OrderToJunctionTable(int ID)
-        //{
-        //    List<CartItem> TempList = GetAllCartItemsByUserID(ID);
-        //    Order order = new Order();
-        //    foreach(CartItem cartItem in TempList)
-        //    {
-        //        new CartItem_Order(cartItem.ID, );
-        //    }
-        //    await DBServiceGenericCartItem_Order.SaveObjectsAsync(TempList);
-        //}
-
 
         public decimal GetTotalPriceOfCartByUserID(int UserID)
         {

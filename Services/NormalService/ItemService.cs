@@ -20,18 +20,18 @@ namespace CTTSite.Services.NormalService
 
         public async Task CreateItemAsync(Item item)
         {
-            int IDCount = 0;
-            foreach(Item listItem in Items)
-            {
-                if(IDCount < listItem.ID)
-                {
-                    IDCount = listItem.ID;
-                }
-            }
-            item.ID = IDCount + 1;
+            //int IDCount = 0;
+            //foreach(Item listItem in Items)
+            //{
+            //    if(IDCount < listItem.ID)
+            //    {
+            //        IDCount = listItem.ID;
+            //    }
+            //}
+            //item.ID = IDCount + 1;
             Items.Add(item);
-            JsonFileService.SaveJsonObjects(Items);
-            //await DBServiceGeneric.AddObjectAsync(item);
+            //JsonFileService.SaveJsonObjects(Items);
+            await DBServiceGeneric.AddObjectAsync(item);
         }
 
         public async Task DeleteItemByIDAsync(int ID)
@@ -42,15 +42,15 @@ namespace CTTSite.Services.NormalService
                 Items.Remove(GetItemByID(ID));
                 JsonFileService.SaveJsonObjects(Items);
 
-                //itemToBeDeleted = GetItemByID(ID);
-                //await DBServiceGeneric.DeleteObjectAsync(itemToBeDeleted);
+                itemToBeDeleted = GetItemByID(ID);
+                await DBServiceGeneric.DeleteObjectAsync(itemToBeDeleted);
             }
         }
 
         public List<Item> GetAllItems()
         {
-            //return DBServiceGeneric.GetObjectsAsync().Result.ToList();
-            return JsonFileService.GetJsonObjects().ToList();
+            return DBServiceGeneric.GetObjectsAsync().Result.ToList();
+            //return JsonFileService.GetJsonObjects().ToList();
             //return MockData.MockDataItem.GetMockItem();
         }
 
@@ -67,8 +67,8 @@ namespace CTTSite.Services.NormalService
                         itemO.Price = itemN.Price;
                         itemO.Stock = itemN.Stock;
                         itemO.IMG = itemN.IMG;
-                        JsonFileService.SaveJsonObjects(Items);
-                        //await DBServiceGeneric.UpdateObjectAsync(itemO);
+                        //JsonFileService.SaveJsonObjects(Items);
+                        await DBServiceGeneric.UpdateObjectAsync(itemO);
                     }
                 }
             }
@@ -93,14 +93,14 @@ namespace CTTSite.Services.NormalService
                 if(amount > 0)
                 {
                     GetItemByID(itemID).Stock += amount;
-                    JsonFileService.SaveJsonObjects(Items);
-                    //await DBServiceGeneric.UpdateObjectAsync(GetItemByID(itemID));
+                    //JsonFileService.SaveJsonObjects(Items);
+                    await DBServiceGeneric.UpdateObjectAsync(GetItemByID(itemID));
                 }
                 else
                 {
                     GetItemByID(itemID).Stock -= amount;
-                    JsonFileService.SaveJsonObjects(Items);
-                    //await DBServiceGeneric.UpdateObjectAsync(GetItemByID(itemID));
+                    //JsonFileService.SaveJsonObjects(Items);
+                    await DBServiceGeneric.UpdateObjectAsync(GetItemByID(itemID));
                 }
 
             }

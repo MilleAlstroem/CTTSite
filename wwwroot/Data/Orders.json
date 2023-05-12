@@ -2,14 +2,14 @@
   {
     "ID": 1,
     "UserID": 3,
-    "TotalPrice": 100.99,
+    "TotalPrice": 60.50,
     "Shipped": false,
     "Cancelled": false
   },
   {
     "ID": 2,
     "UserID": 3,
-    "TotalPrice": 37,
+    "TotalPrice": 60.50,
     "Shipped": false,
     "Cancelled": false
   }
