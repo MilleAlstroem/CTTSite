@@ -1,2 +1,26 @@
-[  
+[
+  {
+    "ID": 1,
+    "UserID": 3,
+    "Address": "holb\u00E6kvej 46 1tv",
+    "City": "Roskilde",
+    "PostCode": "4000",
+    "County": "Roskilde",
+    "PhoneNumber": "61675837",
+    "FirstName": "Mads",
+    "LastName": "Ludvigsen",
+    "SubmissionDate": "2023-05-12T09:07:02.4808451+02:00"
+  },
+  {
+    "ID": 2,
+    "UserID": 3,
+    "Address": "holb\u00E6kvej 46 1tv",
+    "City": "Roskilde",
+    "PostCode": "4000",
+    "County": "Roskilde",
+    "PhoneNumber": "61675837",
+    "FirstName": "Mads",
+    "LastName": "Ludvigsen",
+    "SubmissionDate": "2023-05-12T09:08:47.6079381+02:00"
+  }
 ]

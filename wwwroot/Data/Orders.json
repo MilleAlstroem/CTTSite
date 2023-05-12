@@ -1,2 +1,16 @@
 [
+  {
+    "ID": 1,
+    "UserID": 3,
+    "TotalPrice": 100.99,
+    "Shipped": false,
+    "Cancelled": false
+  },
+  {
+    "ID": 2,
+    "UserID": 3,
+    "TotalPrice": 37,
+    "Shipped": false,
+    "Cancelled": false
+  }
 ]

@@ -11,6 +11,7 @@ namespace CTTSite.Services.Interface
         Task CancelOrderByIDAsync(int ID);
         List<Order> GetOrdersByUserID(int UserID);
         Order GetOrderByID(int ID);
+        Task GetOldOrderByOrderID(int ID);
         void AddCartItemsToOrder();
     }
 }
