@@ -21,6 +21,7 @@ namespace CTTSite.EFDbContext
         public DbSet<Order> Orders { get; set; }
         public DbSet<CartItem_Order> CartItem_Orders { get; set; }
         public DbSet<Consultation> Consultations { get; set; }
+        public DbSet<RoomBooking> RoomBookings { get; set; }
         public DbSet<FormActivityDiary> FormActivityDiaries { get; set; }
         public DbSet<FormActivityList> FormActivityLists { get; set; }
         public DbSet<FormActivitySchedule> FormActivitySchedules { get; set;}
