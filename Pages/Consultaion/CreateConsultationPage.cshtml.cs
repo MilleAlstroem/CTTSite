@@ -31,10 +31,11 @@ namespace CTTSite.Pages.Consultation
             Consultation.Date = Consultation.Date.Date;
             Consultation.StartTime = Consultation.StartTime;
             Consultation.EndTime = Consultation.EndTime;
-            Consultation.UserID = 2; // Get the user ID from the appropriate source
+            Consultation.UserID = IUserService.GetUserIdByEmail(HttpContext.User.Identity.Name);
             Consultation.BookedNamed = "";
             Consultation.TelefonNummer = "";
             Consultation.BookedEmail = "";
+            Consultation.Booked = false;
             await IConsultationService.CreateConsultation(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
         }
