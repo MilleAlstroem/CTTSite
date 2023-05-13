@@ -2,6 +2,10 @@ using CTTSite.Models;
 using CTTSite.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CTTSite.Pages.Store
 {
@@ -20,21 +24,12 @@ namespace CTTSite.Pages.Store
             IOrderService = iOrderService;
         }
 
-        public IActionResult OnGet(int ID)
+        public async Task<IActionResult> OnGet(int ID)
         {
             Models.User CurrentUser = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
             Order = IOrderService.GetOrderByID(ID);
-            CartItems = IOrderService.GetOldOrderByOrderID(ID).Result;
+            CartItems = await IOrderService.GetOldOrderByOrderID(ID);
             return Page();
-            //if (Order.UserID == CurrentUser.Id)
-            //{
-            //    CartItems = IOrderService.GetOldOrderByOrderID(ID).Result;
-            //    return Page();
-            //}
-            //else
-            //{
-            //    return RedirectToPage("/Store/SpecificUserOrdersPage");
-            //}
         }
     }
 }

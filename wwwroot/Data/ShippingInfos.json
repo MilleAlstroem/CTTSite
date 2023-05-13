@@ -202,5 +202,77 @@
     "FirstName": "Mads",
     "LastName": "Ludvigsen",
     "SubmissionDate": "2023-05-12T14:00:47.5384741+02:00"
+  },
+  {
+    "ID": 18,
+    "UserID": 5,
+    "Address": "Standgade 1c",
+    "City": "HOLB\u00C6K",
+    "PostCode": "4300",
+    "County": "Denmark",
+    "PhoneNumber": "61675837",
+    "FirstName": "Mads",
+    "LastName": "Ludvigsen",
+    "SubmissionDate": "2023-05-12T20:42:19.2647588+02:00"
+  },
+  {
+    "ID": 19,
+    "UserID": 6,
+    "Address": "Standgade 1c",
+    "City": "HOLB\u00C6K",
+    "PostCode": "4300",
+    "County": "Denmark",
+    "PhoneNumber": "61675837",
+    "FirstName": "Mads",
+    "LastName": "Ludvigsen",
+    "SubmissionDate": "2023-05-12T20:44:57.8123372+02:00"
+  },
+  {
+    "ID": 20,
+    "UserID": 6,
+    "Address": "Standgade 1c",
+    "City": "HOLB\u00C6K",
+    "PostCode": "4300",
+    "County": null,
+    "PhoneNumber": "61675837",
+    "FirstName": "Mads",
+    "LastName": "Ludvigsen",
+    "SubmissionDate": "2023-05-12T20:56:19.7160833+02:00"
+  },
+  {
+    "ID": 21,
+    "UserID": 6,
+    "Address": "Standgade 1c",
+    "City": "HOLB\u00C6K",
+    "PostCode": "4300",
+    "County": "Denmark",
+    "PhoneNumber": "61675837",
+    "FirstName": "Mads",
+    "LastName": "Ludvigsen",
+    "SubmissionDate": "2023-05-12T20:59:46.2022148+02:00"
+  },
+  {
+    "ID": 22,
+    "UserID": 5,
+    "Address": "Standgade 1c",
+    "City": "HOLB\u00C6K",
+    "PostCode": "4300",
+    "County": "Denmark",
+    "PhoneNumber": "61675837",
+    "FirstName": "Mads",
+    "LastName": "Ludvigsen",
+    "SubmissionDate": "2023-05-13T08:43:16.4811831+02:00"
+  },
+  {
+    "ID": 23,
+    "UserID": 5,
+    "Address": "Standgade 1c",
+    "City": "HOLB\u00C6K",
+    "PostCode": "4300",
+    "County": "Denmark",
+    "PhoneNumber": "61675837",
+    "FirstName": "Mads",
+    "LastName": "Ludvigsen",
+    "SubmissionDate": "2023-05-13T10:57:44.4646742+02:00"
   }
 ]
