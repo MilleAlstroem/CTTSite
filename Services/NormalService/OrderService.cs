@@ -1,8 +1,10 @@
 ﻿using CTTSite.DAO;
+using CTTSite.EFDbContext;
 using CTTSite.Models;
 using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
+using Microsoft.EntityFrameworkCore;
 
 namespace CTTSite.Services.NormalService
 {
@@ -12,18 +14,20 @@ namespace CTTSite.Services.NormalService
         public DBServiceGeneric<CartItem_Order> DBServiceGenericCIO;
         public DBServiceGeneric<CartItem> DBServiceGenericCartItem;
         public JsonFileService<Order> JsonFileService;
+        public IUserService IUserService;
         public ICartItemService ICartItemService;
         public List<Order> Orders;
         public List<CartItem> CartItems;
         public int lastOrderID = 0;
 
-        public OrderService(DBServiceGeneric<Order> dBServiceGeneric, JsonFileService<Order> jsonFileService, ICartItemService iCartItemService, DBServiceGeneric<CartItem_Order> dBServiceGenericCIO, DBServiceGeneric<CartItem> dBServiceGenericCartItem)
+        public OrderService(DBServiceGeneric<Order> dBServiceGeneric, JsonFileService<Order> jsonFileService, ICartItemService iCartItemService, DBServiceGeneric<CartItem_Order> dBServiceGenericCIO, DBServiceGeneric<CartItem> dBServiceGenericCartItem, IUserService iUserService)
         {
             DBServiceGeneric = dBServiceGeneric;
             JsonFileService = jsonFileService;
             ICartItemService = iCartItemService;
             DBServiceGenericCIO = dBServiceGenericCIO;
             DBServiceGenericCartItem = dBServiceGenericCartItem;
+            IUserService = iUserService;
             Orders = GetAllOrders();
         }
 
@@ -33,13 +37,14 @@ namespace CTTSite.Services.NormalService
             //return JsonFileService.GetJsonObjects().ToList();
             return DBServiceGeneric.GetObjectsAsync().Result.ToList();
         }
+
         public Order GetOrderByID(int ID)
         {
-            foreach(Order order in Orders)
+            foreach (Order order in Orders)
             {
-                if(order.ID == ID) 
-                { 
-                    return order; 
+                if (order.ID == ID)
+                {
+                    return order;
                 }
             }
             return null;
@@ -48,11 +53,11 @@ namespace CTTSite.Services.NormalService
         public List<Order> GetOrdersByUserID(int UserID)
         {
             List<Order> userOrders = new List<Order>();
-            foreach(Order order in Orders)
+            foreach (Order order in Orders)
             {
-                if(order.UserID == UserID)
+                if (order.UserID == UserID)
                 {
-                     userOrders.Add(order);
+                    userOrders.Add(order);
                 }
             }
             return userOrders;
@@ -78,9 +83,9 @@ namespace CTTSite.Services.NormalService
 
         public async Task CancelOrderByIDAsync(int ID)
         {
-            foreach(Order order in Orders)
+            foreach (Order order in Orders)
             {
-                if(order.ID == ID)
+                if (order.ID == ID)
                 {
                     order.Cancelled = true;
                     //JsonFileService.SaveJsonObjects(Orders);
@@ -89,16 +94,6 @@ namespace CTTSite.Services.NormalService
             }
 
         }
-
-        public Task PaidBoolConvertAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        //public void AddCartItemsToOrder()
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         public async Task AddCartItemsToOrder(int ID)
         {
@@ -116,41 +111,24 @@ namespace CTTSite.Services.NormalService
             }
         }
 
-        //public async Task GetOldOrderByOrderID(int ID)
-        //{
-        //    Order order = GetOrderByID(ID);
-        //    List<CartItem_Order> CIO = new List<CartItem_Order>();
-        //    List<CartItem> cartItemList = new List<CartItem>();
-        //    foreach(CartItem_Order cartItem_Order in DBServiceGenericCIO.GetObjectsAsync().Result)
-        //    {
-        //        if(cartItem_Order.OrderID == order.ID)
-        //        {
-        //            CIO.Add(cartItem_Order);
-        //        }
-        //    }
-        //    foreach(CartItem_Order cartItem_Order in CIO)
-        //    {
-        //        foreach(CartItem cartItem in DBServiceGenericCartItem.GetObjectsAsync().Result)
-        //        {
-        //            if(cartItem.ID == cartItem_Order.CartItemID)
-        //            {
-        //                cartItemList.Add(cartItem);
-        //            }
-        //        }
-        //    }
-        //    return cartItemList;
-        //}        
-
         public async Task<List<CartItem>> GetOldOrderByOrderID(int ID)
         {
             Order order = GetOrderByID(ID);
             IEnumerable<CartItem_Order> CIO = await DBServiceGenericCIO.GetObjectsAsync();
-            IEnumerable<CartItem> cartItemList = await DBServiceGenericCartItem.GetObjectsAsync();
+            IEnumerable<CartItem> cartItems = await DBServiceGenericCartItem.GetObjectsAsync();
 
             CIO = CIO.Where(cartItem_Order => cartItem_Order.OrderID == order.ID).ToList();
-            cartItemList = cartItemList.Where(cartItem => CIO.Any(cartItem_Order => cartItem_Order.CartItemID == cartItem.ID)).ToList();
-            return cartItemList.ToList();
+            List<CartItem> cartItemList = cartItems.Where(cartItem => CIO.Any(cartItem_Order => cartItem_Order.CartItemID == cartItem.ID)).ToList();
+
+            return cartItemList;
         }
 
+        public async Task<int> GetLatestOrderFromUser(string userName)
+        {
+            Models.User user = IUserService.GetUserByEmail(userName);
+            List<Order> userOrders = GetOrdersByUserID(user.Id);
+            Order latestOrder = userOrders.OrderByDescending(order => order.ID).FirstOrDefault();
+            return latestOrder?.ID ?? 0;
+        }
     }
 }

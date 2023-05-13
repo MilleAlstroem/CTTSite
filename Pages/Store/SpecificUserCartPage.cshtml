@@ -26,7 +26,7 @@
                             @cartItem.Item.Name
                         </td>
                         <td>
-                            @cartItem.Item.Price
+                            @cartItem.Item.Price £
                         </td>
                         <td>
                             @cartItem.Amount
@@ -41,4 +41,10 @@
     </table>
 </body>
 
-<a class="btn btn-dark" type="button" asp-page="ShippingPage" asp-route-id="">Order now</a>
+
+
+@if (@Model.CartItemsCount > 0)
+{
+    <a class="btn btn-dark" type="button" asp-page="ShippingPage" asp-route-id="">Order now</a>
+    <span id="total-price" class="btn btn-dark" disabled style="cursor: default;">Total price: @Model.TotalPrice £</span>
+}
