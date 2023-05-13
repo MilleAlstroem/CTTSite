@@ -6,7 +6,7 @@
 
 <form method="post">
     <div class="form-group">
-        <label asp-for="Consultation.Date" class="control-label"></label>
+        <label asp-for="Consultation.Date" class="control-label">Date: mm/dd/yyyy</label>
         <input asp-for="Consultation.Date" class="form-control" type="date" />
         <span asp-validation-for="Consultation.Date" class="text-danger"></span>
     </div>

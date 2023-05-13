@@ -16,11 +16,12 @@ namespace CTTSite.Services.NormalService
         public JsonFileService<Order> JsonFileService;
         public IUserService IUserService;
         public ICartItemService ICartItemService;
+        public IItemService IItemService;
         public List<Order> Orders;
         public List<CartItem> CartItems;
         public int lastOrderID = 0;
 
-        public OrderService(DBServiceGeneric<Order> dBServiceGeneric, JsonFileService<Order> jsonFileService, ICartItemService iCartItemService, DBServiceGeneric<CartItem_Order> dBServiceGenericCIO, DBServiceGeneric<CartItem> dBServiceGenericCartItem, IUserService iUserService)
+        public OrderService(DBServiceGeneric<Order> dBServiceGeneric, JsonFileService<Order> jsonFileService, ICartItemService iCartItemService, DBServiceGeneric<CartItem_Order> dBServiceGenericCIO, DBServiceGeneric<CartItem> dBServiceGenericCartItem, IUserService iUserService, IItemService iItemService)
         {
             DBServiceGeneric = dBServiceGeneric;
             JsonFileService = jsonFileService;
@@ -28,6 +29,7 @@ namespace CTTSite.Services.NormalService
             DBServiceGenericCIO = dBServiceGenericCIO;
             DBServiceGenericCartItem = dBServiceGenericCartItem;
             IUserService = iUserService;
+            IItemService = iItemService;
             Orders = GetAllOrders();
         }
 
@@ -111,14 +113,19 @@ namespace CTTSite.Services.NormalService
             }
         }
 
-        public async Task<List<CartItem>> GetOldOrderByOrderID(int ID)
+        public async Task<List<CartItem>> GetOldOrderByOrderID(int orderID)
         {
-            Order order = GetOrderByID(ID);
             IEnumerable<CartItem_Order> CIO = await DBServiceGenericCIO.GetObjectsAsync();
             IEnumerable<CartItem> cartItems = await DBServiceGenericCartItem.GetObjectsAsync();
 
-            CIO = CIO.Where(cartItem_Order => cartItem_Order.OrderID == order.ID).ToList();
+            CIO = CIO.Where(cartItem_Order => cartItem_Order.OrderID == orderID).ToList();
             List<CartItem> cartItemList = cartItems.Where(cartItem => CIO.Any(cartItem_Order => cartItem_Order.CartItemID == cartItem.ID)).ToList();
+
+            // Include the associated Item for each CartItem
+            foreach (CartItem cartItem in cartItemList)
+            {
+                cartItem.Item = IItemService.GetItemByID(cartItem.ItemID); // Assuming you have a method to retrieve Item by ID
+            }
 
             return cartItemList;
         }
