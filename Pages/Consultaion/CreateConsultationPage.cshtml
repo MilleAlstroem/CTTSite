@@ -5,10 +5,10 @@
 
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-3">
         <form method="post">
             <div class="form-group">
-                <label asp-for="Consultation.Date" class="control-label">Date: mm/dd/yyyy</label>
+                <label asp-for="Consultation.Date" class="control-label">Date: dd/mm/yyyy</label>
                 <input asp-for="Consultation.Date" class="form-control" type="date" />
                 <span asp-validation-for="Consultation.Date" class="text-danger"></span>
             </div>

@@ -17,8 +17,8 @@ namespace CTTSite.Services.NormalService
         {
             DBServiceGeneric = dBServiceGeneric;
             JsonFileService = jsonFileService;
-            ConsultationsList = GetAllConsultations();
             IEmailService = iEmailService;
+            ConsultationsList = GetAllConsultations();
         }
 
         public List<Consultation> GetAllConsultations()
