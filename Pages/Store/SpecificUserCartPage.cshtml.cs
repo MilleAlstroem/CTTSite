@@ -12,6 +12,8 @@ namespace CTTSite.Pages.Store
 
         [BindProperty]
         public List<CartItem> CartItems { get; set; }
+        public int CartItemsCount { get; set; }
+        public decimal TotalPrice { get; set; }
 
         public SpecificUserCartPageModel(ICartItemService iCartItemService, IUserService iUserService)
         {
@@ -23,6 +25,8 @@ namespace CTTSite.Pages.Store
         {
             Models.User CurrentUser = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
             CartItems = ICartItemService.GetAllCartItemsByUserID(CurrentUser.Id);
+            TotalPrice = ICartItemService.GetTotalPriceOfCartByUserID(CurrentUser.Id);
+            CartItemsCount = CartItems.Count;
             return Page();
         }
         

@@ -22,8 +22,9 @@ namespace CTTSite.Models
         public string BookedNamed { get; set; }
         public string TelefonNummer { get; set; }
         public string BookedEmail { get; set; }
+        public bool Booked { get; set; }
 
-        public Consultation(int iD, DateTime date, TimeSpan startTime, TimeSpan endTime, int userID, string bookedNamed, string telefonNummer, string bookedEmail)
+        public Consultation(int iD, DateTime date, TimeSpan startTime, TimeSpan endTime, int userID, string bookedNamed, string telefonNummer, string bookedEmail, bool booked)
         {
             ID = iD;
             Date = date;
@@ -33,6 +34,7 @@ namespace CTTSite.Models
             BookedNamed = bookedNamed;
             TelefonNummer = telefonNummer;
             BookedEmail = bookedEmail;
+            Booked = booked;
         }
 
         public Consultation()

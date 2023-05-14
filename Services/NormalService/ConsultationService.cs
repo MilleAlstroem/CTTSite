@@ -94,7 +94,7 @@ namespace CTTSite.Services.NormalService
         {
             IEmailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, email));
             IEmailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, "chilterntalkingtherapies@gmail.com"));
-            await DBServiceGeneric.DeleteObjectAsync(consultation);
+            await DBServiceGeneric.UpdateObjectAsync(consultation);
         }
     }
 }

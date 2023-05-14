@@ -10,6 +10,7 @@ namespace CTTSite.Pages.Consultation
 
         [BindProperty]
         public Models.Consultation Consultation { get; set; }
+        public int UserID { get; set; }
 
         public UpdateConsultationPageModel(IConsultationService iConsultationService)
         {
@@ -19,6 +20,7 @@ namespace CTTSite.Pages.Consultation
         public void OnGet(int id)
         {
             Consultation = IConsultationService.GetConsultationByID(id);
+            UserID = Consultation.UserID;
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -30,7 +32,7 @@ namespace CTTSite.Pages.Consultation
             Consultation.Date = Consultation.Date.Date;
             Consultation.StartTime = Consultation.StartTime;
             Consultation.EndTime = Consultation.EndTime;
-            Consultation.UserID = 2; // Get the user ID from the appropriate source
+            Consultation.UserID = UserID;
             Consultation.BookedNamed = "";
             Consultation.TelefonNummer = "";
             Consultation.BookedEmail = "";
