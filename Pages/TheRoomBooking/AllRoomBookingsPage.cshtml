@@ -5,8 +5,9 @@
 
 <body style="background-color:#f6d8cc;">
 
-@*    @if (User.Identity != null && User.IsInRole("staff") == true)
-    {*@
+@if (User.Identity != null && User.IsInRole("staff") == true)
+{
+
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-dark border-bottom box-shadow mb-3">
         <div class="container">
             <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#BookingNavbar"
@@ -16,10 +17,10 @@
             <div class="navbar-collapse collapse d-md-inline-flex flex-md-row justify-content-start" id="BookingNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link btn btn-dark text-light" asp-area="" asp-page="/Index">All Bookings</a>
+                        <a class="nav-link btn btn-dark text-light" asp-area="" asp-page="/TheRoomBooking/AllRoomBookingsPage">All Bookings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-dark text-light" asp-area="" asp-page="/Index">My Bookings</a>
+                        <a class="nav-link btn btn-dark text-light" asp-area="" asp-page="/TheRoomBooking/AllRoomBookingsPage">My Bookings</a>
                     </li>
                 </ul>
             </div>
@@ -35,22 +36,28 @@
     <br />
     <h1 class="text-center"><b>All Room Bookings</b></h1>
     <br />
+
     <div class="row">
         @foreach (Models.RoomBooking roomBooking in Model.RoomBookings)
         {
-            <div class="card" style="width:80%">
-                <h4>@roomBooking.User.Email</h4>
-                <div class="card-body">
-                    <h4>@roomBooking.StartDateTime   -   @roomBooking.EndDateTime</h4>
-                </div>
+            <div style="width:80%; margin-inline:10%; margin-bottom:2%">
+                <a class="text-decoration-none text-light" asp-page="/TheRoomBooking/SpecificRoomBookingPage" asp-route-id="@roomBooking.ID">
+                    <div class="card bg-dark">
+                        <div class="card-body">
+                            <h4>@Model.IRoomBookingService.GetUserByRoomBooking(roomBooking).Email</h4>
+                            <h4>@roomBooking.StartDateTime   -   @roomBooking.EndDateTime</h4>
+                        </div>
+                    </div>
+                </a>
             </div>
+            <br />
         }
     </div>
-
-@*    }
-    else
+           
+    }
+else
     {
-        <h1 class="text-center"><b>You are not logged in as a staff.</b></h1>
-    }*@
+        <h1 class="text-center"><b>You are not logged in as staff.</b></h1>
+    }
 
 </body>

@@ -1,4 +1,5 @@
 ﻿using CTTSite.Models;
+using CTTSite.Models.Forms;
 using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
@@ -10,19 +11,21 @@ namespace CTTSite.Services.NormalService
 
         public DBServiceGeneric<RoomBooking> DBServiceGeneric;
         public JsonFileService<RoomBooking> JsonFileService;
+        public IUserService IUserService;
         public List<RoomBooking> RoomBookings;
 
-        public RoomBookingService(DBServiceGeneric<RoomBooking> dBServiceGeneric, JsonFileService<RoomBooking> jsonFileService)
+        public RoomBookingService(DBServiceGeneric<RoomBooking> dBServiceGeneric, JsonFileService<RoomBooking> jsonFileService, IUserService iUserService)
         {
             DBServiceGeneric = dBServiceGeneric;
             JsonFileService = jsonFileService;
+            IUserService = iUserService;
             RoomBookings = GetAllRoomBookings();
         }
-        
 
-        public Task CreateRoomBookingAsync(RoomBooking RoomBooking)
+
+        public async Task CreateRoomBookingAsync(RoomBooking RoomBooking)
         {
-            throw new NotImplementedException();
+            await DBServiceGeneric.AddObjectAsync(RoomBooking);
         }
 
         public Task UpdateRoomBookingAsync(RoomBooking RoomBooking)
@@ -30,9 +33,16 @@ namespace CTTSite.Services.NormalService
             throw new NotImplementedException();
         }
 
-        public Task DeleteRoomBookingAsync(RoomBooking RoomBooking)
+        public async Task DeleteRoomBookingAsync(RoomBooking RoomBooking)
         {
-            throw new NotImplementedException();
+            foreach (RoomBooking roomBooking in RoomBookings)
+            {
+                if (roomBooking == RoomBooking)
+                {
+                    RoomBookings.Remove(roomBooking);
+                }
+            }
+            await DBServiceGeneric.SaveObjectsAsync(RoomBookings);
         }
 
         public List<RoomBooking> GetAllRoomBookings()
@@ -43,11 +53,11 @@ namespace CTTSite.Services.NormalService
 
         public RoomBooking GetRoomBookingByID(int ID)
         {
-            foreach(RoomBooking roomBooking in RoomBookings)
+            foreach (RoomBooking roomBooking in RoomBookings)
             {
-                if(roomBooking.ID == ID)
+                if (roomBooking.ID == ID)
                 {
-                    return roomBooking; 
+                    return roomBooking;
                 }
             }
             return null;
@@ -55,16 +65,21 @@ namespace CTTSite.Services.NormalService
 
         public List<RoomBooking> GetRoomBookingsByUserID(int UserID)
         {
-            List<RoomBooking> userRoomBookings = new List<RoomBooking>();
-            foreach(RoomBooking roomBooking in RoomBookings)
+            List<RoomBooking> UserRoomBookings = new List<RoomBooking>();
+            foreach (RoomBooking roomBooking in RoomBookings)
             {
-                if(roomBooking.User.Id == UserID)
+                if (roomBooking.UserID == UserID)
                 {
-                    userRoomBookings.Add(roomBooking);
+                    UserRoomBookings.Add(roomBooking);
                 }
             }
-            return userRoomBookings;
+            return UserRoomBookings;
         }
 
+        public User GetUserByRoomBooking(RoomBooking roomBooking)
+        {
+            return IUserService.GetUserByID(roomBooking.UserID);
+        }
+    
     }
 }

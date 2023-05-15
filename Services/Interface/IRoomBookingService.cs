@@ -10,6 +10,7 @@ namespace CTTSite.Services.Interface
         List<RoomBooking> GetAllRoomBookings();
         RoomBooking GetRoomBookingByID(int ID);
         List<RoomBooking> GetRoomBookingsByUserID(int UserID);
+        User GetUserByRoomBooking(RoomBooking roomBooking);
 
         // TODO: Maybe implement these methods if time permits.
         //List<RoomBooking> GetRoomBookingsWithinDateRangeAsync(DateTime StartDate, DateTime EndDate);
