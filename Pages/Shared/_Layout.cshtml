@@ -32,9 +32,14 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/About">About</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Store/AllProductsPage">Store</a>
-                        </li>
+
+                        @if (Context.User.Identity.Name != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Store/AllProductsPage">Store</a>
+                            </li>
+                        }
+                        
                         
                         
                         @if (Context.User.Identity.Name == null)
