@@ -1,4 +1,5 @@
 using CTTSite.Models;
+using CTTSite.Services;
 using CTTSite.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +12,7 @@ namespace CTTSite.Pages.Store
         public IUserService IUserService;
         public ICartItemService ICartItemService;
         public IOrderService IOrderService;
+        public IItemService IItemService;
 
         [BindProperty]
         public ShippingInfo ShippingInfo { get; set; } = new ShippingInfo();
@@ -45,6 +47,10 @@ namespace CTTSite.Pages.Store
             order.Cancelled = false;
             order.TotalPrice = ICartItemService.GetTotalPriceOfCartByUserID(CurrentUser.Id);
             IOrderService.CreateOrderAsync(order);
+            foreach(CartItem cartItem in CartItems)
+            {
+                IItemService.UpdateItemQuantityByID(cartItem.ItemID, cartItem.Quantity);
+            }
             IOrderService.AddCartItemsToOrder(CurrentUser.Id);
             ICartItemService.ConvertBoolPaidByUserIDAsync(CurrentUser.Id);
             return RedirectToPage("/Store/OrderConfirmationPage");

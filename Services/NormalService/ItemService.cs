@@ -106,5 +106,16 @@ namespace CTTSite.Services.NormalService
             }
         }
 
+        public async Task UpdateItemQuantityByID(int ItemID, int Quantity)
+        {
+            Item item = GetItemByID(ItemID);
+            if(item != null)
+            {
+                item.Stock = item.Stock - Quantity;
+                //JsonFileService.SaveJsonObjects(Items);
+                await DBServiceGeneric.UpdateObjectAsync(item);
+            }
+        }
+
     }
 }

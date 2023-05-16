@@ -1,5 +1,5 @@
-﻿@page
-@model CTTSite.Pages.Store.AddToCartConfirmationPageModel
+﻿@page "{id:int}"
+@model CTTSite.Pages.Store.CancelOrderPageModel
 @{
 }
 
@@ -8,12 +8,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <p><b>Product: </b>@Model.cartItem.Item.Name has been add to your cart</p>
+                <p><b>Are you sure that you want to cancel your order: "@Model.Order.ID"</b></p>
             </div>
             <div class="modal-footer">
                 <form method="post">
                     <button type="submit" class="btn btn-danger">Yes</button>
-                    <a class="btn btn-primary" asp-page="SpecificProductPage">No</a>
+                    <a class="btn btn-primary" asp-page="SpecificUserCartPage">No</a>
                 </form>
 
             </div>

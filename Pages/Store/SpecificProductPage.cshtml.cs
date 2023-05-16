@@ -22,9 +22,9 @@ namespace CTTSite.Pages.Store
         public CartItem CartItem { get; set; } = new CartItem();
 
         public Models.User User { get; set; }
+        public string Message { get; set; }
 
         [BindProperty]
-        [Range(1, 10)]
         public int Count { get; set; }
 
         public SpecificProductPageModel(IItemService iItemService, ICartItemService iCartService, IUserService iUserService)
@@ -50,13 +50,30 @@ namespace CTTSite.Pages.Store
             Item = IItemService.GetItemByID(ID);
             User = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
 
+            if (Count > Item.Stock)
+            {
+                Message = $"There are only {Item.Stock} left in stock";
+                return Page();
+            }
+
+            if (Count <= 0)
+            {
+                Message = "There must be a valid amount";
+                return Page();
+            }
+
+            if (Count <= Item.Stock)
+            {
+                Message = $"{Item.Name} has been add to your cart";
+            }
+
             CartItem.ItemID = ID;
-            CartItem.Amount = Count;
+            CartItem.Quantity = Count;
             CartItem.UserID = User.Id;
             CartItem.Paid = false;
 
             await ICartItemService.AddToCartAsync(CartItem);
-            return RedirectToPage("SpecificProductPage", Item.ID);
+            return Page ();
         }
     }
 }

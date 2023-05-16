@@ -63,14 +63,12 @@ namespace CTTSite.Services.NormalService
 
         public CartItem GetCartItemByID(int ID)
         {
-            foreach(CartItem cartItem in CartItems)
+            using (var context = new ItemDbContext())
             {
-                if(cartItem.ID == ID)
-                {
-                    return cartItem;
-                }
+                return context.CartItems
+                    .Include(ci => ci.Item)
+                    .FirstOrDefault(cartItem => cartItem.ID == ID);
             }
-            return null;
         }
 
         public List<CartItem> GetAllCartItemsByUserID(int userID)
@@ -98,9 +96,10 @@ namespace CTTSite.Services.NormalService
             CartItem cartItemToBeDeleted = null;
             if(GetCartItemByID(ID) != null)
             {
+                cartItemToBeDeleted = GetCartItemByID(ID);
+
                 CartItems.Remove(GetCartItemByID(ID));
                 //JsonFileService.SaveJsonObjects(CartItems);
-                //cartItemToBeDeleted = GetCartItemByID(ID);
                 await DBServiceGenericCartItem.DeleteObjectAsync(cartItemToBeDeleted);
             }
         }
@@ -115,7 +114,7 @@ namespace CTTSite.Services.NormalService
                 {
                     if (item.ID == cartItem.ItemID)
                     {
-                        TotalPrice += item.Price * cartItem.Amount;
+                        TotalPrice += item.Price * cartItem.Quantity;
                     }
                 }
             }
