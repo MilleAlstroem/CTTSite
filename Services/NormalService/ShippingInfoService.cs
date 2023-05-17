@@ -18,19 +18,20 @@ namespace CTTSite.Services.NormalService
             ShippingInfoList = _jsonFileService.GetJsonObjects().ToList();
         }
 
-        public void CreateShippingInfo(ShippingInfo shippingInfo)
+        public async Task CreateShippingInfoAsync(ShippingInfo shippingInfo)
         {
             int IDCount = 0;
-            foreach(ShippingInfo listShippingInfo in ShippingInfoList)
-            {
-                if(IDCount < listShippingInfo.ID)
-                {
-                    IDCount = listShippingInfo.ID;
-                }
-            }
-            shippingInfo.ID = IDCount + 1;
+            //foreach (ShippingInfo listShippingInfo in ShippingInfoList)
+            //{
+            //    if (IDCount < listShippingInfo.ID)
+            //    {
+            //        IDCount = listShippingInfo.ID;
+            //    }
+            //}
+            //shippingInfo.ID = IDCount + 1;
             ShippingInfoList.Add(shippingInfo);
-            _jsonFileService.SaveJsonObjects(ShippingInfoList);
+            //_jsonFileService.SaveJsonObjects(ShippingInfoList);
+            await _dBServiceGeneric.AddObjectAsync(shippingInfo);
         }
     }
 }

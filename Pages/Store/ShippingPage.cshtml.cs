@@ -42,7 +42,7 @@ namespace CTTSite.Pages.Store
             Models.User currentUser = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
             ShippingInfo.UserID = currentUser.Id;
             ShippingInfo.SubmissionDate = DateTime.Now;
-            IShippingInfoService.CreateShippingInfo(ShippingInfo);
+            await IShippingInfoService.CreateShippingInfoAsync(ShippingInfo);
             order.UserID = currentUser.Id;
             order.Shipped = false;
             order.Cancelled = false;
