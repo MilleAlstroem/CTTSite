@@ -42,13 +42,14 @@ namespace CTTSite.Pages.Store
             Models.User currentUser = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
             ShippingInfo.UserID = currentUser.Id;
             ShippingInfo.SubmissionDate = DateTime.Now;
-            IShippingInfoService.CreateShippingInfo(ShippingInfo);
             order.UserID = currentUser.Id;
             order.Shipped = false;
             order.Cancelled = false;
             order.TotalPrice = await ICartItemService.GetTotalPriceOfCartByUserIDAsync(currentUser.Id);
             await IOrderService.CreateOrderAsync(order);
 
+            ShippingInfo.OrderID = order.ID;
+            await IShippingInfoService.CreateShippingInfoAsync(ShippingInfo);
             foreach (CartItem cartItem in CartItems)
             {
                 await IItemService.UpdateItemQuantityByIDAsync(cartItem.ItemID, cartItem.Quantity);

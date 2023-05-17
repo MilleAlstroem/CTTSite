@@ -4,7 +4,7 @@ namespace CTTSite.Services.Interface
 {
     public interface IShippingInfoService
     {
-        void CreateShippingInfo(ShippingInfo shippingInfo);
+        Task CreateShippingInfoAsync(ShippingInfo shippingInfo);
 
     }
 }

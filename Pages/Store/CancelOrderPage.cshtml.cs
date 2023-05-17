@@ -15,15 +15,14 @@ namespace CTTSite.Pages.Store
             _iOrderService = iOrderService;
         }
 
-        public void OnGet(int ID)
+        public async Task OnGet(int ID)
         {
-            Order = _iOrderService.GetOrderByID(ID);
+            Order = await _iOrderService.GetOrderByIDAsync(ID);
         }
 
         public async Task<IActionResult> OnPostAsync(int ID)
         {
-            Order = _iOrderService.GetOrderByID(ID);
-            await _iOrderService.CreateOrderAsync(Order);
+            await _iOrderService.CancelOrderByIDAsync(ID);
             return RedirectToPage("SpecificUserOrdersPage");
         }
     }

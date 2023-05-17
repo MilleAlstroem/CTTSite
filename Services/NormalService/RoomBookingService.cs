@@ -25,6 +25,7 @@ namespace CTTSite.Services.NormalService
 
         public async Task CreateRoomBookingAsync(RoomBooking RoomBooking)
         {
+            RoomBookings.Add(RoomBooking);
             await DBServiceGeneric.AddObjectAsync(RoomBooking);
         }
 
@@ -33,16 +34,18 @@ namespace CTTSite.Services.NormalService
             throw new NotImplementedException();
         }
 
-        public async Task DeleteRoomBookingAsync(RoomBooking RoomBooking)
+        public async Task DeleteRoomBookingByIDAsync(int ID)
         {
+            RoomBookings = GetAllRoomBookings();
             foreach (RoomBooking roomBooking in RoomBookings)
             {
-                if (roomBooking == RoomBooking)
+                if (roomBooking.ID == ID)
                 {
                     RoomBookings.Remove(roomBooking);
+                    await DBServiceGeneric.DeleteObjectAsync(roomBooking);
+                    break;
                 }
             }
-            await DBServiceGeneric.SaveObjectsAsync(RoomBookings);
         }
 
         public List<RoomBooking> GetAllRoomBookings()
@@ -53,6 +56,7 @@ namespace CTTSite.Services.NormalService
 
         public RoomBooking GetRoomBookingByID(int ID)
         {
+            RoomBookings = GetAllRoomBookings();
             foreach (RoomBooking roomBooking in RoomBookings)
             {
                 if (roomBooking.ID == ID)
@@ -63,22 +67,18 @@ namespace CTTSite.Services.NormalService
             return null;
         }
 
-        public List<RoomBooking> GetRoomBookingsByUserID(int UserID)
+        public List<RoomBooking> GetRoomBookingsByUserEmail(string UserEmail)
         {
+            RoomBookings = GetAllRoomBookings();
             List<RoomBooking> UserRoomBookings = new List<RoomBooking>();
             foreach (RoomBooking roomBooking in RoomBookings)
             {
-                if (roomBooking.UserID == UserID)
+                if (roomBooking.UserEmail == UserEmail)
                 {
                     UserRoomBookings.Add(roomBooking);
                 }
             }
             return UserRoomBookings;
-        }
-
-        public User GetUserByRoomBooking(RoomBooking roomBooking)
-        {
-            return IUserService.GetUserByID(roomBooking.UserID);
         }
     
     }

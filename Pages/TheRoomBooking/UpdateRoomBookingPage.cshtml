@@ -5,16 +5,10 @@
 
 <body style="background-color:#f6d8cc;">
 
-    @*    @if (User.Identity != null && User.IsInRole("staff") == true)
+    @if (User.Identity != null && (@Model.RoomBooking.UserEmail == User.Identity.Name || User.IsInRole("admin") == true))
     {
 
-    }
-    else
-    {
-    <h1 class="text-center"><b>You are not logged in as a staff.</b></h1>
-    }*@
-
-    <h1 class="text-center"><b>Create Booking</b></h1>
+    <h1 class="text-center"><b>Update Booking</b></h1>
     <br />
     <form method="post" class="text-center" style="width:80%; margin-inline:10%">
         <div class="row">
@@ -41,5 +35,11 @@
             <a asp-page="/TheRoomBooking/SpecificRoomBookingPage" asp-route-id="@Model.RoomBooking.ID" class="btn btn-dark" style="margin-inline:1%">Back</a>
         </div>
     </form>
+
+    }
+    else
+    {
+        <h1 class="text-center"><b>You are not logged in as the creator of this room booking or as an admin</b></h1>
+    }
 
 </body>
