@@ -9,7 +9,7 @@ namespace CTTSite.Services.Interface
         Task UpdateConsultation(Consultation consultationN);
         Task SubmitConsultationByEmail(Consultation consultation, string email);
         Consultation GetConsultationByID(int ID);
-        List<Consultation> GetAllConsultations();
+        Task<List<Consultation>> GetAllConsultationsAsync();
 
 
     }

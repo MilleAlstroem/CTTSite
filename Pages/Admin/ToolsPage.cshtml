@@ -35,6 +35,12 @@
                 <br />
                 <p>View the list of all orders and see there status.</p>
             </div>
+
+            <div class="col-3">
+                <a class="btn btn-dark" asp-area="" asp-page="/Store/Product/AdminProductsPage">Edit Products</a>
+                <br />
+                <p>View the list of all products, see there status & edit them.</p>
+            </div>
     }
         @if (HttpContext.User.Identity != null && HttpContext.User.IsInRole("staff") == true)
         {

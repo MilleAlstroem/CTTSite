@@ -51,9 +51,12 @@ namespace CTTSite.Pages.Store.Shipping
 
             ShippingInfo.OrderID = Order.ID;
             await _shippingInfoService.CreateShippingInfoAsync(ShippingInfo);
-            foreach (CartItem cartItem in CartItems)
+            if (CartItems != null)
             {
-                await _itemService.UpdateItemQuantityByIDAsync(cartItem.ItemID, cartItem.Quantity);
+                foreach (CartItem cartItem in CartItems)
+                {
+                    await _itemService.UpdateItemQuantityByIDAsync(cartItem.ItemID, cartItem.Quantity);
+                }
             }
 
             await _orderService.AddCartItemsToOrderAsync(currentUser.Id);
