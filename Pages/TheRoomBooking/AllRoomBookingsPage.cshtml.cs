@@ -20,5 +20,17 @@ namespace CTTSite.Pages.TheRoomBooking
             RoomBookings = IRoomBookingService.GetAllRoomBookings();
         }
 
+        public IActionResult OnGetAllBookings() 
+        { 
+            RoomBookings = IRoomBookingService.GetAllRoomBookings();
+            return Page();
+        }
+
+        public IActionResult OnGetMyBookings()
+        {
+            RoomBookings = IRoomBookingService.GetRoomBookingsByUserEmail(HttpContext.User.Identity.Name);
+            return Page();
+        }
+
     }
 }

@@ -21,5 +21,11 @@ namespace CTTSite.Pages.TheRoomBooking
         {
             RoomBooking = IRoomBookingService.GetRoomBookingByID(ID);
         }
+
+        public IActionResult OnPost()
+        {
+            IRoomBookingService.UpdateRoomBookingAsync(RoomBooking);
+            return RedirectToPage("/TheRoomBooking/SpecificRoomBookingPage", new { id = RoomBooking.ID } );
+        }
     }
 }
