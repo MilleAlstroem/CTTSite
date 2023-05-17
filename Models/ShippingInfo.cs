@@ -12,6 +12,9 @@ namespace CTTSite.Models
         public int UserID { get; set; }
 
         [Required]
+        public int OrderID { get; set; }
+
+        [Required]
         public string Address { get; set; }
 
         [Required]
