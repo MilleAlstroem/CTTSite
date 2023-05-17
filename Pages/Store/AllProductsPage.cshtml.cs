@@ -15,9 +15,9 @@ namespace CTTSite.Pages.Store
             ItemService = iItemService;
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            Items = ItemService.GetAllItems();
+            Items = await ItemService.GetAllItemsAsync();
         }
     }
 }

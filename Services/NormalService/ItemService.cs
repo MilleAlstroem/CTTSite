@@ -15,7 +15,7 @@ namespace CTTSite.Services.NormalService
         {
             DBServiceGeneric = dBServiceGeneric;
             JsonFileService = jsonFileService;
-            Items = GetAllItems();
+            Items = GetAllItemsAsync().Result;
         }
 
         public async Task CreateItemAsync(Item item)
@@ -36,20 +36,18 @@ namespace CTTSite.Services.NormalService
 
         public async Task DeleteItemByIDAsync(int ID)
         {
-            Item itemToBeDeleted = null;
-            if(GetItemByID(ID) != null) 
-            { 
-                Items.Remove(GetItemByID(ID));
+            Item itemToBeDeleted = await GetItemByIDAsync(ID);
+            if (itemToBeDeleted != null)
+            {
+                Items.Remove(itemToBeDeleted);
                 JsonFileService.SaveJsonObjects(Items);
-
-                itemToBeDeleted = GetItemByID(ID);
                 await DBServiceGeneric.DeleteObjectAsync(itemToBeDeleted);
             }
         }
 
-        public List<Item> GetAllItems()
+        public async Task<List<Item>> GetAllItemsAsync()
         {
-            return DBServiceGeneric.GetObjectsAsync().Result.ToList();
+            return (await DBServiceGeneric.GetObjectsAsync()).ToList();
             //return JsonFileService.GetJsonObjects().ToList();
             //return MockData.MockDataItem.GetMockItem();
         }
@@ -74,42 +72,44 @@ namespace CTTSite.Services.NormalService
             }
         }
 
-        public Item GetItemByID(int ID) 
+        public async Task<Item> GetItemByIDAsync(int ID) 
         { 
-            foreach(Item item in Items)
-            {
-                if(item.ID == ID)
-                {
-                    return item;
-                }
-            }
-            return null;
+            //foreach(Item item in Items)
+            //{
+            //    if(item.ID == ID)
+            //    {
+            //        return item;
+            //    }
+            //}
+            //return null;
+
+            return await DBServiceGeneric.GetObjectByIdAsync(ID);
         }
 
         public async Task UpdateItemStockAsync(int itemID, int amount)
         {
-            if(GetItemByID(itemID) != null)
+            Item item = await GetItemByIDAsync(itemID);
+            if (item != null)
             {
-                if(amount > 0)
+                if (amount > 0)
                 {
-                    GetItemByID(itemID).Stock += amount;
+                    item.Stock += amount;
                     //JsonFileService.SaveJsonObjects(Items);
-                    await DBServiceGeneric.UpdateObjectAsync(GetItemByID(itemID));
+                    await DBServiceGeneric.UpdateObjectAsync(item);
                 }
                 else
                 {
-                    GetItemByID(itemID).Stock -= amount;
+                    item.Stock -= amount;
                     //JsonFileService.SaveJsonObjects(Items);
-                    await DBServiceGeneric.UpdateObjectAsync(GetItemByID(itemID));
+                    await DBServiceGeneric.UpdateObjectAsync(item);
                 }
-
             }
         }
 
         public async Task UpdateItemQuantityByID(int ItemID, int Quantity)
         {
-            Item item = GetItemByID(ItemID);
-            if(item != null)
+            Item item = await GetItemByIDAsync(ItemID);
+            if (item != null)
             {
                 item.Stock = item.Stock - Quantity;
                 //JsonFileService.SaveJsonObjects(Items);

@@ -34,9 +34,9 @@ namespace CTTSite.Pages.Store
             IUserService = iUserService;
     }
 
-        public void OnGet(int ID)
+        public async Task OnGetAsync(int ID)
         {
-            Item = IItemService.GetItemByID(ID);
+            Item = await IItemService.GetItemByIDAsync(ID);
         }
 
         //public async Task<IActionResult> OnPostAsync(int ID)
@@ -47,7 +47,7 @@ namespace CTTSite.Pages.Store
 
         public async Task<IActionResult> OnPostAsync(int ID)
         {
-            Item = IItemService.GetItemByID(ID);
+            Item = await IItemService.GetItemByIDAsync(ID);
             User = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
 
             if (Count > Item.Stock)

@@ -25,7 +25,7 @@ namespace CTTSite.Services.NormalService
             JsonFileService = jsonFileService;
             IItemService = iItemService;
             CartItems = GetAllCartItems();
-            Items = IItemService.GetAllItems();
+            Items = IItemService.GetAllItemsAsync().Result;
         }
 
         public async Task AddToCartAsync(CartItem cartItem)

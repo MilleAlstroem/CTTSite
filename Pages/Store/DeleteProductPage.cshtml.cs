@@ -17,9 +17,9 @@ namespace CTTSite.Pages.Store
             IItemService = iItemService;
         }
 
-        public void OnGet(int ID)
+        public async Task OnGet(int ID)
         {
-            Item = IItemService.GetItemByID(ID);
+            Item = await IItemService.GetItemByIDAsync(ID);
         }
 
         public async Task<IActionResult> OnPostAsync() 
