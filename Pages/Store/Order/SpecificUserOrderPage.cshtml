@@ -1,8 +1,7 @@
 ﻿@page
-@model CTTSite.Pages.Store.AllOrderPageModel
+@model CTTSite.Pages.Store.Order.SpecificUserOrderPageModel
 @{
 }
-
 
 <body class="text-center" style="background-color:#f6d8cc;">
     <h1 class="text-center"><b>@Model.User.Identity.Name's Orders</b></h1>
@@ -12,8 +11,6 @@
         <thead>
             <tr class="btn-secondary active">
                 <th>Order Number</th>
-                <th>Order Shipped</th>
-                <th>Order Cancelled</th>
                 <th>Total Price</th>
                 <th>Actions</th>
             </tr>
@@ -26,12 +23,6 @@
                     <tr class="btn-secondary">
                         <td>
                             @order.ID
-                        </td>
-                        <td>
-                            @order.Shipped
-                        </td>
-                        <td>
-                            @order.Cancelled
                         </td>
                         <td>
                             @order.TotalPrice

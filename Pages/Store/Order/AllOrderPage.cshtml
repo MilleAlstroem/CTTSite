@@ -1,5 +1,5 @@
 ﻿@page
-@model CTTSite.Pages.Store.SpecificUserOrdersPageModel
+@model CTTSite.Pages.Store.Order.AllOrderPageModel
 @{
 }
 
@@ -11,6 +11,8 @@
         <thead>
             <tr class="btn-secondary active">
                 <th>Order Number</th>
+                <th>Order Shipped</th>
+                <th>Order Cancelled</th>
                 <th>Total Price</th>
                 <th>Actions</th>
             </tr>
@@ -25,11 +27,16 @@
                             @order.ID
                         </td>
                         <td>
+                            @order.Shipped
+                        </td>
+                        <td>
+                            @order.Cancelled
+                        </td>
+                        <td>
                             @order.TotalPrice
                         </td>
                         <td>
-                            <a class="btn btn-danger" type="button" asp-page="CancelOrderPage" asp-route-id="@order.ID">Cancel order</a>
-                            <a class="btn btn-secondary" type="button" asp-page="SpecificUserOldOrderPage" asp-route-id="@order.ID">View order</a>
+                            <p>What to do here?</p>
                         </td>
                     </tr>
                 }

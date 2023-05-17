@@ -1,20 +1,16 @@
 using CTTSite.Models;
-using CTTSite.Pages.User.LogIn;
 using CTTSite.Services;
 using CTTSite.Services.Interface;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.ComponentModel.DataAnnotations;
 
-namespace CTTSite.Pages.Store
+namespace CTTSite.Pages.Store.Product
 {
     public class SpecificProductPageModel : PageModel
     {
-        public IItemService IItemService;
-        public ICartItemService ICartItemService;
-        public IUserService IUserService;
+        private readonly IItemService _itemService;
+        private readonly ICartItemService _cartItemService;
+        private readonly IUserService _userService;
 
         [BindProperty]
         public Item Item { get; set; }
@@ -27,28 +23,22 @@ namespace CTTSite.Pages.Store
         [BindProperty]
         public int Count { get; set; }
 
-        public SpecificProductPageModel(IItemService iItemService, ICartItemService iCartService, IUserService iUserService)
+        public SpecificProductPageModel(IItemService itemService, ICartItemService cartItemService, IUserService userService)
         {
-            IItemService = iItemService;
-            ICartItemService = iCartService;
-            IUserService = iUserService;
-    }
+            _itemService = itemService;
+            _cartItemService = cartItemService;
+            _userService = userService;
+        }
 
         public async Task OnGetAsync(int ID)
         {
-            Item = await IItemService.GetItemByIDAsync(ID);
+            Item = await _itemService.GetItemByIDAsync(ID);
         }
-
-        //public async Task<IActionResult> OnPostAsync(int ID)
-        //{
-        //    await ICartItemService.AddToCartAsync(new CartItem(6, Item.ID, CartItem.Amount, LogInPageModel.LoggedInUser.Id, false));
-        //    return Page();
-        //}
 
         public async Task<IActionResult> OnPostAsync(int ID)
         {
-            Item = await IItemService.GetItemByIDAsync(ID);
-            User = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
+            Item = await _itemService.GetItemByIDAsync(ID);
+            User = _userService.GetUserByEmail(HttpContext.User.Identity.Name);
 
             if (Count > Item.Stock)
             {
@@ -72,8 +62,8 @@ namespace CTTSite.Pages.Store
             CartItem.UserID = User.Id;
             CartItem.Paid = false;
 
-            await ICartItemService.AddToCartAsync(CartItem);
-            return Page ();
+            await _cartItemService.AddToCartAsync(CartItem);
+            return Page();
         }
     }
 }

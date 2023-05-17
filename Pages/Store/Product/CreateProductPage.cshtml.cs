@@ -2,9 +2,8 @@ using CTTSite.Models;
 using CTTSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Threading.Tasks;
 
-namespace CTTSite.Pages.Store
+namespace CTTSite.Pages.Store.Product
 {
     public class CreateProductPageModel : PageModel
     {
@@ -16,11 +15,6 @@ namespace CTTSite.Pages.Store
         public CreateProductPageModel(IItemService itemService)
         {
             _itemService = itemService;
-        }
-
-        public void OnGet()
-        {
-            
         }
 
         public async Task<IActionResult> OnPostAsync()

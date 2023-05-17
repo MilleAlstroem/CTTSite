@@ -3,23 +3,23 @@ using CTTSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CTTSite.Pages.Store
+namespace CTTSite.Pages.Store.Product
 {
     public class UpdateProductPageModel : PageModel
     {
-        public IItemService IItemService;
+        private readonly IItemService _itemService;
 
         [BindProperty]
         public Item Item { get; set; }
 
-        public UpdateProductPageModel(IItemService iItemService)
+        public UpdateProductPageModel(IItemService itemService)
         {
-            IItemService = iItemService;
+            _itemService = itemService;
         }
 
         public async Task<IActionResult> OnGetAsync(int ID)
         {
-            Item = await IItemService.GetItemByIDAsync(ID);
+            Item = await _itemService.GetItemByIDAsync(ID);
             if (Item == null)
             {
                 return RedirectToPage("AllProductsPage");
@@ -27,13 +27,13 @@ namespace CTTSite.Pages.Store
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync() 
-        { 
-            if(!ModelState.IsValid) 
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
-            await IItemService.UpdateItemAsync(Item);
+            await _itemService.UpdateItemAsync(Item);
             return RedirectToPage("AllProductsPage");
         }
     }

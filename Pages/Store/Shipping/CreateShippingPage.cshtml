@@ -1,7 +1,8 @@
 ﻿@page
-@model CTTSite.Pages.Store.ShippingPageModel
+@model CTTSite.Pages.Store.Shipping.CreateShippingPageModel
 @{
 }
+
 
 <body class="text-center" style="background-color:#f6d8cc;">
     <div class="col-md-6">
@@ -52,7 +53,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <input type="submit" value="Continue" class="btn btn-dark" asp-page-handler="CreateOrder" />
-                    <a asp-page="/Store/SpecificUserCartPage" class="btn btn-dark">Back to Cart</a>
+                    <a asp-page="/Store/Cart/SpecificUserCartPage" class="btn btn-dark">Back to Cart</a>
                 </div>
             </div>
         </div>

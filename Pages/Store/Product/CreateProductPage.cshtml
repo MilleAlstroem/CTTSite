@@ -1,17 +1,13 @@
-﻿@page "{id:int}"
-@model CTTSite.Pages.Store.UpdateProductPageModel
+﻿@page
+@model CTTSite.Pages.Store.Product.CreateProductPageModel
 @{
 }
 
 <div class="row">
     <div class="col-md-6">
-        <h4 class="text-center"><b>Update Product</b></h4>
+        <h4 class="text-center"><b>Create Product</b></h4>
         <br />
         <form method="post">
-            <div class="form-group">
-                <label asp-for="Item.ID" class="control-label"></label>
-                <input asp-for="Item.ID" class="form-control" readonly="@(true)" />
-            </div>
             <div class="form-group">
                 <label asp-for="Item.Name" class="control-label"></label>
                 <input asp-for="Item.Name" class="form-control" />
@@ -39,7 +35,7 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Update" class="btn btn-dark" />
+                <input type="submit" value="Create" class="btn btn-dark" />
             </div>
         </form>
     </div>
