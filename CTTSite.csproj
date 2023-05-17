@@ -7,10 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Store\Cart\**" />
+    <Compile Remove="Pages\Store\Order\**" />
+    <Compile Remove="Pages\Store\Product\**" />
+    <Content Remove="Pages\Store\Cart\**" />
+    <Content Remove="Pages\Store\Order\**" />
+    <Content Remove="Pages\Store\Product\**" />
+    <EmbeddedResource Remove="Pages\Store\Cart\**" />
+    <EmbeddedResource Remove="Pages\Store\Order\**" />
+    <EmbeddedResource Remove="Pages\Store\Product\**" />
+    <None Remove="Pages\Store\Cart\**" />
+    <None Remove="Pages\Store\Order\**" />
+    <None Remove="Pages\Store\Product\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Pages\Store\Cart\" />
-    <Folder Include="Pages\Store\Order\" />
-    <Folder Include="Pages\Store\Product\" />
     <Folder Include="wwwroot\Data\" />
   </ItemGroup>
 
