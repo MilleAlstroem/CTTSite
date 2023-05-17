@@ -16,16 +16,16 @@ namespace CTTSite.Pages.Staff
         private IUserService _iUserService;
         
         [BindProperty]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [BindProperty, DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
-        public Task<bool> SuccessfulCreation { get; set; }
+        public Task<bool>? SuccessfulCreation { get; set; }
 
-        public string Message { get; set; }
+        public string? Message { get; set; }
 
-        public Models.User newUser { get; set; }
+        public Models.User? newUser { get; set; }
 
         private PasswordHasher<string> passwordHasher;
 
