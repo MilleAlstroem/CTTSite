@@ -10,39 +10,46 @@ namespace CTTSite.Services.NormalService
 {
     public class OrderService : IOrderService
     {
-        public DBServiceGeneric<Order> DBServiceGeneric;
-        public DBServiceGeneric<CartItem_Order> DBServiceGenericCIO;
-        public DBServiceGeneric<CartItem> DBServiceGenericCartItem;
-        public JsonFileService<Order> JsonFileService;
-        public IUserService IUserService;
-        public ICartItemService ICartItemService;
-        public IItemService IItemService;
-        public List<Order> Orders;
-        public List<CartItem> CartItems;
-        public int lastOrderID = 0;
+        private readonly DBServiceGeneric<Order> _dBServiceGeneric;
+        private readonly DBServiceGeneric<CartItem_Order> _dBServiceGenericCIO;
+        private readonly DBServiceGeneric<CartItem> _dBServiceGenericCartItem;
+        private readonly JsonFileService<Order> _jsonFileService;
+        private readonly IUserService _userService;
+        private readonly ICartItemService _cartItemService;
+        private readonly IItemService _itemService;
+        private List<Order> _orders;
+        private List<CartItem> _cartItems;
+        private int _lastOrderID = 0;
 
-        public OrderService(DBServiceGeneric<Order> dBServiceGeneric, JsonFileService<Order> jsonFileService, ICartItemService iCartItemService, DBServiceGeneric<CartItem_Order> dBServiceGenericCIO, DBServiceGeneric<CartItem> dBServiceGenericCartItem, IUserService iUserService, IItemService iItemService)
+        public OrderService(
+            DBServiceGeneric<Order> dBServiceGeneric,
+            JsonFileService<Order> jsonFileService,
+            ICartItemService cartItemService,
+            DBServiceGeneric<CartItem_Order> dBServiceGenericCIO,
+            DBServiceGeneric<CartItem> dBServiceGenericCartItem,
+            IUserService userService,
+            IItemService itemService)
         {
-            DBServiceGeneric = dBServiceGeneric;
-            JsonFileService = jsonFileService;
-            ICartItemService = iCartItemService;
-            DBServiceGenericCIO = dBServiceGenericCIO;
-            DBServiceGenericCartItem = dBServiceGenericCartItem;
-            IUserService = iUserService;
-            IItemService = iItemService;
-            Orders = GetAllOrders();
+            _dBServiceGeneric = dBServiceGeneric;
+            _jsonFileService = jsonFileService;
+            _cartItemService = cartItemService;
+            _dBServiceGenericCIO = dBServiceGenericCIO;
+            _dBServiceGenericCartItem = dBServiceGenericCartItem;
+            _userService = userService;
+            _itemService = itemService;
+            _orders = GetAllOrdersAsync().Result;
         }
 
-        public List<Order> GetAllOrders()
+        public async Task<List<Order>> GetAllOrdersAsync()
         {
             //return MockData.MockDataOrder.GetMockOrders();
-            //return JsonFileService.GetJsonObjects().ToList();
-            return DBServiceGeneric.GetObjectsAsync().Result.ToList();
+            //return _jsonFileService.GetJsonObjects().ToList();
+            return (await _dBServiceGeneric.GetObjectsAsync()).ToList();
         }
 
         public Order GetOrderByID(int ID)
         {
-            foreach (Order order in Orders)
+            foreach (Order order in _orders)
             {
                 if (order.ID == ID)
                 {

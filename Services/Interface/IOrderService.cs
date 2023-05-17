@@ -5,8 +5,8 @@ namespace CTTSite.Services.Interface
 {
     public interface IOrderService
     {
+        Task<List<Order>> GetAllOrdersAsync();
         Task CreateOrderAsync(Order order);
-        List<Order> GetAllOrders();
         Task CancelOrderByIDAsync(int ID);
         List<Order> GetOrdersByUserID(int UserID);
         Order GetOrderByID(int ID);
