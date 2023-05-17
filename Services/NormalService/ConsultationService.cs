@@ -8,22 +8,22 @@ namespace CTTSite.Services.NormalService
 {
     public class ConsultationService : IConsultationService
     {
-        public IEmailService IEmailService;
+        private readonly IEmailService _emailService;
+        private readonly DBServiceGeneric<Consultation> _dbServiceGeneric;
+        private readonly JsonFileService<Consultation> _jsonFileService;
         public List<Consultation> ConsultationsList;
-        public DBServiceGeneric<Consultation> DBServiceGeneric;
-        public JsonFileService<Consultation> JsonFileService;
 
-        public ConsultationService(DBServiceGeneric<Consultation> dBServiceGeneric, JsonFileService<Consultation> jsonFileService, IEmailService iEmailService)
+        public ConsultationService(DBServiceGeneric<Consultation> dbServiceGeneric, JsonFileService<Consultation> jsonFileService, IEmailService emailService)
         {
-            DBServiceGeneric = dBServiceGeneric;
-            JsonFileService = jsonFileService;
-            IEmailService = iEmailService;
-            ConsultationsList = GetAllConsultations();
+            _dbServiceGeneric = dbServiceGeneric;
+            _jsonFileService = jsonFileService;
+            _emailService = emailService;
+            ConsultationsList = GetAllConsultationsAsync().Result;
         }
 
-        public List<Consultation> GetAllConsultations()
+        public async Task<List<Consultation>> GetAllConsultationsAsync()
         {
-            return DBServiceGeneric.GetObjectsAsync().Result.ToList();
+            return (await _dbServiceGeneric.GetObjectsAsync()).ToList();
             //return JsonFileService.GetJsonObjects().ToList();
             //return MockData.MockDataConsultation.GetAllConsultations();
         }
@@ -53,8 +53,8 @@ namespace CTTSite.Services.NormalService
             //consultation.ID = IDCount + 1;
             consultation.Date = consultation.Date.Date;
             ConsultationsList.Add(consultation);
-            await DBServiceGeneric.AddObjectAsync(consultation);
-            //JsonFileService.SaveJsonObjects(ConsultationsList);
+            await _dbServiceGeneric.AddObjectAsync(consultation);
+            //_jsonFileService.SaveJsonObjects(ConsultationsList);
         }
 
         public async Task DeleteConsultation(Consultation consultation)
@@ -63,8 +63,8 @@ namespace CTTSite.Services.NormalService
             if(consultation != null)
             {
                 ConsultationsList.Remove(consultation);
-                //JsonFileService.SaveJsonObjects(ConsultationsList);
-                await DBServiceGeneric.DeleteObjectAsync(consultation);
+                //_ssonFileService.SaveJsonObjects(ConsultationsList);
+                await _dbServiceGeneric.DeleteObjectAsync(consultation);
             }
         }
 
@@ -85,16 +85,16 @@ namespace CTTSite.Services.NormalService
                         consultationO.BookedEmail = consultationN.BookedEmail;
                     }                    
                 }
-                //JsonFileService.SaveJsonObjects(ConsultationsList);
-                await DBServiceGeneric.UpdateObjectAsync(consultationN);
+                //_jsonFileService.SaveJsonObjects(ConsultationsList);
+                await _dbServiceGeneric.UpdateObjectAsync(consultationN);
             }
         }
 
         public async Task SubmitConsultationByEmail(Consultation consultation, string email)
         {
-            IEmailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, email));
-            IEmailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, "chilterntalkingtherapies@gmail.com"));
-            await DBServiceGeneric.UpdateObjectAsync(consultation);
+            _emailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, email));
+            _emailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, "chilterntalkingtherapies@gmail.com"));
+            await _dbServiceGeneric.UpdateObjectAsync(consultation);
         }
     }
 }
