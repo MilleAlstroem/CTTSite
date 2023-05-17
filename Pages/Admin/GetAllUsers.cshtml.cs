@@ -18,7 +18,7 @@ namespace CTTSite.Pages.Staff.Admin
 
 
         [BindProperty]
-        public string SearchString { get; set; }
+        public string? SearchString { get; set; }
 
         public GetAllUsersModel(IUserService userService)
         {
@@ -27,7 +27,7 @@ namespace CTTSite.Pages.Staff.Admin
         }
         public void OnGet()
         {
-           //_iUserService.SaveUsers();
+           
         }
 
 		public IActionResult OnGetAll()

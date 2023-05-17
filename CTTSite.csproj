@@ -8,6 +8,9 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Pages\Store\Cart\" />
+    <Folder Include="Pages\Store\Order\" />
+    <Folder Include="Pages\Store\Product\" />
     <Folder Include="wwwroot\Data\" />
   </ItemGroup>
 
