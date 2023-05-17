@@ -7,14 +7,14 @@ namespace CTTSite.Services.NormalService
 {
     public class ItemService : IItemService
     {
-        public DBServiceGeneric<Item> DBServiceGeneric;
-        public JsonFileService<Item> JsonFileService;
-        public List<Item> Items;
+        private readonly DBServiceGeneric<Item> _dBServiceGeneric;
+        private readonly JsonFileService<Item> _jsonFileService;
+        public List<Item> Items { get; private set; }
 
         public ItemService(DBServiceGeneric<Item> dBServiceGeneric, JsonFileService<Item> jsonFileService)
         {
-            DBServiceGeneric = dBServiceGeneric;
-            JsonFileService = jsonFileService;
+            _dBServiceGeneric = dBServiceGeneric;
+            _jsonFileService = jsonFileService;
             Items = GetAllItemsAsync().Result;
         }
 
@@ -30,8 +30,8 @@ namespace CTTSite.Services.NormalService
             //}
             //item.ID = IDCount + 1;
             Items.Add(item);
-            //JsonFileService.SaveJsonObjects(Items);
-            await DBServiceGeneric.AddObjectAsync(item);
+            //_jsonFileService.SaveJsonObjects(Items);
+            await _dBServiceGeneric.AddObjectAsync(item);
         }
 
         public async Task DeleteItemByIDAsync(int ID)
@@ -40,15 +40,15 @@ namespace CTTSite.Services.NormalService
             if (itemToBeDeleted != null)
             {
                 Items.Remove(itemToBeDeleted);
-                JsonFileService.SaveJsonObjects(Items);
-                await DBServiceGeneric.DeleteObjectAsync(itemToBeDeleted);
+                _jsonFileService.SaveJsonObjects(Items);
+                await _dBServiceGeneric.DeleteObjectAsync(itemToBeDeleted);
             }
         }
 
         public async Task<List<Item>> GetAllItemsAsync()
         {
-            return (await DBServiceGeneric.GetObjectsAsync()).ToList();
-            //return JsonFileService.GetJsonObjects().ToList();
+            return (await _dBServiceGeneric.GetObjectsAsync()).ToList();
+            //return _jsonFileService.GetJsonObjects().ToList();
             //return MockData.MockDataItem.GetMockItem();
         }
 
@@ -65,8 +65,8 @@ namespace CTTSite.Services.NormalService
                         itemO.Price = itemN.Price;
                         itemO.Stock = itemN.Stock;
                         itemO.IMG = itemN.IMG;
-                        //JsonFileService.SaveJsonObjects(Items);
-                        await DBServiceGeneric.UpdateObjectAsync(itemO);
+                        //_jsonFileService.SaveJsonObjects(Items);
+                        await _dBServiceGeneric.UpdateObjectAsync(itemO);
                     }
                 }
             }
@@ -83,7 +83,7 @@ namespace CTTSite.Services.NormalService
             //}
             //return null;
 
-            return await DBServiceGeneric.GetObjectByIdAsync(ID);
+            return await _dBServiceGeneric.GetObjectByIdAsync(ID);
         }
 
         public async Task UpdateItemStockAsync(int itemID, int amount)
@@ -94,14 +94,14 @@ namespace CTTSite.Services.NormalService
                 if (amount > 0)
                 {
                     item.Stock += amount;
-                    //JsonFileService.SaveJsonObjects(Items);
-                    await DBServiceGeneric.UpdateObjectAsync(item);
+                    //_jsonFileService.SaveJsonObjects(Items);
+                    await _dBServiceGeneric.UpdateObjectAsync(item);
                 }
                 else
                 {
                     item.Stock -= amount;
-                    //JsonFileService.SaveJsonObjects(Items);
-                    await DBServiceGeneric.UpdateObjectAsync(item);
+                    //_jsonFileService.SaveJsonObjects(Items);
+                    await _dBServiceGeneric.UpdateObjectAsync(item);
                 }
             }
         }
@@ -112,8 +112,8 @@ namespace CTTSite.Services.NormalService
             if (item != null)
             {
                 item.Stock = item.Stock - Quantity;
-                //JsonFileService.SaveJsonObjects(Items);
-                await DBServiceGeneric.UpdateObjectAsync(item);
+                //_jsonFileService.SaveJsonObjects(Items);
+                await _dBServiceGeneric.UpdateObjectAsync(item);
             }
         }
 

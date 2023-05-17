@@ -40,11 +40,11 @@
     "Stock": 12
   },
   {
-    "ID": 6,
-    "Name": "Fuck",
+    "ID": 7,
+    "Name": "Mus",
     "Description": "Go to love it",
     "IMG": "NoIMG",
-    "Price": 15.00,
+    "Price": 550,
     "Stock": 58
   }
 ]
