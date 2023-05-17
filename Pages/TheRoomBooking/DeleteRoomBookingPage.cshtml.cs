@@ -8,15 +8,13 @@ namespace CTTSite.Pages.TheRoomBooking
     public class DeleteRoomBookingPageModel : PageModel
     {
         public IRoomBookingService IRoomBookingService { get; set; }
-        public IUserService IUserService { get; set; }
 
         [BindProperty]
         public RoomBooking RoomBooking { get; set; }
 
-        public DeleteRoomBookingPageModel(IRoomBookingService iRoomBookingService, IUserService iUserService)
+        public DeleteRoomBookingPageModel(IRoomBookingService iRoomBookingService)
         {
             IRoomBookingService = iRoomBookingService;
-            IUserService=iUserService;
         }
 
         public void OnGet(int ID)
@@ -26,7 +24,7 @@ namespace CTTSite.Pages.TheRoomBooking
 
         public async Task<IActionResult> OnPostAsync()
         {
-            await IRoomBookingService.DeleteRoomBookingAsync(RoomBooking);
+            await IRoomBookingService.DeleteRoomBookingByIDAsync(RoomBooking.ID);
             return RedirectToPage("/TheRoomBooking/AllRoomBookingsPage");
         }
     }

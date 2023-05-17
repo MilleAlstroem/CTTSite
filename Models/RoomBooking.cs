@@ -10,7 +10,7 @@ namespace CTTSite.Models
         public int ID { get; set; }
 
         [Required]
-        public int UserID { get; set; }
+        public string UserEmail { get; set; }
 
         [Required(ErrorMessage = "A start date and time is required")]
         public DateTime StartDateTime { get; set; }
@@ -21,10 +21,10 @@ namespace CTTSite.Models
         public string Description { get; set; }
 
 
-        public RoomBooking(int iD, int userID, DateTime startDateTime, DateTime endDateTime, string description)
+        public RoomBooking(int iD, string userEmail, DateTime startDateTime, DateTime endDateTime, string description)
         {
             ID = iD;
-            UserID = userID;
+            UserEmail = userEmail;
             StartDateTime = startDateTime;
             EndDateTime = endDateTime;
             Description = description;

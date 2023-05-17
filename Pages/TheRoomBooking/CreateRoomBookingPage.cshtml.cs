@@ -9,15 +9,13 @@ namespace CTTSite.Pages.TheRoomBooking
     public class CreateRoomBookingPageModel : PageModel
     {
         public IRoomBookingService IRoomBookingService { get; set; }
-        public IUserService IUserService { get; set; }
 
         [BindProperty]
         public RoomBooking RoomBooking { get; set; }
         
-        public CreateRoomBookingPageModel(IRoomBookingService iRoomBookingService, IUserService iUserService)
+        public CreateRoomBookingPageModel(IRoomBookingService iRoomBookingService)
         {
             IRoomBookingService = iRoomBookingService;
-            IUserService = iUserService;
         }
 
         public void OnGet()
@@ -26,12 +24,12 @@ namespace CTTSite.Pages.TheRoomBooking
 
         public async Task<IActionResult> OnPostAsync()
         {
-            RoomBooking.UserID = IUserService.GetUserByEmail(HttpContext.User.Identity.Name).Id;
+            RoomBooking.UserEmail = HttpContext.User.Identity.Name;
 
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
             await IRoomBookingService.CreateRoomBookingAsync(RoomBooking);
             return RedirectToPage("/TheRoomBooking/AllRoomBookingsPage");

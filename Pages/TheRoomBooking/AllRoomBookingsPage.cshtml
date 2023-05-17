@@ -44,7 +44,7 @@
                 <a class="text-decoration-none text-light" asp-page="/TheRoomBooking/SpecificRoomBookingPage" asp-route-id="@roomBooking.ID">
                     <div class="card bg-dark">
                         <div class="card-body">
-                            <h4>@Model.IRoomBookingService.GetUserByRoomBooking(roomBooking).Email</h4>
+                            <h4>@roomBooking.UserEmail</h4>
                             <h4>@roomBooking.StartDateTime   -   @roomBooking.EndDateTime</h4>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
     }
 else
     {
-        <h1 class="text-center"><b>You are not logged in as staff.</b></h1>
+        <h1 class="text-center"><b>You are not logged in as staff</b></h1>
     }
 
 </body>
