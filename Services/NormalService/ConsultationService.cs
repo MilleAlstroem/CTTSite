@@ -28,16 +28,16 @@ namespace CTTSite.Services.NormalService
             //return MockData.MockDataConsultation.GetAllConsultations();
         }
 
-        public Consultation GetConsultationByID(int ID)
+        public async Task<Consultation> GetConsultationByIDAsync(int ID)
         {
-            foreach (Consultation consultation in ConsultationsList)
-            {
-                if (consultation.ID == ID)
-                {
-                    return consultation;
-                }
-            }
-            return null;
+            //foreach (Consultation consultation in ConsultationsList)
+            //{
+            //    if (consultation.ID == ID)
+            //    {
+            //        return consultation;
+            //    }
+            //}
+            return await _dbServiceGeneric.GetObjectByIdAsync(ID);
         }
 
         public async Task CreateConsultation(Consultation consultation)
@@ -92,9 +92,14 @@ namespace CTTSite.Services.NormalService
 
         public async Task SubmitConsultationByEmail(Consultation consultation, string email)
         {
+            Consultation consultationToBeUpdated = await GetConsultationByIDAsync(consultation.ID);
+            consultationToBeUpdated.BookedNamed = consultation.BookedNamed;
+            consultationToBeUpdated.TelefonNummer = consultation.TelefonNummer;
+            consultationToBeUpdated.BookedEmail = consultation.BookedEmail;
+            consultationToBeUpdated.Booked = true;
             _emailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, email));
             _emailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, "chilterntalkingtherapies@gmail.com"));
-            await _dbServiceGeneric.UpdateObjectAsync(consultation);
+            await _dbServiceGeneric.UpdateObjectAsync(consultationToBeUpdated);
         }
     }
 }

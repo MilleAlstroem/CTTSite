@@ -8,7 +8,7 @@ namespace CTTSite.Services.Interface
         Task DeleteConsultation(Consultation consultation);
         Task UpdateConsultation(Consultation consultationN);
         Task SubmitConsultationByEmail(Consultation consultation, string email);
-        Consultation GetConsultationByID(int ID);
+        Task<Consultation> GetConsultationByIDAsync(int ID);
         Task<List<Consultation>> GetAllConsultationsAsync();
 
 

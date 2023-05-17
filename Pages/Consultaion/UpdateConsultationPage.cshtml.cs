@@ -17,9 +17,9 @@ namespace CTTSite.Pages.Consultation
             IConsultationService = iConsultationService;
         }
 
-        public void OnGet(int id)
+        public async Task OnGetAsync(int id)
         {
-            Consultation = IConsultationService.GetConsultationByID(id);
+            Consultation = await IConsultationService.GetConsultationByIDAsync(id);
             UserID = Consultation.UserID;
         }
 
