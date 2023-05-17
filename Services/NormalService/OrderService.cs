@@ -64,7 +64,7 @@ namespace CTTSite.Services.NormalService
 
         public async Task<List<Order>> GetOrdersByUserIDAsync(int userID)
         {
-            return await Task.Run(() => _orders.Where(order => order.UserID == userID).ToList());
+            return await Task.Run(() => _orders.Where(order => order.UserID == userID && !order.Cancelled).ToList());
         }
 
         public async Task CreateOrderAsync(Order order)
@@ -131,7 +131,7 @@ namespace CTTSite.Services.NormalService
             // Include the associated Item for each CartItem
             foreach (CartItem cartItem in cartItemList)
             {
-                cartItem.Item = await _itemService.GetItemByIDAsync(cartItem.ItemID); // Assuming you have a method to retrieve Item by ID asynchronously
+                cartItem.Item = await _itemService.GetItemByIDAsync(cartItem.ItemID);
             }
 
             return cartItemList;

@@ -11,6 +11,19 @@
     <h1 class="text-center"><b>Update Booking</b></h1>
     <br />
     <form method="post" class="text-center" style="width:80%; margin-inline:10%">
+        <div class="row" hidden="hidden">
+            <div class="form-group" style="width:20%; margin-inline:5%">
+                <label asp-for="@Model.RoomBooking.ID" class="control-lable">ID:</label>
+                <input asp-for="@Model.RoomBooking.ID" class="form-control" readonly />
+                <span asp-validation-for="@Model.RoomBooking.ID" class="text-danger"></span><br />
+            </div>
+            <div class="form-group" style="width:60%; margin-inline:5%">
+                <label asp-for="@Model.RoomBooking.UserEmail" class="control-lable">User:</label>
+                <input asp-for="@Model.RoomBooking.UserEmail" class="form-control" readonly />
+                <span asp-validation-for="@Model.RoomBooking.UserEmail" class="text-danger"></span><br />
+            </div>
+        </div>
+
         <div class="row">
             <div class="form-group" style="width:40%; margin-inline:5%">
                 <label asp-for="@Model.RoomBooking.StartDateTime" class="control-lable">From:</label>
@@ -31,7 +44,7 @@
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Update" class="btn btn-dark" style="margin-inline:1%" asp-page-handler="UpdateRoomBooking" />
+            <input type="submit" value="Update" class="btn btn-dark" style="margin-inline:1%" asp-route-id="@Model.RoomBooking.ID" />
             <a asp-page="/TheRoomBooking/SpecificRoomBookingPage" asp-route-id="@Model.RoomBooking.ID" class="btn btn-dark" style="margin-inline:1%">Back</a>
         </div>
     </form>

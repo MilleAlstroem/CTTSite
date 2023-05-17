@@ -20,7 +20,7 @@
         @if (User.Identity != null && (@Model.RoomBooking.UserEmail == User.Identity.Name || User.IsInRole("admin") == true))
         {
             <a asp-page="/TheRoomBooking/UpdateRoomBookingPage" asp-route-id="@Model.RoomBooking.ID" class="btn btn-dark" style="margin-inline:1%">Update</a>
-            <a asp-page="/TheRoomBooking/DeleteRoomBookingPage" asp-route-id="@Model.RoomBooking.ID" class="btn btn-dark" style="margin-inline:1%">Delete</a>
+            <a asp-page="/TheRoomBooking/DeleteRoomBookingPage" asp-route-id="@Model.RoomBooking.ID" class="btn btn-danger" style="margin-inline:1%">Delete</a>
         }
     </div>
 

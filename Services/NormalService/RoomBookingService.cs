@@ -29,9 +29,23 @@ namespace CTTSite.Services.NormalService
             await DBServiceGeneric.AddObjectAsync(RoomBooking);
         }
 
-        public Task UpdateRoomBookingAsync(RoomBooking RoomBooking)
+        public async Task UpdateRoomBookingAsync(RoomBooking NewRoomBooking)
         {
-            throw new NotImplementedException();
+            if (NewRoomBooking != null)
+            {
+                foreach (RoomBooking OldRoomBooking in RoomBookings)
+                {
+                    if (OldRoomBooking.ID == NewRoomBooking.ID)
+                    {
+                        OldRoomBooking.StartDateTime = NewRoomBooking.StartDateTime;
+                        OldRoomBooking.EndDateTime = NewRoomBooking.EndDateTime;
+                        OldRoomBooking.Description = NewRoomBooking.Description;
+                        OldRoomBooking.UserEmail = NewRoomBooking.UserEmail;
+
+                        await DBServiceGeneric.UpdateObjectAsync(OldRoomBooking);
+                    }
+                }
+            }
         }
 
         public async Task DeleteRoomBookingByIDAsync(int ID)
