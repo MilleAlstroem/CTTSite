@@ -8,11 +8,9 @@ namespace CTTSite.Services.Interface
     public interface IUserService
     {
 
-        bool AddUser(User user);
+        Task<bool> AddUser(User user);
 
         int GetUserIdByEmail(string email);
-
-        List<User> GetUsersFromDB();
 
         List<User> GetAllUsers();
 
@@ -26,15 +24,9 @@ namespace CTTSite.Services.Interface
 
         List<User> GetAdmins();
 
-        //List<User> SortStaff();
-
-        //List<User> SortAdmins();
-
-        //List<User> SortClients();
-
         List<User> SearchUserByEmail(string searchEmail);
 
-        User DeleteUserByID(int ID);
+        Task<User> DeleteUserByID(int ID);
 
         Task UpdateUserAsync(User userN);
 
@@ -46,7 +38,7 @@ namespace CTTSite.Services.Interface
 
         IEnumerable<User> SortByEmailDescending();
 
-        void SaveUsers();
+        Task SaveUsers();
 
         void ForgottenPassword(string email);
 

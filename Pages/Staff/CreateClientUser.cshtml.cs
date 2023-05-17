@@ -21,7 +21,7 @@ namespace CTTSite.Pages.Staff
         [BindProperty, DataType(DataType.Password)]
         public string Password { get; set; }
 
-        public bool SuccessfulCreation { get; set; }
+        public Task<bool> SuccessfulCreation { get; set; }
 
         public string Message { get; set; }
 
@@ -37,7 +37,7 @@ namespace CTTSite.Pages.Staff
         public void OnGet()
         {
         }
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
 
             if ((Email == null) && (Password == null))
@@ -102,9 +102,9 @@ namespace CTTSite.Pages.Staff
 
             newUser = new Models.User(Email, passwordHasher.HashPassword(null, Password), false, false);
             SuccessfulCreation = _iUserService.AddUser(newUser);
-            if(SuccessfulCreation == true)
+            if(SuccessfulCreation.Result == true)
             {
-                _iUserService.AddUser(newUser);
+                await _iUserService.AddUser(newUser);
                
                 return RedirectToPage("/Index");
             }
