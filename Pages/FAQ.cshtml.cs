@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CTTSite.Pages
 {
-    public class FQAModel : PageModel
+    public class FAQModel : PageModel
     {
         public void OnGet()
         {
