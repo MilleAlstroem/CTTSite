@@ -4,7 +4,9 @@ using CTTSite.Models;
 using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
+using MailKit.Search;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.X509;
 
 namespace CTTSite.Services.NormalService
 {
@@ -47,35 +49,28 @@ namespace CTTSite.Services.NormalService
             return (await _dBServiceGeneric.GetObjectsAsync()).ToList();
         }
 
-        public Order GetOrderByID(int ID)
+        public async  Task<Order> GetOrderByIDAsync(int ID)
         {
-            foreach (Order order in _orders)
-            {
-                if (order.ID == ID)
-                {
-                    return order;
-                }
-            }
-            return null;
+            //foreach (Order order in _orders)
+            //{
+            //    if (order.ID == ID)
+            //    {
+            //        return order;
+            //    }
+            //}
+            //return null;
+            return await _dBServiceGeneric.GetObjectByIdAsync(ID);
         }
 
-        public List<Order> GetOrdersByUserID(int UserID)
+        public async Task<List<Order>> GetOrdersByUserIDAsync(int userID)
         {
-            List<Order> userOrders = new List<Order>();
-            foreach (Order order in Orders)
-            {
-                if (order.UserID == UserID)
-                {
-                    userOrders.Add(order);
-                }
-            }
-            return userOrders;
+            return await Task.Run(() => _orders.Where(order => order.UserID == userID).ToList());
         }
 
         public async Task CreateOrderAsync(Order order)
         {
             int IDCount = 0;
-            foreach (Order listOrder in Orders)
+            foreach (Order listOrder in _orders)
             {
                 if (IDCount < listOrder.ID)
                 {
@@ -84,46 +79,51 @@ namespace CTTSite.Services.NormalService
             }
             //order.ID = IDCount + 1;
             IDCount = IDCount + 1;
-            lastOrderID = IDCount;
-            Orders.Add(order);
+            _lastOrderID = IDCount;
+            _orders.Add(order);
             //JsonFileService.SaveJsonObjects(Orders);
-            await DBServiceGeneric.AddObjectAsync(order);
+            await _dBServiceGeneric.AddObjectAsync(order);
         }
 
         public async Task CancelOrderByIDAsync(int ID)
         {
-            foreach (Order order in Orders)
+            Order orderToBeCancel = await GetOrderByIDAsync(ID);
+
+            foreach (Order order in _orders)
             {
                 if (order.ID == ID)
                 {
                     order.Cancelled = true;
                     //JsonFileService.SaveJsonObjects(Orders);
-                    await DBServiceGeneric.UpdateObjectAsync(order);
                 }
             }
-
+            if (orderToBeCancel != null)
+            {
+                orderToBeCancel.Cancelled = true;
+                await _dBServiceGeneric.UpdateObjectAsync(orderToBeCancel);
+            }
         }
 
         public async Task AddCartItemsToOrderAsync(int ID)
         {
-            int orderID = lastOrderID;
-            CartItems = await ICartItemService.GetAllCartItemsByUserIDAsync(ID);
+            int orderID = _lastOrderID;
+            _cartItems = await _cartItemService.GetAllCartItemsByUserIDAsync(ID);
 
             if (orderID != null)
             {
-                foreach (CartItem cartItem in CartItems)
+                foreach (CartItem cartItem in _cartItems)
                 {
                     CartItem_Order cartItemOrder = new CartItem_Order(cartItem.ID, orderID);
 
-                    await DBServiceGenericCIO.AddObjectAsync(cartItemOrder);
+                    await _dBServiceGenericCIO.AddObjectAsync(cartItemOrder);
                 }
             }
         }
 
         public async Task<List<CartItem>> GetOldOrderByOrderIDAsync(int orderID)
         {
-            IEnumerable<CartItem_Order> CIO = await DBServiceGenericCIO.GetObjectsAsync();
-            IEnumerable<CartItem> cartItems = await DBServiceGenericCartItem.GetObjectsAsync();
+            IEnumerable<CartItem_Order> CIO = await _dBServiceGenericCIO.GetObjectsAsync();
+            IEnumerable<CartItem> cartItems = await _dBServiceGenericCartItem.GetObjectsAsync();
 
             CIO = CIO.Where(cartItem_Order => cartItem_Order.OrderID == orderID).ToList();
             List<CartItem> cartItemList = cartItems.Where(cartItem => CIO.Any(cartItem_Order => cartItem_Order.CartItemID == cartItem.ID)).ToList();
@@ -131,7 +131,7 @@ namespace CTTSite.Services.NormalService
             // Include the associated Item for each CartItem
             foreach (CartItem cartItem in cartItemList)
             {
-                cartItem.Item = await IItemService.GetItemByIDAsync(cartItem.ItemID); // Assuming you have a method to retrieve Item by ID asynchronously
+                cartItem.Item = await _itemService.GetItemByIDAsync(cartItem.ItemID); // Assuming you have a method to retrieve Item by ID asynchronously
             }
 
             return cartItemList;
@@ -139,8 +139,8 @@ namespace CTTSite.Services.NormalService
 
         public async Task<int> GetLatestOrderFromUserAsync(string userName)
         {
-            Models.User user = IUserService.GetUserByEmail(userName);
-            List<Order> userOrders = GetOrdersByUserID(user.Id);
+            Models.User user = _userService.GetUserByEmail(userName);
+            List<Order> userOrders = await GetOrdersByUserIDAsync(user.Id);
             Order latestOrder = userOrders.OrderByDescending(order => order.ID).FirstOrDefault();
             return latestOrder?.ID ?? 0;
         }

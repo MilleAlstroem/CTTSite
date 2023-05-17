@@ -27,7 +27,7 @@ namespace CTTSite.Pages.Store
         public async Task<IActionResult> OnGetAsync(int ID)
         {
             Models.User CurrentUser = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
-            Order = IOrderService.GetOrderByID(ID);
+            Order = await IOrderService.GetOrderByIDAsync(ID);
             CartItems = await IOrderService.GetOldOrderByOrderIDAsync(ID);
             return Page();
         }

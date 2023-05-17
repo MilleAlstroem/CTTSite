@@ -18,10 +18,10 @@ namespace CTTSite.Pages.Store
             IUserService = iUserService;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
             Models.User CurrentUser = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
-            Orders = IOrderService.GetOrdersByUserID(CurrentUser.Id);
+            Orders = await IOrderService.GetOrdersByUserIDAsync(CurrentUser.Id);
             return Page();
         }
     }
