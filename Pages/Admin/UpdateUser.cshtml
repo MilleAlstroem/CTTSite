@@ -29,13 +29,21 @@
 
 	<p>
 		<div class="form-group">
-			<input type="submit" value="Update" class="btn btn-primary" />
+			<input type="submit" value="Update" class="btn btn-dark" />
 		</div>
 	</p>
 </form>
 		</div>
 	</div>
 </div>
+<p class="text-danger">
+    Please be aware tgat if you change the password, the user will have to reset their password to login. 
+	Also be aware that changing the email will change the username and may disconnect the user from some aspects of there account such as their saved forms.
+	</p>
+	<br />
+<p class="text-dark">
+	If the details are not valid, this page will load again. If they are correct, you will be sent back to the All Users page.
+</p>
 <div>
-	<a asp-page="/Index" class="btn btn-outline-dark">Back to Home</a>
+	<a asp-page="/GetAllUsers" class="btn btn-outline-dark">All Users</a>
 </div>
