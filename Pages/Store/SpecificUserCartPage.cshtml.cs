@@ -21,14 +21,15 @@ namespace CTTSite.Pages.Store
             IUserService = iUserService;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            Models.User CurrentUser = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
-            CartItems = ICartItemService.GetAllCartItemsByUserID(CurrentUser.Id);
-            TotalPrice = ICartItemService.GetTotalPriceOfCartByUserID(CurrentUser.Id);
+            Models.User currentUser = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
+            CartItems = await ICartItemService.GetAllCartItemsByUserIDAsync(currentUser.Id);
+            TotalPrice = await ICartItemService.GetTotalPriceOfCartByUserIDAsync(currentUser.Id);
             CartItemsCount = CartItems.Count;
             return Page();
         }
-        
+
+
     }
 }

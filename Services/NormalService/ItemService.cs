@@ -18,6 +18,13 @@ namespace CTTSite.Services.NormalService
             Items = GetAllItemsAsync().Result;
         }
 
+        public async Task<List<Item>> GetAllItemsAsync()
+        {
+            return (await _dBServiceGeneric.GetObjectsAsync()).ToList();
+            //return _jsonFileService.GetJsonObjects().ToList();
+            //return MockData.MockDataItem.GetMockItem();
+        }
+
         public async Task CreateItemAsync(Item item)
         {
             //int IDCount = 0;
@@ -43,13 +50,6 @@ namespace CTTSite.Services.NormalService
                 _jsonFileService.SaveJsonObjects(Items);
                 await _dBServiceGeneric.DeleteObjectAsync(itemToBeDeleted);
             }
-        }
-
-        public async Task<List<Item>> GetAllItemsAsync()
-        {
-            return (await _dBServiceGeneric.GetObjectsAsync()).ToList();
-            //return _jsonFileService.GetJsonObjects().ToList();
-            //return MockData.MockDataItem.GetMockItem();
         }
 
         public async Task UpdateItemAsync(Item itemN)
@@ -106,7 +106,7 @@ namespace CTTSite.Services.NormalService
             }
         }
 
-        public async Task UpdateItemQuantityByID(int ItemID, int Quantity)
+        public async Task UpdateItemQuantityByIDAsync(int ItemID, int Quantity)
         {
             Item item = await GetItemByIDAsync(ItemID);
             if (item != null)
