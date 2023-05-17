@@ -126,9 +126,18 @@ body {
     background-image: url('../formimages/speechbubblegreenrev.png');
     background-repeat: no-repeat;
     background-position: left;
+    background-size: contain;
 }
 .blueBackground {
     background-image: url('../formimages/speechbubblebluerev.png');
     background-repeat: no-repeat;
     background-position: right;
+    background-size: contain;
+}
+.redBackground {
+    
+    background-image: url('../formimages/speechbubble.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:contain;
 }
