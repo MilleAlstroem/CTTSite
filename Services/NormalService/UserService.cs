@@ -33,7 +33,7 @@ namespace CTTSite.Services.NormalService
         /// <summary>
         /// List of all clients
         /// </summary>
-        private List<User> _clients { get; set; }        
+        private List<User> _clients { get; set; }         
 
         /// <summary>
         /// Dependency Injection for EmailService to allow for sending emails
@@ -56,7 +56,10 @@ namespace CTTSite.Services.NormalService
         {
             DBServiceGeneric = dBServiceGeneric;
             _users = GetUsersFromDB();
-            DBServiceGeneric.SaveObjectsAsync(_users);
+            _admins = GetAdmins();
+            _staff = GetStaff();
+            _clients = GetClients();
+            _newPassword = "";
             EmailService = emailService;
         }
 
@@ -68,16 +71,16 @@ namespace CTTSite.Services.NormalService
         /// </summary>
         /// <param name="user"></param>
         /// <returns>True if user does not already exist. False if user already exists</returns>
-        public bool AddUser(User user)
+        public async Task<bool> AddUser(User user)
         {
-            User existingUser =_users.Find(_user => _user.Email.ToLower() == user.Email.ToLower());
+            User? existingUser =_users.Find(_user => _user.Email.ToLower() == user.Email.ToLower());
 
             if (existingUser == null)
             {
                 _users.Add(user);
 				//JsonFileService.SaveJsonObjects(_users);
 				//SaveUsers();
-                DBServiceGeneric.AddObjectAsync(user);
+                await DBServiceGeneric.AddObjectAsync(user);
 
 				return true;
             }
@@ -92,13 +95,12 @@ namespace CTTSite.Services.NormalService
         /// <summary>
         /// Saves the list of users stored in UserService to the database.
         /// </summary>
-        public void SaveUsers()
+        public async Task SaveUsers()
         {
-			DBServiceGeneric.SaveObjectsAsync(_users);
+			await DBServiceGeneric.SaveObjectsAsync(_users);
 		}
 		#endregion		
         
-
         #region Get User ID by Email
         /// <summary>
         /// Gets the ID of a user by email
@@ -107,7 +109,7 @@ namespace CTTSite.Services.NormalService
         /// <returns>user.id as an int</returns>
         public int GetUserIdByEmail(string email)
         {
-            User user = _users.Find(_user => _user.Email == email);
+            User? user = _users.Find(_user => _user.Email == email);
             return user.Id;
         }
         #endregion
@@ -120,7 +122,7 @@ namespace CTTSite.Services.NormalService
        /// <returns>User Object</returns>
         public User GetUserByEmail(string email)
         {
-            User user = _users.Find(_user => _user.Email == email);
+            User? user = _users.Find(_user => _user.Email == email);
             return user;
         }
         #endregion
@@ -130,7 +132,7 @@ namespace CTTSite.Services.NormalService
         /// Gets all users from the database
         /// </summary>
         /// <returns></returns>
-        public List<User> GetUsersFromDB()
+        private List<User> GetUsersFromDB()
         {
             
             return DBServiceGeneric.GetObjectsAsync().Result.ToList();
@@ -249,15 +251,15 @@ namespace CTTSite.Services.NormalService
         /// </summary>
         /// <param name="ID"></param>
         /// <returns>Deleted User</returns>
-        public User DeleteUserByID(int ID)
+        public async Task<User> DeleteUserByID(int ID)
         {
-            User userToBeDeleted = null;
+            User? userToBeDeleted = null;
             if (GetUserByID(ID) != null)
             {                
                 userToBeDeleted = GetUserByID(ID);
 				_users.Remove(userToBeDeleted);
                 //DBServiceGeneric.SaveObjectsAsync(_users);
-                DBServiceGeneric.DeleteObjectAsync(userToBeDeleted);
+                await DBServiceGeneric.DeleteObjectAsync(userToBeDeleted);
             }
             return userToBeDeleted;
         }
@@ -374,7 +376,7 @@ namespace CTTSite.Services.NormalService
         /// </summary>
         private void DeleteSavedNewPassword()
         {
-            _newPassword = null;            
+            _newPassword = "";            
         }
         #endregion
 

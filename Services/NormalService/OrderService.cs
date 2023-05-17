@@ -97,10 +97,10 @@ namespace CTTSite.Services.NormalService
 
         }
 
-        public async Task AddCartItemsToOrder(int ID)
+        public async Task AddCartItemsToOrderAsync(int ID)
         {
             int orderID = lastOrderID;
-            CartItems = ICartItemService.GetAllCartItemsByUserID(ID);
+            CartItems = await ICartItemService.GetAllCartItemsByUserIDAsync(ID);
 
             if (orderID != null)
             {
@@ -113,7 +113,7 @@ namespace CTTSite.Services.NormalService
             }
         }
 
-        public async Task<List<CartItem>> GetOldOrderByOrderID(int orderID)
+        public async Task<List<CartItem>> GetOldOrderByOrderIDAsync(int orderID)
         {
             IEnumerable<CartItem_Order> CIO = await DBServiceGenericCIO.GetObjectsAsync();
             IEnumerable<CartItem> cartItems = await DBServiceGenericCartItem.GetObjectsAsync();
@@ -124,13 +124,13 @@ namespace CTTSite.Services.NormalService
             // Include the associated Item for each CartItem
             foreach (CartItem cartItem in cartItemList)
             {
-                cartItem.Item = IItemService.GetItemByID(cartItem.ItemID); // Assuming you have a method to retrieve Item by ID
+                cartItem.Item = await IItemService.GetItemByIDAsync(cartItem.ItemID); // Assuming you have a method to retrieve Item by ID asynchronously
             }
 
             return cartItemList;
         }
 
-        public async Task<int> GetLatestOrderFromUser(string userName)
+        public async Task<int> GetLatestOrderFromUserAsync(string userName)
         {
             Models.User user = IUserService.GetUserByEmail(userName);
             List<Order> userOrders = GetOrdersByUserID(user.Id);

@@ -14,18 +14,18 @@ namespace CTTSite.Pages.User.LogIn
 		{
 			_userService = userService;
 		}
-		private PasswordHasher<string> passwordHasher;
+		private PasswordHasher<string>? passwordHasher;
 
-		public string Message { get; set; }
+		public string? Message { get; set; }
 
 
-		public Models.User user { get; set; }
+		public Models.User? user { get; set; }
 
 		[BindProperty]
-		public string Email { get; set; }
+		public string? Email { get; set; }
 
 		[BindProperty, DataType(DataType.Password)]
-		public string Password { get; set; }
+		public string? Password { get; set; }
 
 		public IActionResult OnGet()
 		{

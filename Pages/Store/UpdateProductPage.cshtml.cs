@@ -17,10 +17,10 @@ namespace CTTSite.Pages.Store
             IItemService = iItemService;
         }
 
-        public IActionResult OnGet(int ID)
+        public async Task<IActionResult> OnGetAsync(int ID)
         {
-            Item = IItemService.GetItemByID(ID);
-            if(Item == null)
+            Item = await IItemService.GetItemByIDAsync(ID);
+            if (Item == null)
             {
                 return RedirectToPage("AllProductsPage");
             }

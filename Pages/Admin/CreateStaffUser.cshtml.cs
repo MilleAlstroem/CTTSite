@@ -22,7 +22,7 @@ namespace CTTSite.Pages.Staff.Admin
 
         [BindProperty, DataType(DataType.Password)]
         public string Password { get; set; }
-        public bool SuccessfulCreation { get; set; }
+        public Task<bool> SuccessfulCreation { get; set; }
         public string Message { get; set; }
         public Models.User newUser { get; set; }
 
@@ -38,7 +38,7 @@ namespace CTTSite.Pages.Staff.Admin
         {
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
             if ((Email == null) && (Password == null))
             {
@@ -101,9 +101,9 @@ namespace CTTSite.Pages.Staff.Admin
 
             newUser = new Models.User(Email, passwordHasher.HashPassword(null, Password), false, true); 
             SuccessfulCreation = _iUserService.AddUser(newUser);
-            if (SuccessfulCreation == true)
+            if (SuccessfulCreation.Result == true)
             {
-				_iUserService.AddUser(newUser);
+				await _iUserService.AddUser(newUser);
 				
 				return RedirectToPage("/Index");
             }

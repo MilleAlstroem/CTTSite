@@ -10,8 +10,8 @@ namespace CTTSite.Services.Interface
         Task CancelOrderByIDAsync(int ID);
         List<Order> GetOrdersByUserID(int UserID);
         Order GetOrderByID(int ID);
-        Task<List<CartItem>> GetOldOrderByOrderID(int ID);
-        Task AddCartItemsToOrder(int ID);
-        Task<int> GetLatestOrderFromUser(string userName);
+        Task<List<CartItem>> GetOldOrderByOrderIDAsync(int ID);
+        Task AddCartItemsToOrderAsync(int ID);
+        Task<int> GetLatestOrderFromUserAsync(string userName);
     }
 }
