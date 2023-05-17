@@ -1,4 +1,5 @@
 ﻿using CTTSite.Models;
+using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
 
@@ -6,13 +7,15 @@ namespace CTTSite.Services.NormalService
 {
     public class ShippingInfoService : IShippingInfoService
     {
-        public JsonFileService<ShippingInfo> JsonFileService;
+        private readonly JsonFileService<ShippingInfo> _jsonFileService;
+        private readonly DBServiceGeneric<ShippingInfo> _dBServiceGeneric;
         List<ShippingInfo> ShippingInfoList;
 
-        public ShippingInfoService(JsonFileService<ShippingInfo> jsonFileService)
+        public ShippingInfoService(JsonFileService<ShippingInfo> jsonFileService, DBServiceGeneric<ShippingInfo> dBServiceGeneric)
         {
-            JsonFileService = jsonFileService;
-            ShippingInfoList = JsonFileService.GetJsonObjects().ToList();
+            _jsonFileService = jsonFileService;
+            _dBServiceGeneric = dBServiceGeneric;
+            ShippingInfoList = _jsonFileService.GetJsonObjects().ToList();
         }
 
         public void CreateShippingInfo(ShippingInfo shippingInfo)
@@ -27,7 +30,7 @@ namespace CTTSite.Services.NormalService
             }
             shippingInfo.ID = IDCount + 1;
             ShippingInfoList.Add(shippingInfo);
-            JsonFileService.SaveJsonObjects(ShippingInfoList);
+            _jsonFileService.SaveJsonObjects(ShippingInfoList);
         }
     }
 }

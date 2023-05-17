@@ -11,21 +11,26 @@ namespace CTTSite.Services.NormalService
 {
     public class CartItemService : ICartItemService
     {
-        public DBServiceGeneric<CartItem> DBServiceGenericCartItem;
-        public DBServiceGeneric<CartItem_Order> DBServiceGenericCartItem_Order;
-        public JsonFileService<CartItem> JsonFileService;
-        public IItemService IItemService;
-        public List<CartItem> CartItems;
-        public List<Item> Items;
+        private readonly DBServiceGeneric<CartItem> _dBServiceGenericCartItem;
+        private readonly JsonFileService<CartItem> _jsonFileService;
+        private readonly IItemService _itemService;
+        public List<CartItem> CartItems { get; private set; }
+        public List<Item> Items { get; private set; }
 
-        public CartItemService(DBServiceGeneric<CartItem> dBServiceGenericCartItem, JsonFileService<CartItem> jsonFileService, DBServiceGeneric<CartItem_Order> dBServiceGenericCartItem_Order, IItemService iItemService)
+        public CartItemService(DBServiceGeneric<CartItem> dBServiceGenericCartItem, JsonFileService<CartItem> jsonFileService, IItemService itemService)
         {
-            DBServiceGenericCartItem = dBServiceGenericCartItem;
-            DBServiceGenericCartItem_Order = dBServiceGenericCartItem_Order;
-            JsonFileService = jsonFileService;
-            IItemService = iItemService;
-            CartItems = GetAllCartItems();
-            Items = IItemService.GetAllItemsAsync().Result;
+            _dBServiceGenericCartItem = dBServiceGenericCartItem;
+            _jsonFileService = jsonFileService;
+            _itemService = itemService;
+            CartItems = GetAllCartItemsAsync().Result;
+            Items = _itemService.GetAllItemsAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<List<CartItem>> GetAllCartItemsAsync()
+        {
+            //return MockData.MockDataCartItem.GetMockCartItems();
+            //return _jsonFileService.GetJsonObjects().ToList();
+            return (await _dBServiceGenericCartItem.GetObjectsAsync()).ToList();
         }
 
         public async Task AddToCartAsync(CartItem cartItem)
@@ -40,85 +45,76 @@ namespace CTTSite.Services.NormalService
             //}
             //cartItem.ID = IDCount + 1;
             CartItems.Add(cartItem);
-            //JsonFileService.SaveJsonObjects(CartItems);
-            await DBServiceGenericCartItem.AddObjectAsync(cartItem);
+            //_jsonFileService.SaveJsonObjects(CartItems);
+            await _dBServiceGenericCartItem.AddObjectAsync(cartItem);
         }
 
-        public async Task ConvertBoolPaidByUserIDAsync(int UserID)
+        public async Task ConvertBoolPaidByUserIDAsync(int userID)
         {
-            foreach (CartItem cartItem in GetAllCartItemsByUserID(UserID))
+            List<CartItem> cartItems = await GetAllCartItemsByUserIDAsync(userID);
+
+            foreach (CartItem cartItem in cartItems)
             {
                 cartItem.Paid = true;
-                await DBServiceGenericCartItem.UpdateObjectAsync(cartItem);
+                await _dBServiceGenericCartItem.UpdateObjectAsync(cartItem);
             }
-            //JsonFileService.SaveJsonObjects(CartItems);
+
+            //_jsonFileService.SaveJsonObjects(CartItems);
         }
 
-        public List<CartItem> GetAllCartItems()
-        {
-            //return MockData.MockDataCartItem.GetMockCartItems();
-            //return JsonFileService.GetJsonObjects().ToList();
-            return DBServiceGenericCartItem.GetObjectsAsync().Result.ToList();
-        }
-
-        public CartItem GetCartItemByID(int ID)
+        public async Task<CartItem> GetCartItemByIDAsync(int ID)
         {
             using (var context = new ItemDbContext())
             {
-                return context.CartItems
+                return await context.CartItems
                     .Include(ci => ci.Item)
-                    .FirstOrDefault(cartItem => cartItem.ID == ID);
+                    .FirstOrDefaultAsync(cartItem => cartItem.ID == ID);
             }
         }
 
-        public List<CartItem> GetAllCartItemsByUserID(int userID)
+        public async Task<List<CartItem>> GetAllCartItemsByUserIDAsync(int userID)
         {
             List<CartItem> cartItemsByUserID = new List<CartItem>();
             using (var context = new ItemDbContext())
             {
-                var cartItems = context.CartItems
+                var cartItems = await context.CartItems
                     .Include(ci => ci.Item)
                     .Where(ci => ci.UserID == userID && !ci.Paid)
-                    .ToList();
+                    .ToListAsync();
 
                 cartItemsByUserID.AddRange(cartItems);
             }
             return cartItemsByUserID;
         }
 
-        public List<CartItem> GetOldCartItemsByID(int ID)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task RemoveFromCartByIDAsync(int ID)
         {
-            CartItem cartItemToBeDeleted = null;
-            if(GetCartItemByID(ID) != null)
-            {
-                cartItemToBeDeleted = GetCartItemByID(ID);
+            CartItem cartItemToBeDeleted = await GetCartItemByIDAsync(ID);
 
-                CartItems.Remove(GetCartItemByID(ID));
-                //JsonFileService.SaveJsonObjects(CartItems);
-                await DBServiceGenericCartItem.DeleteObjectAsync(cartItemToBeDeleted);
+            if (cartItemToBeDeleted != null)
+            {
+                CartItems.Remove(cartItemToBeDeleted);
+                //_jsonFileService.SaveJsonObjects(CartItems);
+                await _dBServiceGenericCartItem.DeleteObjectAsync(cartItemToBeDeleted);
             }
         }
 
-        public decimal GetTotalPriceOfCartByUserID(int UserID)
+        public async Task<decimal> GetTotalPriceOfCartByUserIDAsync(int userID)
         {
-            decimal TotalPrice = 0;
+            decimal totalPrice = 0;
+            List<CartItem> cartItems = await GetAllCartItemsByUserIDAsync(userID);
+            List<Item> items = await _itemService.GetAllItemsAsync();
 
-            foreach(CartItem cartItem in GetAllCartItemsByUserID(UserID))
+            foreach (CartItem cartItem in cartItems)
             {
-                foreach (Item item in Items)
+                Item item = items.FirstOrDefault(i => i.ID == cartItem.ItemID);
+                if (item != null)
                 {
-                    if (item.ID == cartItem.ItemID)
-                    {
-                        TotalPrice += item.Price * cartItem.Quantity;
-                    }
+                    totalPrice += item.Price * cartItem.Quantity;
                 }
             }
-            return TotalPrice;
+
+            return totalPrice;
         }
 
     }

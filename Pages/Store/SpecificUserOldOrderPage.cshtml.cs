@@ -24,11 +24,11 @@ namespace CTTSite.Pages.Store
             IOrderService = iOrderService;
         }
 
-        public async Task<IActionResult> OnGet(int ID)
+        public async Task<IActionResult> OnGetAsync(int ID)
         {
             Models.User CurrentUser = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
             Order = IOrderService.GetOrderByID(ID);
-            CartItems = await IOrderService.GetOldOrderByOrderID(ID);
+            CartItems = await IOrderService.GetOldOrderByOrderIDAsync(ID);
             return Page();
         }
     }

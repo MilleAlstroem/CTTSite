@@ -17,7 +17,7 @@ namespace CTTSite.Pages.Store
 
         public async Task OnGet()
         {
-            OrderID = await _orderService.GetLatestOrderFromUser(User.Identity.Name);
+            OrderID = await _orderService.GetLatestOrderFromUserAsync(User.Identity.Name);
         }
     }
 }

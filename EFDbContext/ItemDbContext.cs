@@ -20,6 +20,7 @@ namespace CTTSite.EFDbContext
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<CartItem_Order> CartItem_Orders { get; set; }
+        public DbSet<ShippingInfo> ShippingInfo { get; set; }
         public DbSet<Consultation> Consultations { get; set; }
         public DbSet<RoomBooking> RoomBookings { get; set; }
         public DbSet<FormActivityDiary> FormActivityDiaries { get; set; }

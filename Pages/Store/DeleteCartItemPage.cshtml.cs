@@ -19,9 +19,9 @@ namespace CTTSite.Pages.Store
             IUserService = iUserService;
         }
 
-        public void OnGet(int ID)
+        public async Task OnGetAsync(int ID)
         {
-            CartItem = ICartItemService.GetCartItemByID(ID);
+            CartItem = await ICartItemService.GetCartItemByIDAsync(ID);
         }
 
         public async Task<IActionResult> OnPostAsync()

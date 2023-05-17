@@ -20,7 +20,7 @@ namespace CTTSite.Pages.Store
         [BindProperty]
         public Order order { get; set; } = new Order();
 
-        public List<CartItem> CartItems { get; set; }
+        public List<CartItem> CartItems { get; set; } = new List<CartItem>();
 
         public ShippingPageModel(IShippingInfoService iShippingInfoService, IUserService iUserService, ICartItemService iCartItemService, IOrderService iOrderService)
         {
@@ -30,29 +30,33 @@ namespace CTTSite.Pages.Store
             IOrderService = iOrderService;
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            Models.User CurrentUser = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
-            CartItems = ICartItemService.GetAllCartItemsByUserID(CurrentUser.Id);
+            Models.User currentUser = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
+            CartItems = await ICartItemService.GetAllCartItemsByUserIDAsync(currentUser.Id);
         }
 
-        public IActionResult OnPostCreateOrder()
+
+        public async Task<IActionResult> OnPostCreateOrderAsync()
         {
-            Models.User CurrentUser = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
-            ShippingInfo.UserID = CurrentUser.Id;
+            Models.User currentUser = IUserService.GetUserByEmail(HttpContext.User.Identity.Name);
+            ShippingInfo.UserID = currentUser.Id;
             ShippingInfo.SubmissionDate = DateTime.Now;
             IShippingInfoService.CreateShippingInfo(ShippingInfo);
-            order.UserID = CurrentUser.Id;
+            order.UserID = currentUser.Id;
             order.Shipped = false;
             order.Cancelled = false;
-            order.TotalPrice = ICartItemService.GetTotalPriceOfCartByUserID(CurrentUser.Id);
-            IOrderService.CreateOrderAsync(order);
-            foreach(CartItem cartItem in CartItems)
+            order.TotalPrice = await ICartItemService.GetTotalPriceOfCartByUserIDAsync(currentUser.Id);
+            await IOrderService.CreateOrderAsync(order);
+
+            foreach (CartItem cartItem in CartItems)
             {
-                IItemService.UpdateItemQuantityByID(cartItem.ItemID, cartItem.Quantity);
+                await IItemService.UpdateItemQuantityByIDAsync(cartItem.ItemID, cartItem.Quantity);
             }
-            IOrderService.AddCartItemsToOrder(CurrentUser.Id);
-            ICartItemService.ConvertBoolPaidByUserIDAsync(CurrentUser.Id);
+
+            await IOrderService.AddCartItemsToOrderAsync(currentUser.Id);
+            await ICartItemService.ConvertBoolPaidByUserIDAsync(currentUser.Id);
+
             return RedirectToPage("/Store/OrderConfirmationPage");
         }
     }

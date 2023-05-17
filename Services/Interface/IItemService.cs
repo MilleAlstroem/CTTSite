@@ -10,6 +10,6 @@ namespace CTTSite.Services
         Task DeleteItemByIDAsync(int ID);
         Task UpdateItemStockAsync(int itemID, int amount);
         Task<Item> GetItemByIDAsync(int ID);
-        Task UpdateItemQuantityByID(int ItemID, int Quantity);
+        Task UpdateItemQuantityByIDAsync(int ItemID, int Quantity);
     }
 }
