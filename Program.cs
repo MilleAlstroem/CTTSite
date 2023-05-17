@@ -43,6 +43,7 @@ builder.Services.AddTransient<DBServiceGeneric<Item>>();
 builder.Services.AddTransient<DBServiceGeneric<CartItem>>();
 builder.Services.AddTransient<DBServiceGeneric<User>>();
 builder.Services.AddTransient<DBServiceGeneric<Order>>();
+builder.Services.AddTransient<DBServiceGeneric<ShippingInfo>>();
 builder.Services.AddTransient<DBServiceGeneric<Consultation>>();
 builder.Services.AddTransient<DBServiceGeneric<RoomBooking>>();
 builder.Services.AddTransient<DBServiceGeneric<CartItem_Order>>();
