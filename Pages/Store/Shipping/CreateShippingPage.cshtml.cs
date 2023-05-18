@@ -41,6 +41,7 @@ namespace CTTSite.Pages.Store.Shipping
         public async Task<IActionResult> OnPostCreateOrderAsync()
         {
             Models.User currentUser = _userService.GetUserByEmail(HttpContext.User.Identity.Name);
+            CartItems = await _cartItemService.GetAllCartItemsByUserIDAsync(currentUser.Id);
             ShippingInfo.UserID = currentUser.Id;
             ShippingInfo.SubmissionDate = DateTime.Now;
             Order.UserID = currentUser.Id;
@@ -53,7 +54,7 @@ namespace CTTSite.Pages.Store.Shipping
             await _shippingInfoService.CreateShippingInfoAsync(ShippingInfo);
             if (CartItems != null)
             {
-                foreach (CartItem cartItem in CartItems)
+                foreach(CartItem cartItem in CartItems)
                 {
                     await _itemService.UpdateItemQuantityByIDAsync(cartItem.ItemID, cartItem.Quantity);
                 }

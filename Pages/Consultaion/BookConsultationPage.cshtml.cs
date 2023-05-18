@@ -6,19 +6,19 @@ namespace CTTSite.Pages.Consultation
 {
     public class BookConsultationPageModel : PageModel
     {
-        public IConsultationService IConsultationService;
+        private readonly IConsultationService _consultationService;
 
         [BindProperty]
         public Models.Consultation Consultation { get; set; }
 
-        public BookConsultationPageModel(IConsultationService iConsultationService)
+        public BookConsultationPageModel(IConsultationService consultationService)
         {
-            IConsultationService = iConsultationService;
+            _consultationService = consultationService;
         }
 
-        public async Task OnGetAsync(int ID)
+        public async Task OnGetAsync(int id)
         {
-            Consultation = await IConsultationService.GetConsultationByIDAsync(ID);
+            Consultation = await _consultationService.GetConsultationByIDAsync(id);
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -27,8 +27,9 @@ namespace CTTSite.Pages.Consultation
             {
                 return Page();
             }
-            await IConsultationService.SubmitConsultationByEmail(Consultation, Consultation.BookedEmail);
-            return RedirectToPage("GetAllConsultaionsPage");
+
+            await _consultationService.SubmitConsultationByEmail(Consultation, Consultation.BookedEmail);
+            return RedirectToPage("AvailableConsultationsPage");
         }
     }
 }

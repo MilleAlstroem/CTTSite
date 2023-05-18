@@ -1,25 +1,26 @@
 using CTTSite.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Threading.Tasks;
 
 namespace CTTSite.Pages.Consultation
 {
     public class UpdateConsultationPageModel : PageModel
     {
-        public IConsultationService IConsultationService;
+        private readonly IConsultationService _consultationService;
 
         [BindProperty]
         public Models.Consultation Consultation { get; set; }
         public int UserID { get; set; }
 
-        public UpdateConsultationPageModel(IConsultationService iConsultationService)
+        public UpdateConsultationPageModel(IConsultationService consultationService)
         {
-            IConsultationService = iConsultationService;
+            _consultationService = consultationService;
         }
 
         public async Task OnGetAsync(int id)
         {
-            Consultation = await IConsultationService.GetConsultationByIDAsync(id);
+            Consultation = await _consultationService.GetConsultationByIDAsync(id);
             UserID = Consultation.UserID;
         }
 
@@ -36,7 +37,7 @@ namespace CTTSite.Pages.Consultation
             Consultation.BookedNamed = "";
             Consultation.TelefonNummer = "";
             Consultation.BookedEmail = "";
-            await IConsultationService.UpdateConsultation(Consultation);
+            await _consultationService.UpdateConsultation(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
         }
     }
