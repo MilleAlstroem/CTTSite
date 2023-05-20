@@ -2,7 +2,7 @@ using CTTSite.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CTTSite.Pages.Consultaion
+namespace CTTSite.Pages.Consultation
 {
     public class DeleteConsultationPageModel : PageModel
     {

@@ -8,8 +8,8 @@
     <div class="col-md-3">
         <form method="post">
             <div class="form-group">
-                <label asp-for="Consultation.Date" class="control-label">Date: dd/mm/yyyy</label>
-                <input asp-for="Consultation.Date" class="form-control" type="date" />
+                <label asp-for="@Model.Consultation.Date" class="control-label">Date: dd/mm/yyyy</label>
+                <input asp-for="@Model.Consultation.Date" class="form-control" type="date" />
                 <span asp-validation-for="Consultation.Date" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,6 +24,7 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-dark" />
+                <a asp-page="/Consultation/GetAllConsultaionsPage" class="btn btn-outline-dark">Back</a>
             </div>
         </form>
     </div>
