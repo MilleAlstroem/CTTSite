@@ -20,10 +20,10 @@ namespace CTTSite.Pages.Staff.Admin
         [BindProperty]
         public string Email { get; set; }
 
-        //[BindProperty, DataType(DataType.Password)]
         public string Password { get; set; }
-        public Task<bool> SuccessfulCreation { get; set; }
+
         public string Message { get; set; }
+
         public Models.User newUser { get; set; }
 
         private PasswordHasher<string> passwordHasher;
@@ -66,10 +66,9 @@ namespace CTTSite.Pages.Staff.Admin
             _iUserService.SaveNewPassword(Password);
 
             newUser = new Models.User(Email, passwordHasher.HashPassword(null, Password), false, true); 
-            SuccessfulCreation = _iUserService.AddUser(newUser);
-            if (SuccessfulCreation.Result == true)
+            if (_iUserService.AddUser(newUser).Result == true)
             {
-				await _iUserService.AddUser(newUser);
+                await _iUserService.AddUser(newUser);
                 _iUserService.ForgottenPassword(newUser.Email);
 
                 return RedirectToPage("/Staff/UserCreatedConfirmation");

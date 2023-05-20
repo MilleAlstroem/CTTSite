@@ -77,9 +77,7 @@ namespace CTTSite.Services.NormalService
 
             if (existingUser == null)
             {
-                _users.Add(user);
-				//JsonFileService.SaveJsonObjects(_users);
-				//SaveUsers();
+                _users.Add(user);				
                 await DBServiceGeneric.AddObjectAsync(user);
 
 				return true;
@@ -109,7 +107,7 @@ namespace CTTSite.Services.NormalService
         /// <returns>user.id as an int</returns>
         public int GetUserIdByEmail(string email)
         {
-            User? user = _users.Find(_user => _user.Email == email);
+            User user = _users.Find(_user => _user.Email == email);
             return user.Id;
         }
         #endregion
