@@ -14,9 +14,9 @@ namespace CTTSite.Pages.Consultaion
         {
             IConsultationService = iConsultationService;
         }
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            ConsultationsList = IConsultationService.GetAllConsultations();
+            ConsultationsList = await IConsultationService.GetAllConsultationsAsync();
         }
     }
 }

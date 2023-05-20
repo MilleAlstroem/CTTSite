@@ -7,7 +7,7 @@
 <h1 class="text-center"><b>Available Consultations</b></h1>
 <br />
 <div class="test">
-    <table class="table table-bordered table-hover" width="60%">
+    <table class="table table-bordered table-hover table-dark" width="80%">
         <thead>
             <tr class="btn-secondary active">
                 <th>Date</th>
@@ -32,7 +32,7 @@
                             @consultation.EndTime.ToString("hh':'mm")
                         </td>
                         <td>
-                            <a class="btn" type="button" asp-page="BookConsultationPage" asp-route-id="@consultation.ID"><i class="fa fa-pencil-square-o"></i></a>
+                            <a class="btn btn-secondary" type="button" asp-page="BookConsultationPage" asp-route-id="@consultation.ID">Book</a>
                         </td>
                     </tr>
                 }

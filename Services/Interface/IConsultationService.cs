@@ -5,10 +5,11 @@ namespace CTTSite.Services.Interface
     public interface IConsultationService
     {
         Task CreateConsultation(Consultation consultation);
-        Task DeleteConsultation(int ID);
+        Task DeleteConsultation(Consultation consultation);
         Task UpdateConsultation(Consultation consultationN);
-        Consultation GetConsultationByID(int ID);
-        List<Consultation> GetAllConsultations();
+        Task SubmitConsultationByEmail(Consultation consultation, string email);
+        Task<Consultation> GetConsultationByIDAsync(int ID);
+        Task<List<Consultation>> GetAllConsultationsAsync();
 
 
     }

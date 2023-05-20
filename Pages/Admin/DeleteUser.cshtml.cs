@@ -15,7 +15,7 @@ namespace CTTSite.Pages.Admin
         private IUserService _iUserService;
 
         [BindProperty]
-        public Models.User user { get; set; }
+        public Models.User? user { get; set; }
 
 		public DeleteUserModel(IUserService iUserService)
 		{
@@ -34,9 +34,9 @@ namespace CTTSite.Pages.Admin
 
 		public async Task<IActionResult> OnPostAsync()
 		{
-			Models.User deletedUser = user;
+			Models.User? deletedUser = user;
 
-			_iUserService.DeleteUserByID(deletedUser.Id);
+			await _iUserService.DeleteUserByID(deletedUser.Id);
 			
 			if (deletedUser == null)
 				return RedirectToPage("/NotFound"); //NotFound er ikke defineret endnu

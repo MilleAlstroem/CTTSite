@@ -10,24 +10,33 @@ namespace CTTSite.Pages.Consultation
 
         [BindProperty]
         public Models.Consultation Consultation { get; set; }
+        public int UserID { get; set; }
 
         public UpdateConsultationPageModel(IConsultationService iConsultationService)
         {
             IConsultationService = iConsultationService;
         }
 
-        public void OnGet(int id)
+        public async Task OnGetAsync(int id)
         {
-            Consultation = IConsultationService.GetConsultationByID(id);
+            Consultation = await IConsultationService.GetConsultationByIDAsync(id);
+            UserID = Consultation.UserID;
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             //if (!ModelState.IsValid)
             //{
             //    return Page();
             //}
-            IConsultationService.UpdateConsultation(Consultation);
+            Consultation.Date = Consultation.Date.Date;
+            Consultation.StartTime = Consultation.StartTime;
+            Consultation.EndTime = Consultation.EndTime;
+            Consultation.UserID = UserID;
+            Consultation.BookedNamed = "";
+            Consultation.TelefonNummer = "";
+            Consultation.BookedEmail = "";
+            await IConsultationService.UpdateConsultation(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
         }
     }

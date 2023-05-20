@@ -10,13 +10,13 @@ namespace CTTSite.DAO
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public CartItem CartItem { get; set; }
-        public Order Order { get; set; }
+        public int CartItemID { get; set; }
+        public int OrderID { get; set; }
 
-        public CartItem_Order(CartItem cartItem, Order order)
+        public CartItem_Order(int cartItemID, int orderID)
         {
-            CartItem = cartItem;
-            Order = order;
+            CartItemID = cartItemID;
+            OrderID = orderID;
         }
 
         public CartItem_Order()

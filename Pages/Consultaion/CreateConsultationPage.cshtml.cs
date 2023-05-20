@@ -1,11 +1,13 @@
 using CTTSite.Models;
 using CTTSite.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Globalization;
 
 namespace CTTSite.Pages.Consultation
 {
+    [Authorize(Roles = "admin")]
     public class CreateConsultationModel : PageModel
     {
         public IConsultationService IConsultationService;
@@ -24,16 +26,17 @@ namespace CTTSite.Pages.Consultation
         {
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             Consultation.Date = Consultation.Date.Date;
             Consultation.StartTime = Consultation.StartTime;
             Consultation.EndTime = Consultation.EndTime;
-            Consultation.UserID = 2; // Get the user ID from the appropriate source
-            Consultation.BookedNamed = " ";
-            Consultation.TelefonNummer = " ";
-            Consultation.BookedEmail = " ";
-            IConsultationService.CreateConsultation(Consultation);
+            Consultation.UserID = IUserService.GetUserIdByEmail(HttpContext.User.Identity.Name);
+            Consultation.BookedNamed = "";
+            Consultation.TelefonNummer = "";
+            Consultation.BookedEmail = "";
+            Consultation.Booked = false;
+            await IConsultationService.CreateConsultation(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
         }
     }

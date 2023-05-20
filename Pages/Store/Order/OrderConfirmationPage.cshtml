@@ -1,0 +1,15 @@
+﻿@page
+@model CTTSite.Pages.Store.Order.OrderConfirmationPageModel
+@{
+}
+
+<body style="background-color:#f6d8cc;">
+    <div class="text-center">
+        <h1>Thank you for your purchase!</h1><br />
+        <h4>Your order number is: @Model.OrderID</h4><br /</h4>
+        <h4>Please come again!</h4><br />
+        <br />
+        <a asp-page="/Index" class="btn btn-dark">Back to Homepage</a>
+        <a asp-page="/Store/Order/SpecificUserOrderPage" class="btn btn-dark">View your order</a>
+    </div>
+</body>

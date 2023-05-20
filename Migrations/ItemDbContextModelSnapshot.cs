@@ -38,11 +38,7 @@ namespace CTTSite.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CartItemID");
-
-                    b.HasIndex("OrderID");
-
-                    b.ToTable("CartItem_Order");
+                    b.ToTable("CartItem_Orders");
                 });
 
             modelBuilder.Entity("CTTSite.Models.CartItem", b =>
@@ -53,14 +49,14 @@ namespace CTTSite.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
                     b.Property<int>("ItemID")
                         .HasColumnType("int");
 
                     b.Property<bool>("Paid")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");
@@ -81,6 +77,9 @@ namespace CTTSite.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<bool>("Booked")
+                        .HasColumnType("bit");
 
                     b.Property<string>("BookedEmail")
                         .IsRequired()
@@ -1268,7 +1267,84 @@ namespace CTTSite.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("CTTSite.Models.RoomBooking", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("RoomBookings");
+                });
+
+            modelBuilder.Entity("CTTSite.Models.ShippingInfo", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("County")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SubmissionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ShippingInfo");
                 });
 
             modelBuilder.Entity("CTTSite.Models.User", b =>
@@ -1298,25 +1374,6 @@ namespace CTTSite.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("CTTSite.DAO.CartItem_Order", b =>
-                {
-                    b.HasOne("CTTSite.Models.CartItem", "CartItem")
-                        .WithMany()
-                        .HasForeignKey("CartItemID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CTTSite.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CartItem");
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("CTTSite.Models.CartItem", b =>

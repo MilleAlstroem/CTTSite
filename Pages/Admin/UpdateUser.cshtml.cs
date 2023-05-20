@@ -39,12 +39,12 @@ namespace CTTSite.Pages.Admin
 
         public IActionResult OnPost(int id) 
         {
+            user = _userService.GetUserByID(id);
 
-            
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 Message = "Something Went Wrong. Please Try Again";
-                return RedirectToPage("UpdateErrorPage");
+                return RedirectToPage("UpdateUser", new {id = user.Id});
 			}
 
             passwordHasher = new PasswordHasher<string>();

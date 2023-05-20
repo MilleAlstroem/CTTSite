@@ -16,9 +16,8 @@ namespace CTTSite.Models
         [Required]
         public Item Item { get; set; }
 
-        [Required(ErrorMessage = "Amount is required")]
-        [Range(1, 10)]
-        public int Amount { get; set; }
+        [Required]
+        public int Quantity { get; set; }
 
         [Required]
         public int UserID { get; set; }
@@ -30,23 +29,14 @@ namespace CTTSite.Models
         public bool Paid { get; set; }
 
 
-        public CartItem(int iD, int itemID, Item item, int amount, int userID, User user, bool paid)
+        public CartItem(int iD, int itemID, Item item, int quantity, int userID, User user, bool paid)
         {
             ID = iD;
             ItemID = itemID;
             Item = item;
-            Amount = amount;
+            Quantity = quantity;
             UserID = userID;
             User = user;
-            Paid = paid;
-        }
-
-        public CartItem(int iD, int itemID, int amount, int userID, bool paid)
-        {
-            ID = iD;
-            ItemID = itemID;
-            Amount = amount;
-            UserID = userID;
             Paid = paid;
         }
 

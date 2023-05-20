@@ -7,51 +7,49 @@ namespace CTTSite.Services.NormalService
 {
     public class ItemService : IItemService
     {
-        public DBServiceGeneric<Item> DBServiceGeneric;
-        public JsonFileService<Item> JsonFileService;
-        public List<Item> Items;
+        private readonly DBServiceGeneric<Item> _dBServiceGeneric;
+        private readonly JsonFileService<Item> _jsonFileService;
+        public List<Item> Items { get; private set; }
 
         public ItemService(DBServiceGeneric<Item> dBServiceGeneric, JsonFileService<Item> jsonFileService)
         {
-            DBServiceGeneric = dBServiceGeneric;
-            JsonFileService = jsonFileService;
-            Items = GetAllItems();
+            _dBServiceGeneric = dBServiceGeneric;
+            _jsonFileService = jsonFileService;
+            Items = GetAllItemsAsync().Result;
+        }
+
+        public async Task<List<Item>> GetAllItemsAsync()
+        {
+            return (await _dBServiceGeneric.GetObjectsAsync()).ToList();
+            //return _jsonFileService.GetJsonObjects().ToList();
+            //return MockData.MockDataItem.GetMockItem();
         }
 
         public async Task CreateItemAsync(Item item)
         {
-            int IDCount = 0;
-            foreach(Item listItem in Items)
-            {
-                if(IDCount < listItem.ID)
-                {
-                    IDCount = listItem.ID;
-                }
-            }
-            item.ID = IDCount + 1;
+            //int IDCount = 0;
+            //foreach(Item listItem in Items)
+            //{
+            //    if(IDCount < listItem.ID)
+            //    {
+            //        IDCount = listItem.ID;
+            //    }
+            //}
+            //item.ID = IDCount + 1;
             Items.Add(item);
-            JsonFileService.SaveJsonObjects(Items);
-            //await DBServiceGeneric.AddObjectAsync(item);
+            //_jsonFileService.SaveJsonObjects(Items);
+            await _dBServiceGeneric.AddObjectAsync(item);
         }
 
         public async Task DeleteItemByIDAsync(int ID)
         {
-            Item itemToBeDeleted = null;
-            if(GetItemByID(ID) != null) 
-            { 
-                Items.Remove(GetItemByID(ID));
-                JsonFileService.SaveJsonObjects(Items);
-
-                //itemToBeDeleted = GetItemByID(ID);
-                //await DBServiceGeneric.DeleteObjectAsync(itemToBeDeleted);
+            Item itemToBeDeleted = await GetItemByIDAsync(ID);
+            if (itemToBeDeleted != null)
+            {
+                Items.Remove(itemToBeDeleted);
+                _jsonFileService.SaveJsonObjects(Items);
+                await _dBServiceGeneric.DeleteObjectAsync(itemToBeDeleted);
             }
-        }
-
-        public List<Item> GetAllItems()
-        {
-            //return DBServiceGeneric.GetObjectsAsync().Result.ToList();
-            return JsonFileService.GetJsonObjects().ToList();
-            //return MockData.MockDataItem.GetMockItem();
         }
 
         public async Task UpdateItemAsync(Item itemN)
@@ -67,42 +65,55 @@ namespace CTTSite.Services.NormalService
                         itemO.Price = itemN.Price;
                         itemO.Stock = itemN.Stock;
                         itemO.IMG = itemN.IMG;
-                        JsonFileService.SaveJsonObjects(Items);
-                        //await DBServiceGeneric.UpdateObjectAsync(itemO);
+                        //_jsonFileService.SaveJsonObjects(Items);
+                        await _dBServiceGeneric.UpdateObjectAsync(itemO);
                     }
                 }
             }
         }
 
-        public Item GetItemByID(int ID) 
+        public async Task<Item> GetItemByIDAsync(int ID) 
         { 
-            foreach(Item item in Items)
-            {
-                if(item.ID == ID)
-                {
-                    return item;
-                }
-            }
-            return null;
+            //foreach(Item item in Items)
+            //{
+            //    if(item.ID == ID)
+            //    {
+            //        return item;
+            //    }
+            //}
+            //return null;
+
+            return await _dBServiceGeneric.GetObjectByIdAsync(ID);
         }
 
         public async Task UpdateItemStockAsync(int itemID, int amount)
         {
-            if(GetItemByID(itemID) != null)
+            Item item = await GetItemByIDAsync(itemID);
+            if (item != null)
             {
-                if(amount > 0)
+                if (amount > 0)
                 {
-                    GetItemByID(itemID).Stock += amount;
-                    JsonFileService.SaveJsonObjects(Items);
-                    //await DBServiceGeneric.UpdateObjectAsync(GetItemByID(itemID));
+                    item.Stock += amount;
+                    //_jsonFileService.SaveJsonObjects(Items);
+                    await _dBServiceGeneric.UpdateObjectAsync(item);
                 }
                 else
                 {
-                    GetItemByID(itemID).Stock -= amount;
-                    JsonFileService.SaveJsonObjects(Items);
-                    //await DBServiceGeneric.UpdateObjectAsync(GetItemByID(itemID));
+                    item.Stock -= amount;
+                    //_jsonFileService.SaveJsonObjects(Items);
+                    await _dBServiceGeneric.UpdateObjectAsync(item);
                 }
+            }
+        }
 
+        public async Task UpdateItemQuantityByIDAsync(int ItemID, int Quantity)
+        {
+            Item item = await GetItemByIDAsync(ItemID);
+            if (item != null)
+            {
+                item.Stock = item.Stock - Quantity;
+                //_jsonFileService.SaveJsonObjects(Items);
+                await _dBServiceGeneric.UpdateObjectAsync(item);
             }
         }
 

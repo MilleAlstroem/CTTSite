@@ -1,0 +1,33 @@
+﻿@page
+@model CTTSite.Pages.TheRoomBooking.SpecificRoomBookingPageModel
+@{
+}
+
+<body style="background-color:#f6d8cc;">
+
+    @if (User.Identity != null && User.IsInRole("staff") == true)
+    {
+
+    <div class="text-center">
+        <h4><b>@Model.RoomBooking.UserEmail's Booking:</b></h4><br />
+        <br />
+        <h4>@Model.RoomBooking.StartDateTime   -   @Model.RoomBooking.EndDateTime</h4><br />
+        <br />
+        <p><b>Description:</b></p><br />
+        <p>@Model.RoomBooking.Description</p><br />
+        <br />
+        <a asp-page="/TheRoomBooking/AllRoomBookingsPage" class="btn btn-dark" style="margin-inline:1%">Back</a>
+        @if (User.Identity != null && (@Model.RoomBooking.UserEmail == User.Identity.Name || User.IsInRole("admin") == true))
+        {
+            <a asp-page="/TheRoomBooking/UpdateRoomBookingPage" asp-route-id="@Model.RoomBooking.ID" class="btn btn-dark" style="margin-inline:1%">Update</a>
+            <a asp-page="/TheRoomBooking/DeleteRoomBookingPage" asp-route-id="@Model.RoomBooking.ID" class="btn btn-danger" style="margin-inline:1%">Delete</a>
+        }
+    </div>
+
+    }
+    else
+    {
+    <h1 class="text-center"><b>You are not logged in as staff</b></h1>
+    }
+
+</body>

@@ -16,18 +16,18 @@ namespace CTTSite.Pages.Consultation
             IConsultationService = iConsultationService;
         }
 
-        public void OnGet(int ID)
+        public async Task OnGetAsync(int ID)
         {
-            Consultation = IConsultationService.GetConsultationByID(ID);
+            Consultation = await IConsultationService.GetConsultationByIDAsync(ID);
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            IConsultationService.UpdateConsultation(Consultation);
+            await IConsultationService.SubmitConsultationByEmail(Consultation, Consultation.BookedEmail);
             return RedirectToPage("GetAllConsultaionsPage");
         }
     }

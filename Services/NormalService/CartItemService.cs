@@ -1,135 +1,120 @@
 ﻿using CTTSite.DAO;
+using CTTSite.EFDbContext;
 using CTTSite.MockData;
 using CTTSite.Models;
 using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
+using Microsoft.EntityFrameworkCore;
 
 namespace CTTSite.Services.NormalService
 {
     public class CartItemService : ICartItemService
     {
-        public DBServiceGeneric<CartItem> DBServiceGenericCartItem;
-        public DBServiceGeneric<CartItem_Order> DBServiceGenericCartItem_Order;
-        public JsonFileService<CartItem> JsonFileService;
-        public IItemService IItemService;
-        public List<CartItem> CartItems;
-        public List<Item> Items;
+        private readonly DBServiceGeneric<CartItem> _dBServiceGenericCartItem;
+        private readonly JsonFileService<CartItem> _jsonFileService;
+        private readonly IItemService _itemService;
+        public List<CartItem> CartItems { get; private set; }
+        public List<Item> Items { get; private set; }
 
-        public CartItemService(DBServiceGeneric<CartItem> dBServiceGenericCartItem, JsonFileService<CartItem> jsonFileService, DBServiceGeneric<CartItem_Order> dBServiceGenericCartItem_Order, IItemService iItemService)
+        public CartItemService(DBServiceGeneric<CartItem> dBServiceGenericCartItem, JsonFileService<CartItem> jsonFileService, IItemService itemService)
         {
-            DBServiceGenericCartItem = dBServiceGenericCartItem;
-            DBServiceGenericCartItem_Order = dBServiceGenericCartItem_Order;
-            JsonFileService = jsonFileService;
-            IItemService = iItemService;
-            CartItems = GetAllCartItems();
-            Items = IItemService.GetAllItems();
+            _dBServiceGenericCartItem = dBServiceGenericCartItem;
+            _jsonFileService = jsonFileService;
+            _itemService = itemService;
+            CartItems = GetAllCartItemsAsync().Result;
+            Items = _itemService.GetAllItemsAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<List<CartItem>> GetAllCartItemsAsync()
+        {
+            //return MockData.MockDataCartItem.GetMockCartItems();
+            //return _jsonFileService.GetJsonObjects().ToList();
+            return (await _dBServiceGenericCartItem.GetObjectsAsync()).ToList();
         }
 
         public async Task AddToCartAsync(CartItem cartItem)
         {
-            int IDCount = 0;
-            foreach(CartItem listCartItem in CartItems)
-            {
-                if(IDCount < listCartItem.ID)
-                {
-                    IDCount = listCartItem.ID;
-                }
-            }
-            cartItem.ID = IDCount + 1;
+            //int IDCount = 0;
+            //foreach(CartItem listCartItem in CartItems)
+            //{
+            //    if(IDCount < listCartItem.ID)
+            //    {
+            //        IDCount = listCartItem.ID;
+            //    }
+            //}
+            //cartItem.ID = IDCount + 1;
             CartItems.Add(cartItem);
-            JsonFileService.SaveJsonObjects(CartItems);
-            //await DBServiceGenericCartItem.AddObjectAsync(cartItem);
+            //_jsonFileService.SaveJsonObjects(CartItems);
+            await _dBServiceGenericCartItem.AddObjectAsync(cartItem);
         }
 
-        public async Task ConvertBoolPaidByUserIDAsync(int UserID)
+        public async Task ConvertBoolPaidByUserIDAsync(int userID)
         {
-            foreach (CartItem cartItem in GetAllCartItemsByUserID(UserID))
+            List<CartItem> cartItems = await GetAllCartItemsByUserIDAsync(userID);
+
+            foreach (CartItem cartItem in cartItems)
             {
                 cartItem.Paid = true;
+                await _dBServiceGenericCartItem.UpdateObjectAsync(cartItem);
             }
-            JsonFileService.SaveJsonObjects(CartItems);
-            //await DBServiceGenericCartItem.UpdateObjectsAsync(CartItems);
+
+            //_jsonFileService.SaveJsonObjects(CartItems);
         }
 
-        public List<CartItem> GetAllCartItems()
+        public async Task<CartItem> GetCartItemByIDAsync(int ID)
         {
-            //return MockData.MockDataCartItem.GetMockCartItems();
-            return JsonFileService.GetJsonObjects().ToList();
-            //return DBServiceGenericCartItem.GetObjectsAsync().Result.ToList();
-        }
-
-        public CartItem GetCartItemByID(int ID)
-        {
-            foreach(CartItem cartItem in CartItems)
+            using (var context = new ItemDbContext())
             {
-                if(cartItem.ID == ID)
-                {
-                    return cartItem;
-                }
+                return await context.CartItems
+                    .Include(ci => ci.Item)
+                    .FirstOrDefaultAsync(cartItem => cartItem.ID == ID);
             }
-            return null;
         }
 
-        public List<CartItem> GetAllCartItemsByUserID(int UserID)
+        public async Task<List<CartItem>> GetAllCartItemsByUserIDAsync(int userID)
         {
             List<CartItem> cartItemsByUserID = new List<CartItem>();
-            foreach(CartItem cartItem in CartItems)
+            using (var context = new ItemDbContext())
             {
-                if(cartItem.UserID == UserID && cartItem.Paid == false)
-                {
-                    cartItemsByUserID.Add(cartItem);
-                }
+                var cartItems = await context.CartItems
+                    .Include(ci => ci.Item)
+                    .Where(ci => ci.UserID == userID && !ci.Paid)
+                    .ToListAsync();
+
+                cartItemsByUserID.AddRange(cartItems);
             }
             return cartItemsByUserID;
         }
 
-        public List<CartItem> GetOldCartItemsByID(int ID)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task RemoveFromCartByIDAsync(int ID)
         {
-            CartItem cartItemToBeDeleted = null;
-            if(GetCartItemByID(ID) != null)
+            CartItem cartItemToBeDeleted = await GetCartItemByIDAsync(ID);
+
+            if (cartItemToBeDeleted != null)
             {
-                CartItems.Remove(GetCartItemByID(ID));
-                JsonFileService.SaveJsonObjects(CartItems);
-                //cartItemToBeDeleted = GetCartItemByID(ID);
-                //await DBServiceGenericCartItem.DeleteObjectAsync(cartItemToBeDeleted);
+                CartItems.Remove(cartItemToBeDeleted);
+                //_jsonFileService.SaveJsonObjects(CartItems);
+                await _dBServiceGenericCartItem.DeleteObjectAsync(cartItemToBeDeleted);
             }
         }
 
-        // TODO
-
-        //public async Task AddCartItem_OrderToJunctionTable(int ID)
-        //{
-        //    List<CartItem> TempList = GetAllCartItemsByUserID(ID);
-        //    Order order = new Order();
-        //    foreach(CartItem cartItem in TempList)
-        //    {
-        //        new CartItem_Order(cartItem.ID, );
-        //    }
-        //    await DBServiceGenericCartItem_Order.SaveObjectsAsync(TempList);
-        //}
-
-
-        public decimal GetTotalPriceOfCartByUserID(int UserID)
+        public async Task<decimal> GetTotalPriceOfCartByUserIDAsync(int userID)
         {
-            decimal TotalPrice = 0;
+            decimal totalPrice = 0;
+            List<CartItem> cartItems = await GetAllCartItemsByUserIDAsync(userID);
+            List<Item> items = await _itemService.GetAllItemsAsync();
 
-            foreach(CartItem cartItem in GetAllCartItemsByUserID(UserID))
+            foreach (CartItem cartItem in cartItems)
             {
-                foreach (Item item in Items)
+                Item item = items.FirstOrDefault(i => i.ID == cartItem.ItemID);
+                if (item != null)
                 {
-                    if (item.ID == cartItem.ItemID)
-                    {
-                        TotalPrice += item.Price * cartItem.Amount;
-                    }
+                    totalPrice += item.Price * cartItem.Quantity;
                 }
             }
-            return TotalPrice;
+
+            return totalPrice;
         }
 
     }

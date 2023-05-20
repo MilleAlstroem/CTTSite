@@ -4,15 +4,22 @@
 }
 <h1>Activity Schedule</h1>
 
-<div class="col-md-4">
+<div class="col-md-12">
     <h3 class="text-danger"> @Model.message</h3>
     <form method="post">
 
+        <div class="container-fluid">
+            <div class="row">
         <div class="form-group">
             <label asp-for="@Model.formActivitySchedule.UserEmail" class="control-lable"></label>
             <input asp-for="@Model.formActivitySchedule.UserEmail" class="form-control" value="@HttpContext.User.Identity.Name" readonly />
         </div>
 
+            </div>
+            <br />
+<div class="row">
+                <div class="col-md-6">
+            
 
         <h3>Day 1</h3>
         <div class="form-group">
@@ -35,8 +42,9 @@
             <label asp-for="@Model.formActivitySchedule.Score1" class="control-lable">Score</label>
             <input asp-for="@Model.formActivitySchedule.Score1" class="form-control" value="@Model.formActivitySchedule.Score1" />
         </div>
+        </div>
 
-
+        <div class="col-md-6">
         <h3>Day 2</h3>
         <div class="form-group">
             <label asp-for="@Model.formActivitySchedule.Day2" class="control-lable">Day 2 (Weekday, dd/mm/yyyy)</label>
@@ -58,8 +66,12 @@
             <label asp-for="@Model.formActivitySchedule.Score2" class="control-lable">Score</label>
             <input asp-for="@Model.formActivitySchedule.Score2" class="form-control" value="@Model.formActivitySchedule.Score2" />
         </div>
+        </div>
+        </div>
+            <br />
 
-
+<div class="row">
+            <div class="col-md-6">
         <h3>Day 3</h3>
         <div class="form-group">
             <label asp-for="@Model.formActivitySchedule.Day3" class="control-lable">Day 3 (Weekday, dd/mm/yyyy)</label>
@@ -81,8 +93,9 @@
             <label asp-for="@Model.formActivitySchedule.Score3" class="control-lable">Score</label>
             <input asp-for="@Model.formActivitySchedule.Score3" class="form-control" value="@Model.formActivitySchedule.Score3" />
         </div>
+        </div>
 
-
+<div class="col-md-6">
         <h3>Day 4</h3>
         <div class="form-group">
             <label asp-for="@Model.formActivitySchedule.Day4" class="control-lable">Day 4 (Weekday, dd/mm/yyyy)</label>
@@ -104,8 +117,12 @@
             <label asp-for="@Model.formActivitySchedule.Score4" class="control-lable">Score</label>
             <input asp-for="@Model.formActivitySchedule.Score4" class="form-control" value="@Model.formActivitySchedule.Score4" />
         </div>
+        </div>
+        </div>
+            <br />
 
-
+            <div class="row">
+                <div class="col-md-6">
         <h3>Day 5</h3>
         <div class="form-group">
             <label asp-for="@Model.formActivitySchedule.Day5" class="control-lable">Day 5 (Weekday, dd/mm/yyyy)</label>
@@ -127,8 +144,10 @@
             <label asp-for="@Model.formActivitySchedule.Score5" class="control-lable">Score</label>
             <input asp-for="@Model.formActivitySchedule.Score5" class="form-control" value="@Model.formActivitySchedule.Score5" />
         </div>
+        </div>
 
-
+                
+                    <div class="col-md-6">
         <h3>Day 6</h3>
         <div class="form-group">
             <label asp-for="@Model.formActivitySchedule.Day6" class="control-lable">Day 6 (Weekday, dd/mm/yyyy)</label>
@@ -150,8 +169,12 @@
             <label asp-for="@Model.formActivitySchedule.Score6" class="control-lable">Score</label>
             <input asp-for="@Model.formActivitySchedule.Score6" class="form-control" value="@Model.formActivitySchedule.Score6" />
         </div>
+        </div>
+</div>
+            <br />
 
-
+            <div class="row">
+                <div class="col-md-6">
         <h3>Day 7</h3>
         <div class="form-group">
             <label asp-for="@Model.formActivitySchedule.Day7" class="control-lable">Day 7 (Weekday, dd/mm/yyyy)</label>
@@ -173,12 +196,33 @@
             <label asp-for="@Model.formActivitySchedule.Score7" class="control-lable">Score</label>
             <input asp-for="@Model.formActivitySchedule.Score7" class="form-control" value="@Model.formActivitySchedule.Score7" />
         </div>
+</div>
+                
+                    <div class="col-md-6"></div>
+</div>
 
 
-        <div class="input-group mb-3">
-            <p>Please only submit this form when all fields are filled out.</p>
-            <input type="submit" asp-page-handler="SubmitForm" value="Submit Form" class="btn btn-primary" />
-            <input type="submit" asp-page-handler="SaveForm" value="Save Form" class="btn btn-primary" />
-        </div>
+            <br />
+            <div class="row">
+                <div class="input-group col-mb-12 text-center">
+                    <p>Please only submit this form when all fields are filled out.</p>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="input-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3 text-center">
+                        <input type="submit" asp-page-handler="SaveForm" value="Save Form" class="btn btn-dark" />
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3 text-center">
+                        <input type="submit" asp-page-handler="SubmitForm" value="Submit Form" class="btn btn-danger" />
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+
+        </div> <!-- end of container div -->
     </form>
 </div>

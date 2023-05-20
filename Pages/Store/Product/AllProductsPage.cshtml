@@ -1,0 +1,28 @@
+﻿@page
+@model CTTSite.Pages.Store.Product.AllProductsPageModel
+@{
+}
+
+<body class="text-center" style="background-color:#f6d8cc;">
+    <h1><b>Store</b></h1>
+
+    <div class="row">
+
+        @foreach (var Item in Model.Items)
+        {
+            <div style="width:20%">
+                <a class="text-decoration-none text-white" asp-page="SpecificProductPage" asp-route-id="@Item.ID">
+                    <div class="card align-content-center bg-dark">
+                        <img src="@Item.IMG" alt="ProductImage" class="card-img-top img-fluid">
+                        <div class="card-body text-center">
+                            <h4 class="card-title"><b>@Item.Name</b></h4>
+                            <h4 class="card-text">@Item.Price £</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+    </div>
+    <br />
+</body>
