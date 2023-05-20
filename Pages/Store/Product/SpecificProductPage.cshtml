@@ -23,8 +23,8 @@
                 <input asp-for="@Model.Count" class="form-control" />
                 <span asp-validation-for="@Model.Count" class="text-danger"></span>
                 <br />
-                <div class="text-danger">
-                    @Model.Message
+                <div class="text-center">
+                    <p style="color: @Model.MessageColor;">@Model.Message</p>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Add to cart" class="btn btn-dark" />

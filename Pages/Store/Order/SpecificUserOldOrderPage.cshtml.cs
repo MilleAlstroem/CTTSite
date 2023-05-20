@@ -12,6 +12,7 @@ namespace CTTSite.Pages.Store.Order
 
         [BindProperty]
         public Models.Order Order { get; set; }
+        public decimal TotalPrice { get; set; }
         public List<CartItem> CartItems { get; set; } = new List<CartItem>();
 
         public SpecificUserOldOrderPageModel(IUserService userService, IOrderService orderService)
@@ -26,6 +27,7 @@ namespace CTTSite.Pages.Store.Order
             Models.User CurrentUser = _userService.GetUserByEmail(HttpContext.User.Identity.Name);
             Order = await _orderService.GetOrderByIDAsync(ID);
             CartItems = await _orderService.GetOldOrderByOrderIDAsync(ID);
+            TotalPrice = Order.TotalPrice;
             return Page();
         }
     }
