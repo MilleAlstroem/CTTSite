@@ -6,7 +6,7 @@ namespace CTTSite.Pages.Consultation
 {
     public class UpdateConsultationPageModel : PageModel
     {
-        public IConsultationService IConsultationService;
+        private readonly IConsultationService _consultationService;
 
         [BindProperty]
         public Models.Consultation Consultation { get; set; }
@@ -14,12 +14,12 @@ namespace CTTSite.Pages.Consultation
 
         public UpdateConsultationPageModel(IConsultationService iConsultationService)
         {
-            IConsultationService = iConsultationService;
+            _consultationService = iConsultationService;
         }
 
         public async Task OnGetAsync(int id)
         {
-            Consultation = await IConsultationService.GetConsultationByIDAsync(id);
+            Consultation = await _consultationService.GetConsultationByIDAsync(id);
             UserID = Consultation.UserID;
         }
 
@@ -36,7 +36,7 @@ namespace CTTSite.Pages.Consultation
             Consultation.BookedNamed = "";
             Consultation.TelefonNummer = "";
             Consultation.BookedEmail = "";
-            await IConsultationService.UpdateConsultation(Consultation);
+            await _consultationService.UpdateConsultation(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
         }
     }

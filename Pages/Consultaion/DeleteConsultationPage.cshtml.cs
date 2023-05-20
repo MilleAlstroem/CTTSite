@@ -6,24 +6,24 @@ namespace CTTSite.Pages.Consultaion
 {
     public class DeleteConsultationPageModel : PageModel
     {
-        public IConsultationService IConsultationService;
+        private readonly IConsultationService _consultationService;
 
         [BindProperty]
         public Models.Consultation Consultation { get; set; }
 
-        public DeleteConsultationPageModel(IConsultationService iConsultationService)
+        public DeleteConsultationPageModel(IConsultationService consultationService)
         {
-            IConsultationService = iConsultationService;
+            _consultationService = consultationService;
         }
 
         public async Task OnGetAsync(int ID)
         {
-            Consultation = await IConsultationService.GetConsultationByIDAsync(ID);
+            Consultation = await _consultationService.GetConsultationByIDAsync(ID);
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            await IConsultationService.DeleteConsultation(Consultation);
+            await _consultationService.DeleteConsultation(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
         }
     }

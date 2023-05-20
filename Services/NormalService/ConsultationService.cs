@@ -28,6 +28,12 @@ namespace CTTSite.Services.NormalService
             //return MockData.MockDataConsultation.GetAllConsultations();
         }
 
+        public async Task<List<Consultation>> GetAvailableConsultationsAsync()
+        {
+            List<Consultation> allConsultations = await GetAllConsultationsAsync();
+            return allConsultations.Where(c => !c.Booked).ToList();
+        }
+
         public async Task<Consultation> GetConsultationByIDAsync(int ID)
         {
             //foreach (Consultation consultation in ConsultationsList)
@@ -93,13 +99,19 @@ namespace CTTSite.Services.NormalService
         public async Task SubmitConsultationByEmail(Consultation consultation, string email)
         {
             Consultation consultationToBeUpdated = await GetConsultationByIDAsync(consultation.ID);
-            consultationToBeUpdated.BookedNamed = consultation.BookedNamed;
-            consultationToBeUpdated.TelefonNummer = consultation.TelefonNummer;
-            consultationToBeUpdated.BookedEmail = consultation.BookedEmail;
-            consultationToBeUpdated.Booked = true;
-            _emailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, email));
-            _emailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, "chilterntalkingtherapies@gmail.com"));
-            await _dbServiceGeneric.UpdateObjectAsync(consultationToBeUpdated);
+
+            if (consultationToBeUpdated != null)
+            {
+                consultationToBeUpdated.BookedNamed = consultation.BookedNamed;
+                consultationToBeUpdated.TelefonNummer = consultation.TelefonNummer;
+                consultationToBeUpdated.BookedEmail = consultation.BookedEmail;
+                consultationToBeUpdated.Booked = true;
+
+                _emailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, email));
+                _emailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, "chilterntalkingtherapies@gmail.com"));
+
+                await _dbServiceGeneric.UpdateObjectAsync(consultationToBeUpdated);
+            }
         }
     }
 }

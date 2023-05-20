@@ -6,17 +6,18 @@ namespace CTTSite.Pages.Consultaion
 {
     public class AvailableConsultationsPageModel : PageModel
     {
-        public IConsultationService IConsultationService;
+        private readonly IConsultationService _consultationService;
 
         public List<Models.Consultation> ConsultationsList { get; set; }
 
-        public AvailableConsultationsPageModel(IConsultationService iConsultationService )
+        public AvailableConsultationsPageModel(IConsultationService consultationService)
         {
-            IConsultationService = iConsultationService;
+            _consultationService = consultationService;
         }
+
         public async Task OnGetAsync()
         {
-            ConsultationsList = await IConsultationService.GetAllConsultationsAsync();
+            ConsultationsList = await _consultationService.GetAvailableConsultationsAsync();
         }
     }
 }

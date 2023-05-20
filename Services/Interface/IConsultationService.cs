@@ -10,6 +10,7 @@ namespace CTTSite.Services.Interface
         Task SubmitConsultationByEmail(Consultation consultation, string email);
         Task<Consultation> GetConsultationByIDAsync(int ID);
         Task<List<Consultation>> GetAllConsultationsAsync();
+        Task<List<Consultation>> GetAvailableConsultationsAsync();
 
 
     }
