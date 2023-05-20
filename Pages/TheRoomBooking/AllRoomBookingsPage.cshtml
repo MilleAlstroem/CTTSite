@@ -22,6 +22,12 @@
                     <li class="nav-item">
                         <a class="nav-link btn btn-dark text-light" asp-page-handler="MyBookings" asp-page="/TheRoomBooking/AllRoomBookingsPage">My Bookings</a>
                     </li>
+                    @if (User.Identity != null && User.IsInRole("admin") == true)
+                    {
+                        <li class="nav-item">
+                        <a class="nav-link btn btn-dark text-light" asp-page-handler="OldBookings" asp-page="/TheRoomBooking/AllRoomBookingsPage">Old Bookings</a>
+                        </li> 
+                    }  
                 </ul>
             </div>
             <div class="navbar-collapse collapse d-md-inline-flex flex-md-row justify-content-end" id="BookingNavbar">
@@ -33,8 +39,6 @@
             </div>
         </div>
     </nav>
-    <br />
-    <h1 class="text-center"><b>All Room Bookings</b></h1>
     <br />
 
     <div class="row">

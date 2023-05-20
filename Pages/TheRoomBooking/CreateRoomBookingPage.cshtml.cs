@@ -13,6 +13,8 @@ namespace CTTSite.Pages.TheRoomBooking
         [BindProperty]
         public RoomBooking RoomBooking { get; set; }
         
+        public string Message { get; set; }
+
         public CreateRoomBookingPageModel(IRoomBookingService iRoomBookingService)
         {
             IRoomBookingService = iRoomBookingService;
@@ -22,17 +24,19 @@ namespace CTTSite.Pages.TheRoomBooking
         {
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPostAsync()
         {
             RoomBooking.UserEmail = HttpContext.User.Identity.Name;
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
-
-            await IRoomBookingService.CreateRoomBookingAsync(RoomBooking);
-            return RedirectToPage("/TheRoomBooking/AllRoomBookingsPage");
+            if(IRoomBookingService.CreateRoomBookingAsync(RoomBooking).Result == true)
+            {
+                return RedirectToPage("/TheRoomBooking/AllRoomBookingsPage");
+            }
+            else
+            {
+                Message = "Booking time slot is not available";
+                return Page();
+            }
         }
 
     }
