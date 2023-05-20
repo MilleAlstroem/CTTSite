@@ -58,6 +58,7 @@ namespace CTTSite.Pages.Store.Shipping
                     await _itemService.UpdateItemQuantityByIDAsync(cartItem.ItemID, cartItem.Quantity);
                 }
             }
+            await _shippingInfoService.SubmitShippingInfoByEmailAsync(ShippingInfo, currentUser.Email);
             await _orderService.AddCartItemsToOrderAsync(currentUser.Id);
             await _cartItemService.ConvertBoolPaidByUserIDAsync(currentUser.Id);
             return RedirectToPage("/Store/Order/OrderConfirmationPage");

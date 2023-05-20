@@ -36,7 +36,7 @@ namespace CTTSite.Pages.Consultation
             Consultation.TelefonNummer = "";
             Consultation.BookedEmail = "";
             Consultation.Booked = false;
-            await _consultationService.CreateConsultation(Consultation);
+            await _consultationService.CreateConsultationAsync(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
         }
     }

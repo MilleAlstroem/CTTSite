@@ -23,7 +23,7 @@ namespace CTTSite.Pages.Consultation
 
         public async Task<IActionResult> OnPostAsync()
         {
-            await _consultationService.DeleteConsultation(Consultation);
+            await _consultationService.DeleteConsultationAsync(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
         }
     }

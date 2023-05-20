@@ -27,7 +27,7 @@ namespace CTTSite.Pages.Consultation
             {
                 return Page();
             }
-            await _consultationService.SubmitConsultationByEmail(Consultation, Consultation.BookedEmail);
+            await _consultationService.SubmitConsultationByEmailAsync(Consultation, Consultation.BookedEmail);
             return RedirectToPage("AvailableConsultationsPage");
         }
     }

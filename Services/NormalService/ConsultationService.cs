@@ -46,7 +46,7 @@ namespace CTTSite.Services.NormalService
             return await _dbServiceGeneric.GetObjectByIdAsync(ID);
         }
 
-        public async Task CreateConsultation(Consultation consultation)
+        public async Task CreateConsultationAsync(Consultation consultation)
         {
             //int IDCount = 0;
             //foreach(Consultation listConsultation in ConsultationsList)
@@ -63,7 +63,7 @@ namespace CTTSite.Services.NormalService
             //_jsonFileService.SaveJsonObjects(ConsultationsList);
         }
 
-        public async Task DeleteConsultation(Consultation consultation)
+        public async Task DeleteConsultationAsync(Consultation consultation)
         {
             Consultation consultationToBeDeleted = null; 
             if(consultation != null)
@@ -74,7 +74,7 @@ namespace CTTSite.Services.NormalService
             }
         }
 
-        public async Task UpdateConsultation(Consultation consultationN)
+        public async Task UpdateConsultationAsync(Consultation consultationN)
         {
             if (consultationN != null)
             {
@@ -96,7 +96,7 @@ namespace CTTSite.Services.NormalService
             }
         }
 
-        public async Task SubmitConsultationByEmail(Consultation consultation, string email)
+        public async Task SubmitConsultationByEmailAsync(Consultation consultation, string email)
         {
             Consultation consultationToBeUpdated = await GetConsultationByIDAsync(consultation.ID);
 

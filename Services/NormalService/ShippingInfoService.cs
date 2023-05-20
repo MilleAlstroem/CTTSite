@@ -11,12 +11,14 @@ namespace CTTSite.Services.NormalService
     {
         private readonly JsonFileService<ShippingInfo> _jsonFileService;
         private readonly DBServiceGeneric<ShippingInfo> _dBServiceGeneric;
+        private readonly IEmailService _emailService;
         List<ShippingInfo> ShippingInfoList;
 
-        public ShippingInfoService(JsonFileService<ShippingInfo> jsonFileService, DBServiceGeneric<ShippingInfo> dBServiceGeneric)
+        public ShippingInfoService(JsonFileService<ShippingInfo> jsonFileService, DBServiceGeneric<ShippingInfo> dBServiceGeneric, IEmailService emailService)
         {
             _jsonFileService = jsonFileService;
             _dBServiceGeneric = dBServiceGeneric;
+            _emailService = emailService;
             ShippingInfoList = GetAllShippingInfoAsync().Result;
         }
 
@@ -83,5 +85,17 @@ namespace CTTSite.Services.NormalService
                 await _dBServiceGeneric.UpdateObjectAsync(shippingInfoToBeUpdated);
             }
         }
+
+        public async Task SubmitShippingInfoByEmailAsync(ShippingInfo shippingInfo, string email)
+        {
+            ShippingInfo shippingInfoToBeSend = await GetShippingByIDAsync(shippingInfo.ID);
+
+            if (shippingInfoToBeSend != null)
+            {
+                _emailService.SendEmail(new Email(shippingInfo.ToString(), $"Shipping for order: " + shippingInfo.OrderID + " " + email, email));
+                _emailService.SendEmail(new Email(shippingInfo.ToString(), $"Shipping for order: " + shippingInfo.OrderID + " " + email, "chilterntalkingtherapies@gmail.com"));
+            }
+        }
+
     }
 }
