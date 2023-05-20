@@ -141,3 +141,13 @@ body {
     background-position: center;
     background-size:contain;
 }
+#my-row {
+    display: table;
+    height: 20%;
+    width: 100%;
+    margin: 0;
+}
+
+.no-padding {
+    padding: -50px;
+}

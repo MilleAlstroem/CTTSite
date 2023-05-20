@@ -16,16 +16,16 @@ namespace CTTSite.Pages.Staff
         private IUserService _iUserService;
         
         [BindProperty]
-        public string? Email { get; set; }
+        public string Email { get; set; }
 
-        [BindProperty, DataType(DataType.Password)]
-        public string? Password { get; set; }
+        //[BindProperty, DataType(DataType.Password)]
+        public string Password { get; set; }
 
-        public Task<bool>? SuccessfulCreation { get; set; }
+        public Task<bool> SuccessfulCreation { get; set; }
 
-        public string? Message { get; set; }
+        public string Message { get; set; }
 
-        public Models.User? newUser { get; set; }
+        public Models.User newUser { get; set; }
 
         private PasswordHasher<string> passwordHasher;
 
@@ -40,11 +40,11 @@ namespace CTTSite.Pages.Staff
         public async Task<IActionResult> OnPost()
         {
 
-            if ((Email == null) && (Password == null))
-            {
-                Message = "Please enter an email address and a password!!!";
-                return Page();
-            }
+            //if ((Email == null) && (Password == null))
+            //{
+            //    Message = "Please enter an email address and a password!!!";
+            //    return Page();
+            //}
 
             if (Email == null)
             {
@@ -52,34 +52,34 @@ namespace CTTSite.Pages.Staff
                 return Page();
             }
 
-            if (Password == null)
-            {
-                Message = "Please enter password";
-                return Page();
-            }
+            //if (Password == null)
+            //{
+            //    Message = "Please enter password";
+            //    return Page();
+            //}
 
-            bool containsUppercase = false;
+            //bool containsUppercase = false;
 
-            foreach (char c in Password)
-            {
-                if (char.IsUpper(c))
-                {
-                    containsUppercase = true;
-                    break;
-                }
-            }
+            //foreach (char c in Password)
+            //{
+            //    if (char.IsUpper(c))
+            //    {
+            //        containsUppercase = true;
+            //        break;
+            //    }
+            //}
 
-            if ((Password.Length < 6) && (!Email.Contains("@")) && (!containsUppercase))
-            {
-                Message = "The details you have entered are invalid. Please use a valid email address and a password which is at least 6 characters long and contains at least one capital letter and at least one number!!!";
-                return Page();
-            }
+            //if ((Password.Length < 6) && (!Email.Contains("@")) && (!containsUppercase))
+            //{
+            //    Message = "The details you have entered are invalid. Please use a valid email address and a password which is at least 6 characters long and contains at least one capital letter and at least one number!!!";
+            //    return Page();
+            //}
 
-            if ((Password.Length < 6) && (!containsUppercase))
-            {
-                Message = "Please use a password which is at least 6 characters long and contains at least one capital letter and at least one number!!!";
-                return Page();
-            }
+            //if ((Password.Length < 6) && (!containsUppercase))
+            //{
+            //    Message = "Please use a password which is at least 6 characters long and contains at least one capital letter and at least one number!!!";
+            //    return Page();
+            //}
 
             if (!Email.Contains("@"))
             {
@@ -87,33 +87,46 @@ namespace CTTSite.Pages.Staff
                 return Page();
             }
 
-            if (!containsUppercase)
+            //if (!containsUppercase)
+            //{
+            //    Message = "Password must contain at least one uppercase letter!!!";
+            //    return Page();
+            //}
+
+            //if (Password.Length < 6)
+            //{
+            //    Message = "Password must be at least 6 characters long!!!";
+            //    return Page();
+            //}
+
+
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!";
+            var stringChars = new char[8];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
             {
-                Message = "Password must contain at least one uppercase letter!!!";
-                return Page();
+                stringChars[i] = chars[random.Next(chars.Length)];
             }
 
-            if (Password.Length < 6)
-            {
-                Message = "Password must be at least 6 characters long!!!";
-                return Page();
-            }
+            Password = new String(stringChars);
+            _iUserService.SaveNewPassword(Password);
 
-
-            newUser = new Models.User(Email, passwordHasher.HashPassword(null, Password), false, false);
+            newUser = new Models.User(Email, passwordHasher.HashPassword(null, Password), false, true);
             SuccessfulCreation = _iUserService.AddUser(newUser);
-            if(SuccessfulCreation.Result == true)
+            if (SuccessfulCreation.Result == true)
             {
                 await _iUserService.AddUser(newUser);
-               
-                return RedirectToPage("/Index");
+                _iUserService.ForgottenPassword(newUser.Email);
+
+                return RedirectToPage("UserCreatedConfirmation");
             }
             else
             {
                 Message = "Email already exists!!!";
                 return Page();
             }
-                
+
         }
     }
 }

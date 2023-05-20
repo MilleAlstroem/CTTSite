@@ -39,7 +39,7 @@ namespace CTTSite.Pages.User.LogIn
             {
                 if (Email == user.Email)
                 {
-                    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!";
+                    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!";
                     var stringChars = new char[8];
                     var random = new Random();
 
