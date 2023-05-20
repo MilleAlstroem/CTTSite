@@ -15,5 +15,6 @@ namespace CTTSite.Services.Interface
         Task<int> GetLatestOrderFromUserAsync(string userName);
         Task DeleteOrderByOrderIDAsync(int ID);
         Task UpdateOrderAsync(Order order);
+        Task SubmitCancelOrderByEmailAsync(int ID, string email);
     }
 }

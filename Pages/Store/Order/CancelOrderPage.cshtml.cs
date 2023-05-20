@@ -22,6 +22,7 @@ namespace CTTSite.Pages.Store.Order
         public async Task<IActionResult> OnPostAsync(int ID)
         {
             await _iOrderService.CancelOrderByIDAsync(ID);
+            await _iOrderService.SubmitCancelOrderByEmailAsync(ID, HttpContext.User.Identity.Name);
             return RedirectToPage("SpecificUserOrderPage");
         }
     }
