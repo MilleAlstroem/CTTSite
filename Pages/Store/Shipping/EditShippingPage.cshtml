@@ -4,12 +4,11 @@
 }
 
 <body class="text-center" style="background-color:#f6d8cc;">
-    <h1 class="text-center"><b>Edit Shipping Information</b></h1>
-    <br />
-
     <form method="post">
         <div class="form-row">
             <div class="col-md-6">
+                <h1 class="text-center"><b>Edit Shipping Information</b></h1>
+                <br />
                 <div class="form-group" hidden>
                     <label asp-for="@Model.ShippingInfo.ID" class="control-lable"></label>
                     <input asp-for="@Model.ShippingInfo.ID" type="hidden" class="form-control" />
@@ -57,10 +56,15 @@
                     <input asp-for="@Model.ShippingInfo.PhoneNumber" class="form-control" />
                     <span asp-validation-for="@Model.ShippingInfo.PhoneNumber" class="text-danger"></span>
                 </div>
+                <div class="form-group">
+                    <label asp-for="@Model.ShippingInfo.SubmissionDate" class="control-lable">Subminsion Date</label>
+                    <input asp-for="@Model.ShippingInfo.SubmissionDate" class="form-control" readonly="@(true)  />
+                </div>
+
                 <div class="col-md-6">
                     <div class="form-group">
                         <input type="submit" value="Update" class="btn btn-dark" />
-                        <a asp-page="/Store/Shipping/SpecificShippingPage" class="btn btn-dark">Back</a>
+                        <a asp-page="/Store/Order/AllOrderPage" class="btn btn-dark">Back</a>
                     </div>
                 </div>
             </div>

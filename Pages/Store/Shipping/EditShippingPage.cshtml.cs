@@ -15,7 +15,7 @@ namespace CTTSite.Pages.Store.Shipping
             _shippingInfoService = shippingInfoService;
         }
 
-        public async Task OnGetAsnyc(int ID)
+        public async Task OnGetAsync(int ID)
         {
             ShippingInfo = await _shippingInfoService.GetShippingByOrderIDAsync(ID);
         }
