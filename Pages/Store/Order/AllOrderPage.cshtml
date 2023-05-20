@@ -36,7 +36,9 @@
                             @order.TotalPrice
                         </td>
                         <td>
-                            <p>What to do here?</p>
+                            <a class="btn btn-danger" type="button" asp-page="DeleteOrderPage" asp-route-id="@order.ID"><i class="fa fa-trash"></i></a>
+                            <a class="btn btn-secondary" type="button" asp-page="EditOrderPage" asp-route-id="@order.ID"><i class="fa fa-pencil-square-o"></i></a>
+                            <a class="btn btn-secondary" type="button" asp-page="/Store/Shipping/SpecificShippingPage" asp-route-id="@order.ID"><i class="fa fa-info-circle"></i></a>
                         </td>
                     </tr>
                 }
@@ -45,3 +47,5 @@
     </table>
 
 </body>
+
+<a asp-page="/Admin/ToolsPage" class="btn btn-outline-dark">Back</a>

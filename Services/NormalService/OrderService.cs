@@ -6,6 +6,7 @@ using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
 using MailKit.Search;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using Org.BouncyCastle.Asn1.X509;
 
 namespace CTTSite.Services.NormalService
@@ -19,6 +20,7 @@ namespace CTTSite.Services.NormalService
         private readonly IUserService _userService;
         private readonly ICartItemService _cartItemService;
         private readonly IItemService _itemService;
+        private readonly IShippingInfoService _shippingInfoService;
         private List<Order> _orders;
         private List<CartItem> _cartItems;
         private int _lastOrderID = 0;
@@ -26,9 +28,10 @@ namespace CTTSite.Services.NormalService
         public OrderService(
             DBServiceGeneric<Order> dBServiceGeneric,
             JsonFileService<Order> jsonFileService,
-            ICartItemService cartItemService,
             DBServiceGeneric<CartItem_Order> dBServiceGenericCIO,
             DBServiceGeneric<CartItem> dBServiceGenericCartItem,
+            IShippingInfoService shippingInfoService,
+            ICartItemService cartItemService,
             IUserService userService,
             IItemService itemService)
         {
@@ -37,6 +40,7 @@ namespace CTTSite.Services.NormalService
             _cartItemService = cartItemService;
             _dBServiceGenericCIO = dBServiceGenericCIO;
             _dBServiceGenericCartItem = dBServiceGenericCartItem;
+            _shippingInfoService = shippingInfoService;
             _userService = userService;
             _itemService = itemService;
             _orders = GetAllOrdersAsync().Result;
@@ -143,6 +147,21 @@ namespace CTTSite.Services.NormalService
             List<Order> userOrders = await GetOrdersByUserIDAsync(user.Id);
             Order latestOrder = userOrders.OrderByDescending(order => order.ID).FirstOrDefault();
             return latestOrder?.ID ?? 0;
+        }
+
+        public async Task DeleteOrderByOrderIDAsync(int ID)
+        {
+            Order order = await GetOrderByIDAsync(ID);
+            if (order != null)
+            {
+                await _dBServiceGeneric.DeleteObjectAsync(order);
+                await _shippingInfoService.DeleteShippingInfoAsync(order.ID);
+            }
+        }
+
+        public async Task UpdateOrderAsync(Order order)
+        {
+            await _dBServiceGeneric.UpdateObjectAsync(order);
         }
     }
 }

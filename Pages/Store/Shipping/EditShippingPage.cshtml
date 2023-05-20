@@ -1,0 +1,69 @@
+﻿@page "{id:int}"
+@model CTTSite.Pages.Store.Shipping.EditShippingPageModel
+@{
+}
+
+<body class="text-center" style="background-color:#f6d8cc;">
+    <h1 class="text-center"><b>Edit Shipping Information</b></h1>
+    <br />
+
+    <form method="post">
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-group" hidden>
+                    <label asp-for="@Model.ShippingInfo.ID" class="control-lable"></label>
+                    <input asp-for="@Model.ShippingInfo.ID" type="hidden" class="form-control" />
+                </div>
+                <div class="form-group" hidden>
+                      <label asp-for="@Model.ShippingInfo.UserID" class="control-lable"></label>
+                      <input asp-for="@Model.ShippingInfo.UserID" type="hidden" class="form-control" />
+                </div>
+                <div class="form-group" hidden>
+                    <label asp-for="@Model.ShippingInfo.OrderID" class="control-lable"></label>
+                    <input asp-for="@Model.ShippingInfo.OrderID" type="hidden" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.ShippingInfo.FirstName" class="control-lable">First Name</label>
+                    <input asp-for="@Model.ShippingInfo.FirstName" class="form-control" />
+                    <span asp-validation-for="@Model.ShippingInfo.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.ShippingInfo.LastName" class="control-lable">Last Name</label>
+                    <input asp-for="@Model.ShippingInfo.LastName" class="form-control" />
+                    <span asp-validation-for="@Model.ShippingInfo.LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.ShippingInfo.Address" class="control-lable">Address</label>
+                    <input asp-for="@Model.ShippingInfo.Address" class="form-control" />
+                    <span asp-validation-for="@Model.ShippingInfo.Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.ShippingInfo.City" class="control-lable">City</label>
+                    <input asp-for="@Model.ShippingInfo.City" class="form-control" />
+                    <span asp-validation-for="@Model.ShippingInfo.City" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.ShippingInfo.PostCode" class="control-lable">Post Code</label>
+                    <input asp-for="@Model.ShippingInfo.PostCode" class="form-control" />
+                    <span asp-validation-for="@Model.ShippingInfo.PostCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.ShippingInfo.County" class="control-lable">County</label>
+                    <input asp-for="@Model.ShippingInfo.County" class="form-control" />
+                    <span asp-validation-for="@Model.ShippingInfo.County" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.ShippingInfo.PhoneNumber" class="control-lable">Phone Number</label>
+                    <input asp-for="@Model.ShippingInfo.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="@Model.ShippingInfo.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-dark" />
+                        <a asp-page="/Store/Shipping/SpecificShippingPage" class="btn btn-dark">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>

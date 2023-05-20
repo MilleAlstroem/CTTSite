@@ -33,5 +33,29 @@ namespace CTTSite.Services.NormalService
             //_jsonFileService.SaveJsonObjects(ShippingInfoList);
             await _dBServiceGeneric.AddObjectAsync(shippingInfo);
         }
+
+        public async Task<ShippingInfo> GetShippingByOrderIDAsync(int ID)
+        {
+            return await _dBServiceGeneric.GetObjectByIdAsync(ID);
+        }
+
+        public async Task DeleteShippingInfoAsync(int ID)
+        {
+            ShippingInfo shippingInfoToBeDelete = await GetShippingByOrderIDAsync(ID);
+            if (shippingInfoToBeDelete != null)
+            {
+                ShippingInfoList.Remove(shippingInfoToBeDelete);
+                //_jsonFileService.SaveJsonObjects(ShippingInfoList);
+                await _dBServiceGeneric.DeleteObjectAsync(shippingInfoToBeDelete);
+            }
+        }
+
+        public async Task UpdateShippingAsync(ShippingInfo shippingInfo)
+        {
+            if (shippingInfo != null)
+            {
+                await _dBServiceGeneric.UpdateObjectAsync(shippingInfo);
+            }
+        }
     }
 }

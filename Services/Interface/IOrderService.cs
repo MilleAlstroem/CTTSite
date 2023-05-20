@@ -13,5 +13,7 @@ namespace CTTSite.Services.Interface
         Task<List<CartItem>> GetOldOrderByOrderIDAsync(int ID);
         Task AddCartItemsToOrderAsync(int ID);
         Task<int> GetLatestOrderFromUserAsync(string userName);
+        Task DeleteOrderByOrderIDAsync(int ID);
+        Task UpdateOrderAsync(Order order);
     }
 }
