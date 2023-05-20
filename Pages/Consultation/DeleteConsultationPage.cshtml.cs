@@ -1,9 +1,12 @@
 using CTTSite.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
 
 namespace CTTSite.Pages.Consultation
 {
+    [Authorize(Roles = "admin")]
     public class DeleteConsultationPageModel : PageModel
     {
         private readonly IConsultationService _consultationService;

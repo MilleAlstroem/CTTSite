@@ -1,9 +1,12 @@
 using CTTSite.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
 
 namespace CTTSite.Pages.Store.Shipping
 {
+    [Authorize(Roles = "admin")]
     public class EditShippingPageModel : PageModel
     {
         private readonly IShippingInfoService _shippingInfoService;

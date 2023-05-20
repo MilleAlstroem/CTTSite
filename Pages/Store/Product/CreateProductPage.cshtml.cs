@@ -1,10 +1,13 @@
 using CTTSite.Models;
 using CTTSite.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
 
 namespace CTTSite.Pages.Store.Product
 {
+    [Authorize(Roles = "admin")]
     public class CreateProductPageModel : PageModel
     {
         private readonly IItemService _itemService;
