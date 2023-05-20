@@ -1,7 +1,9 @@
-﻿using CTTSite.Models;
+﻿using CTTSite.EFDbContext;
+using CTTSite.Models;
 using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
+using Microsoft.EntityFrameworkCore;
 
 namespace CTTSite.Services.NormalService
 {
@@ -15,7 +17,14 @@ namespace CTTSite.Services.NormalService
         {
             _jsonFileService = jsonFileService;
             _dBServiceGeneric = dBServiceGeneric;
-            ShippingInfoList = _jsonFileService.GetJsonObjects().ToList();
+            ShippingInfoList = GetAllShippingInfoAsync().Result;
+        }
+
+        public async Task<List<ShippingInfo>> GetAllShippingInfoAsync()
+        {
+            return (await _dBServiceGeneric.GetObjectsAsync()).ToList();
+            //return JsonFileService.GetJsonObjects().ToList();
+            //return MockData.MockDataConsultation.GetAllConsultations();
         }
 
         public async Task CreateShippingInfoAsync(ShippingInfo shippingInfo)
@@ -34,14 +43,23 @@ namespace CTTSite.Services.NormalService
             await _dBServiceGeneric.AddObjectAsync(shippingInfo);
         }
 
-        public async Task<ShippingInfo> GetShippingByOrderIDAsync(int ID)
+        public async Task<ShippingInfo> GetShippingByOrderIDAsync(int orderID)
+        {
+            using (var context = new ItemDbContext())
+            {
+                return await context.Set<ShippingInfo>()
+                    .FirstOrDefaultAsync(shippingInfo => shippingInfo.OrderID == orderID);
+            }
+        }
+
+        public async Task<ShippingInfo> GetShippingByIDAsync(int ID)
         {
             return await _dBServiceGeneric.GetObjectByIdAsync(ID);
         }
 
         public async Task DeleteShippingInfoAsync(int ID)
         {
-            ShippingInfo shippingInfoToBeDelete = await GetShippingByOrderIDAsync(ID);
+            ShippingInfo shippingInfoToBeDelete = await GetShippingByIDAsync(ID);
             if (shippingInfoToBeDelete != null)
             {
                 ShippingInfoList.Remove(shippingInfoToBeDelete);
@@ -52,9 +70,17 @@ namespace CTTSite.Services.NormalService
 
         public async Task UpdateShippingAsync(ShippingInfo shippingInfo)
         {
-            if (shippingInfo != null)
+            ShippingInfo shippingInfoToBeUpdated = await GetShippingByIDAsync(shippingInfo.ID);
+            if (shippingInfoToBeUpdated != null)
             {
-                await _dBServiceGeneric.UpdateObjectAsync(shippingInfo);
+                shippingInfoToBeUpdated.Address = shippingInfo.Address;
+                shippingInfoToBeUpdated.City = shippingInfo.City;
+                shippingInfoToBeUpdated.County = shippingInfo.County;
+                shippingInfoToBeUpdated.PhoneNumber = shippingInfo.PhoneNumber;
+                shippingInfoToBeUpdated.FirstName = shippingInfo.FirstName;
+                shippingInfoToBeUpdated.LastName = shippingInfo.LastName;
+
+                await _dBServiceGeneric.UpdateObjectAsync(shippingInfoToBeUpdated);
             }
         }
     }

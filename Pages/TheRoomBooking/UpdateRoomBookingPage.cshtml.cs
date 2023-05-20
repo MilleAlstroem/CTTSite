@@ -11,6 +11,7 @@ namespace CTTSite.Pages.TheRoomBooking
 
         [BindProperty]
         public RoomBooking RoomBooking { get; set; }
+        public string Message { get; set; }
 
         public UpdateRoomBookingPageModel(IRoomBookingService iRoomBookingService)
         {
@@ -24,8 +25,16 @@ namespace CTTSite.Pages.TheRoomBooking
 
         public IActionResult OnPost()
         {
-            IRoomBookingService.UpdateRoomBookingAsync(RoomBooking);
-            return RedirectToPage("/TheRoomBooking/SpecificRoomBookingPage", new { id = RoomBooking.ID } );
+            if (IRoomBookingService.UpdateRoomBookingAsync(RoomBooking).Result == true)
+            {            
+                return RedirectToPage("/TheRoomBooking/SpecificRoomBookingPage", new { id = RoomBooking.ID } );
+            }
+            else
+            {
+                Message = "Booking time slot is not available";
+                return Page();
+            }
         }
+
     }
 }

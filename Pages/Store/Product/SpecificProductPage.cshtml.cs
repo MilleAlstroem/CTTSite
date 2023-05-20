@@ -19,6 +19,7 @@ namespace CTTSite.Pages.Store.Product
 
         public Models.User User { get; set; }
         public string Message { get; set; }
+        public string MessageColor { get; set; }
 
         [BindProperty]
         public int Count { get; set; }
@@ -42,18 +43,21 @@ namespace CTTSite.Pages.Store.Product
 
             if (Count > Item.Stock)
             {
+                MessageColor = "red";
                 Message = $"There are only {Item.Stock} left in stock";
                 return Page();
             }
 
             if (Count <= 0)
             {
+                MessageColor = "red";
                 Message = "There must be a valid amount";
                 return Page();
             }
 
             if (Count <= Item.Stock)
             {
+                MessageColor = "green";
                 Message = $"{Item.Name} has been add to your cart";
             }
 
