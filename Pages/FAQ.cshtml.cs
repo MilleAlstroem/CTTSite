@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CTTSite.Pages
 {
+    // Made by Christian
     public class FAQModel : PageModel
     {
         public void OnGet()
