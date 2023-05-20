@@ -11,23 +11,12 @@
 
     <div class="row">
     @if (HttpContext.User.Identity != null && HttpContext.User.IsInRole("admin") == true)
-    {
-            <div class="col-3">
-                <a class="btn btn-dark" asp-area="" asp-page="/Admin/GetAllUsers">See Users</a>
-                <br />
-                <p>View the list of all users, search users, edit and delete users and sort for staff and clients.</p>
-            </div>
+    {            
 
             <div class="col-3">
-                <a class="btn btn-dark" asp-area="" asp-page="/Consultaion/GetAllConsultaionsPage">Admin Consultation</a>
+                <a class="btn btn-dark" asp-area="" asp-page="/Consultaion/GetAllConsultaionsPage">Consultations</a>
                 <br />
-                <p>View the list of all future consultation bookings.</p>
-            </div>
-
-            <div class="col-3">
-                <a class="btn btn-dark" asp-area="" asp-page="/Admin/CreateStaffUser">Create Staff User</a>
-                <br />
-                <p>Create new users with staff permissions.</p>
+                <p>View the list of all future consultation bookings and create new timeslots for consultations.</p>
             </div>
 
             <div class="col-3">
@@ -40,6 +29,18 @@
                 <a class="btn btn-dark" asp-area="" asp-page="/Store/Product/AdminProductsPage">Edit Products</a>
                 <br />
                 <p>View the list of all products, see there status & edit them.</p>
+            </div>
+
+            <div class="col-3">
+                <a class="btn btn-dark" asp-area="" asp-page="/Admin/GetAllUsers">See Users</a>
+                <br />
+                <p>View the list of all users, search users, edit and delete users and sort for staff and clients.</p>
+            </div>
+
+            <div class="col-3">
+                <a class="btn btn-dark" asp-area="" asp-page="/Admin/CreateStaffUser">Create Staff User</a>
+                <br />
+                <p>Create new users with staff permissions.</p>
             </div>
     }
         @if (HttpContext.User.Identity != null && HttpContext.User.IsInRole("staff") == true)
