@@ -17,6 +17,7 @@ namespace CTTSite.Pages.Consultation
 
         public async Task OnGetAsync()
         {
+            //await _consultationService.DeleteExpiredUnbookedConsultationsAsync();
             ConsultationsList = await _consultationService.GetAvailableConsultationsAsync();
         }
     }

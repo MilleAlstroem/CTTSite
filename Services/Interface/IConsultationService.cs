@@ -11,7 +11,6 @@ namespace CTTSite.Services.Interface
         Task<Consultation> GetConsultationByIDAsync(int ID);
         Task<List<Consultation>> GetAllConsultationsAsync();
         Task<List<Consultation>> GetAvailableConsultationsAsync();
-
-
+        Task DeleteExpiredUnbookedConsultationsAsync();
     }
 }

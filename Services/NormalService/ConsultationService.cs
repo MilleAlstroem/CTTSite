@@ -30,6 +30,7 @@ namespace CTTSite.Services.NormalService
 
         public async Task<List<Consultation>> GetAvailableConsultationsAsync()
         {
+            await DeleteExpiredUnbookedConsultationsAsync();
             List<Consultation> allConsultations = await GetAllConsultationsAsync();
             return allConsultations.Where(c => !c.Booked).ToList();
         }
@@ -113,5 +114,39 @@ namespace CTTSite.Services.NormalService
                 await _dbServiceGeneric.UpdateObjectAsync(consultationToBeUpdated);
             }
         }
+
+        public async Task DeleteExpiredUnbookedConsultationsAsync()
+        {
+            List<Consultation> allConsultations = await GetAllConsultationsAsync();
+
+            List<Consultation> expiredUnbookedConsultations = allConsultations
+                .Where(c => !c.Booked && c.Date < DateTime.Now)
+                .ToList();
+
+            foreach (Consultation consultation in expiredUnbookedConsultations)
+            {
+                allConsultations.Remove(consultation);
+                await _dbServiceGeneric.DeleteObjectAsync(consultation);
+            }
+        }
+
+        public async Task<bool> IsConsultationTimeSlotAvailable(Consultation consultation)
+        {
+            if (consultation != null)
+            {
+                List<Consultation> allConsultations = await GetAllConsultationsAsync();
+
+                bool isAvailable = allConsultations.Any(c =>
+                    !c.Booked &&
+                    c.Date == consultation.Date &&
+                    (c.EndTime > consultation.StartTime && c.StartTime < consultation.EndTime) &&
+                    c.Date >= DateTime.Now && c.EndTime > DateTime.Now.TimeOfDay);
+
+                return isAvailable;
+            }
+
+            return false;
+        }
+
     }
 }
