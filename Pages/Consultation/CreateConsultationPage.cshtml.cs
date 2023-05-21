@@ -13,6 +13,8 @@ namespace CTTSite.Pages.Consultation
         private readonly IConsultationService _consultationService;
         private readonly IUserService _userService;
 
+        public string Message { get; set; }
+        public string MessageColor { get; set; }
         [BindProperty]
         public Models.Consultation Consultation { get; set; } = new Models.Consultation();
 
@@ -20,10 +22,6 @@ namespace CTTSite.Pages.Consultation
         {
             _consultationService = consultationService;
             _userService = userService;
-        }
-
-        public void OnGet()
-        {
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -36,8 +34,25 @@ namespace CTTSite.Pages.Consultation
             Consultation.TelefonNummer = "";
             Consultation.BookedEmail = "";
             Consultation.Booked = false;
+            //if ( await _consultationService.IsConsultationDateAvailableAsync(Consultation) == false )
+            //{
+            //    Message = "New consultations must be set to be a time after the the present time";
+            //    MessageColor = "red";
+            //}
+            //if( await _consultationService.IsConsultationTimeSlotAvailableAsync(Consultation) == true)
+            //{
+            //    return RedirectToPage("GetAllConsultaionsPage");
+            //}
+            //else
+            //{
+            //    Message = "This time slot is not available";
+            //    MessageColor = "red";
+            //    return Page();
+            //}
             await _consultationService.CreateConsultationAsync(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
         }
+
+        
     }
 }

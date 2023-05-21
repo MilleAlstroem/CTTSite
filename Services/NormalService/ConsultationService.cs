@@ -130,23 +130,38 @@ namespace CTTSite.Services.NormalService
             }
         }
 
-        public async Task<bool> IsConsultationTimeSlotAvailable(Consultation consultation)
+        //check for date is available
+        public async Task<bool> IsConsultationDateAvailableAsync(Consultation consultation)
         {
-            if (consultation != null)
-            {
-                List<Consultation> allConsultations = await GetAllConsultationsAsync();
+            if (consultation == null)
+                return false;
 
-                bool isAvailable = allConsultations.Any(c =>
-                    !c.Booked &&
-                    c.Date == consultation.Date &&
-                    (c.EndTime > consultation.StartTime && c.StartTime < consultation.EndTime) &&
-                    c.Date >= DateTime.Now && c.EndTime > DateTime.Now.TimeOfDay);
+            List<Consultation> allConsultations = await GetAllConsultationsAsync();
 
-                return isAvailable;
-            }
+            if (consultation.Date > DateTime.Now)
+                return true;
 
-            return false;
+            bool isConsultationBooked = allConsultations.Any(c => c.Date == consultation.Date && c.StartTime == consultation.StartTime);
+            return !isConsultationBooked;
         }
+
+        //check for time slot is available
+        public async Task<bool> IsConsultationTimeSlotAvailableAsync(Consultation consultation)
+        {
+            if (consultation == null)
+                return false;
+
+            List<Consultation> allConsultations = await GetAllConsultationsAsync();
+
+            if (consultation.Date > DateTime.Now)
+                return true;
+
+            bool isTimeSlotAvailable = allConsultations.All(c => c.ID == consultation.ID || c.EndTime <= consultation.StartTime || c.StartTime >= consultation.EndTime);
+            return isTimeSlotAvailable;
+        }
+
+        //check for time slot is available in database depeding on the date
+
 
     }
 }
