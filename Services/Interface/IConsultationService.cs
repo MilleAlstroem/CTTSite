@@ -12,6 +12,9 @@ namespace CTTSite.Services.Interface
         Task<List<Consultation>> GetAllConsultationsAsync();
         Task<List<Consultation>> GetAvailableConsultationsAsync();
         Task DeleteExpiredUnbookedConsultationsAsync();
-        
+        Task<bool> IsDateWithInPresentDate(Consultation consultation);
+        Task<bool> IsTimeSlotAvailableInDataBaseAsync(Consultation consultation);
+
+
     }
 }

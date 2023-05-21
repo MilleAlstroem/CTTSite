@@ -77,24 +77,7 @@ namespace CTTSite.Services.NormalService
 
         public async Task UpdateConsultationAsync(Consultation consultationN)
         {
-            if (consultationN != null)
-            {
-                foreach (Consultation consultationO in ConsultationsList)
-                {
-                    if (consultationO.ID == consultationN.ID)
-                    {
-                        consultationO.Date = consultationN.Date;
-                        consultationO.StartTime = consultationN.StartTime;
-                        consultationO.EndTime = consultationN.EndTime;
-                        consultationO.UserID = consultationN.UserID;
-                        consultationO.BookedNamed = consultationN.BookedNamed;
-                        consultationO.TelefonNummer = consultationN.TelefonNummer;
-                        consultationO.BookedEmail = consultationN.BookedEmail;
-                    }                    
-                }
-                //_jsonFileService.SaveJsonObjects(ConsultationsList);
-                await _dbServiceGeneric.UpdateObjectAsync(consultationN);
-            }
+            await _dbServiceGeneric.UpdateObjectAsync(consultationN);
         }
 
         public async Task SubmitConsultationByEmailAsync(Consultation consultation, string email)
@@ -131,33 +114,35 @@ namespace CTTSite.Services.NormalService
         }
 
         //check for date is available
-        public async Task<bool> IsConsultationDateAvailableAsync(Consultation consultation)
+        public async Task<bool> IsDateWithInPresentDate(Consultation consultation)
         {
             if (consultation == null)
-                return false;
-
-            List<Consultation> allConsultations = await GetAllConsultationsAsync();
-
-            if (consultation.Date > DateTime.Now)
+            {
                 return true;
-
-            bool isConsultationBooked = allConsultations.Any(c => c.Date == consultation.Date && c.StartTime == consultation.StartTime);
-            return !isConsultationBooked;
+            }
+            if (consultation.Date.Date < DateTime.Now.Date)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         //check for time slot is available
-        public async Task<bool> IsConsultationTimeSlotAvailableAsync(Consultation consultation)
+        public async Task<bool> IsTimeSlotAvailableInDataBaseAsync(Consultation consultation)
         {
-            if (consultation == null)
-                return false;
-
             List<Consultation> allConsultations = await GetAllConsultationsAsync();
-
-            if (consultation.Date > DateTime.Now)
-                return true;
-
-            bool isTimeSlotAvailable = allConsultations.All(c => c.ID == consultation.ID || c.EndTime <= consultation.StartTime || c.StartTime >= consultation.EndTime);
-            return isTimeSlotAvailable;
+            allConsultations = allConsultations.Where(c => c.Date == consultation.Date).ToList();
+            foreach (Consultation consultationInList in allConsultations)
+            {
+                if (consultationInList.StartTime == consultation.StartTime)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         //check for time slot is available in database depeding on the date

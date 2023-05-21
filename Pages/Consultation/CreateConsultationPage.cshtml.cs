@@ -34,25 +34,24 @@ namespace CTTSite.Pages.Consultation
             Consultation.TelefonNummer = "";
             Consultation.BookedEmail = "";
             Consultation.Booked = false;
-            //if ( await _consultationService.IsConsultationDateAvailableAsync(Consultation) == false )
-            //{
-            //    Message = "New consultations must be set to be a time after the the present time";
-            //    MessageColor = "red";
-            //}
-            //if( await _consultationService.IsConsultationTimeSlotAvailableAsync(Consultation) == true)
-            //{
-            //    return RedirectToPage("GetAllConsultaionsPage");
-            //}
-            //else
-            //{
-            //    Message = "This time slot is not available";
-            //    MessageColor = "red";
-            //    return Page();
-            //}
-            await _consultationService.CreateConsultationAsync(Consultation);
-            return RedirectToPage("GetAllConsultaionsPage");
+            if ( await _consultationService.IsDateWithInPresentDate(Consultation) == true)
+            {
+                Message = "You can't create a consultation in the past";
+                MessageColor = "red";
+                return Page();
+            }
+            else if (await _consultationService.IsTimeSlotAvailableInDataBaseAsync(Consultation) == false)
+            {
+                Message = "The Time slot that you have chosen is allready taken";
+                MessageColor = "red";
+                return Page();
+            }
+            else
+            {
+                await _consultationService.CreateConsultationAsync(Consultation);
+                return RedirectToPage("GetAllConsultaionsPage");
+            }
         }
-
         
     }
 }
