@@ -81,28 +81,29 @@ namespace CTTSite.Services.NormalService
 
         public async Task<CartItem> GetCartItemByIDAsync(int ID)
         {
-            using (var context = new ItemDbContext())
+            using (ItemDbContext context = new ItemDbContext())
             {
                 return await context.CartItems
                     .Include(ci => ci.Item)
-                    .FirstOrDefaultAsync(cartItem => cartItem.ID == ID);
+                    .FirstOrDefaultAsync((CartItem cartItem) => cartItem.ID == ID);
             }
         }
 
         public async Task<List<CartItem>> GetAllCartItemsByUserIDAsync(int userID)
         {
             List<CartItem> cartItemsByUserID = new List<CartItem>();
-            using (var context = new ItemDbContext())
+            using (ItemDbContext context = new ItemDbContext())
             {
-                var cartItems = await context.CartItems
+                List<CartItem> cartItems = await context.CartItems
                     .Include(ci => ci.Item)
-                    .Where(ci => ci.UserID == userID && !ci.Paid)
+                    .Where((CartItem ci) => ci.UserID == userID && !ci.Paid)
                     .ToListAsync();
 
                 cartItemsByUserID.AddRange(cartItems);
             }
             return cartItemsByUserID;
         }
+
 
         public async Task RemoveFromCartByIDAsync(int ID)
         {
