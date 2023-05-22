@@ -5,7 +5,7 @@
     "Description": "This gift basket is perfect for self-care",
     "IMG": "NoIMG",
     "Price": 25.00,
-    "Stock": 8
+    "Stock": 5
   },
   {
     "ID": 2,
@@ -13,7 +13,7 @@
     "Description": "These scented candles gives a lovely and relaxing aroma.",
     "IMG": "NoIMG",
     "Price": 10.50,
-    "Stock": 50
+    "Stock": 48
   },
   {
     "ID": 3,
@@ -21,7 +21,7 @@
     "Description": "Great book to take with you everywhere for a quick read.",
     "IMG": "NoIMG",
     "Price": 29.00,
-    "Stock": 69
+    "Stock": 67
   },
   {
     "ID": 4,
@@ -40,11 +40,11 @@
     "Stock": 5
   },
   {
-    "ID": 6,
-    "Name": "Ho4",
-    "Description": "afsef",
+    "ID": 7,
+    "Name": "Mus",
+    "Description": "Go to love it",
     "IMG": "NoIMG",
-    "Price": 45.00,
-    "Stock": 25
+    "Price": 550,
+    "Stock": 48
   }
 ]
