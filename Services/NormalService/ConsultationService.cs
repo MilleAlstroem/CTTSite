@@ -1,8 +1,10 @@
-﻿using CTTSite.Models;
+﻿using CTTSite.Migrations;
+using CTTSite.Models;
 using CTTSite.Models.Forms;
 using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
+using Consultation = CTTSite.Models.Consultation;
 
 namespace CTTSite.Services.NormalService
 {
@@ -115,30 +117,31 @@ namespace CTTSite.Services.NormalService
         }
 
         //check for date is available
-        public async Task<bool> IsDateWithInPresentDate(Consultation consultation)
+        public async Task<bool> IsDateWithInPresentDateAsync(Consultation consultation)
         {
             if (consultation == null)
             {
-                return true;
+                return false;
             }
             if (consultation.Date.Date < DateTime.Now.Date)
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
         }
 
-        //check for time slot is available
+        //check for time slot is available in database depeding on the date
         public async Task<bool> IsTimeSlotAvailableInDataBaseAsync(Consultation consultation)
         {
+            TimeSpan duration = TimeSpan.FromMinutes(5); // Assuming you want to subtract 5 minutes
             List<Consultation> allConsultations = await GetAllConsultationsAsync();
             allConsultations = allConsultations.Where(c => c.Date == consultation.Date).ToList();
             foreach (Consultation consultationInList in allConsultations)
             {
-                if (consultationInList.StartTime == consultation.StartTime)
+                if (consultationInList.StartTime == consultation.StartTime || consultationInList.EndTime.Subtract(duration) == consultation.StartTime)
                 {
                     return false;
                 }
@@ -146,8 +149,34 @@ namespace CTTSite.Services.NormalService
             return true;
         }
 
-        //check for time slot is available in database depeding on the date
+        //check for time slot is available or null
+        public async Task<bool> IsTimeSlotCorrectEnteredAsync(Consultation consultation)
+        {
+            if(consultation.StartTime > consultation.EndTime)
+            {
+                return false;
+            }
+            if(consultation.StartTime == null || consultation.EndTime == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
+        public async Task<bool> IsTimeSlotBeforeDateNowAsync(Consultation consultation)
+        {
+            if (consultation.StartTime == DateTime.Now.TimeOfDay || consultation.StartTime <= DateTime.Now.TimeOfDay)
+            {
+                return false;
+            }
+            else 
+            {
+                return true;
+            }
+        }
 
     }
 }
