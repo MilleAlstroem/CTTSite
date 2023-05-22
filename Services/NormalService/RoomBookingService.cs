@@ -158,10 +158,14 @@ namespace CTTSite.Services.NormalService
             RoomBookings = GetCurrentRoomBookings();
             foreach (RoomBooking roomBooking in RoomBookings)
             {
-                // If booking time slot overlaps with previous bookings
-                if (roomBooking.StartDateTime < RoomBooking.EndDateTime && roomBooking.EndDateTime > RoomBooking.StartDateTime)
+                if(roomBooking.ID != RoomBooking.ID)
                 {
-                    return false;
+                    // If booking time slot overlaps with previous bookings
+                    if (roomBooking.StartDateTime < RoomBooking.EndDateTime && roomBooking.EndDateTime > RoomBooking.StartDateTime)
+                    {
+                        return false;
+                    }
+                    continue;
                 }
                 // If booking StartDateTime is after booking EndDateTime
                 if (RoomBooking.StartDateTime > RoomBooking.EndDateTime)
