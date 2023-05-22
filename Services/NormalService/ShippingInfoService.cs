@@ -93,7 +93,7 @@ namespace CTTSite.Services.NormalService
             if (shippingInfoToBeSend != null)
             {
                 _emailService.SendEmail(new Email(shippingInfo.ToString(), $"Shipping for order: " + shippingInfo.OrderID + " " + email, email));
-                _emailService.SendEmail(new Email(shippingInfo.ToString(), $"Shipping for order: " + shippingInfo.OrderID + " " + email, "chilterntalkingtherapies@gmail.com"));
+                //_emailService.SendEmail(new Email(shippingInfo.ToString(), $"Shipping for order: " + shippingInfo.OrderID + " " + email, "chilterntalkingtherapies@gmail.com"));
             }
         }
 
