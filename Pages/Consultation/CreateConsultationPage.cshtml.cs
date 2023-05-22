@@ -31,7 +31,7 @@ namespace CTTSite.Pages.Consultation
             Consultation.EndTime = Consultation.EndTime;
             Consultation.UserID = _userService.GetUserIdByEmail(HttpContext.User.Identity.Name);
             Consultation.BookedNamed = "";
-            Consultation.TelefonNummer = "";
+            Consultation.TelefonNumber = "";
             Consultation.BookedEmail = "";
             Consultation.Booked = false;
             if ( await _consultationService.IsDateWithInPresentDate(Consultation) == true)

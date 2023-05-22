@@ -87,7 +87,7 @@ namespace CTTSite.Services.NormalService
             if (consultationToBeUpdated != null)
             {
                 consultationToBeUpdated.BookedNamed = consultation.BookedNamed;
-                consultationToBeUpdated.TelefonNummer = consultation.TelefonNummer;
+                consultationToBeUpdated.TelefonNumber = consultation.TelefonNumber;
                 consultationToBeUpdated.BookedEmail = consultation.BookedEmail;
                 consultationToBeUpdated.Booked = true;
 

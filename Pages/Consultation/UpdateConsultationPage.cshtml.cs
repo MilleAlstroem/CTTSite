@@ -37,7 +37,7 @@ namespace CTTSite.Pages.Consultation
             Consultation.EndTime = Consultation.EndTime;
             Consultation.UserID = UserID;
             Consultation.BookedNamed = "";
-            Consultation.TelefonNummer = "";
+            Consultation.TelefonNumber = "";
             Consultation.BookedEmail = "";
             await _consultationService.UpdateConsultationAsync(Consultation);
             return RedirectToPage("GetAllConsultaionsPage");
