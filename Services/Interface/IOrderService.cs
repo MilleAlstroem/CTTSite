@@ -16,5 +16,6 @@ namespace CTTSite.Services.Interface
         Task DeleteOrderByOrderIDAsync(int ID);
         Task UpdateOrderAsync(Order order);
         Task SubmitCancelOrderByEmailAsync(int ID, string email);
+        Task<bool> IsOrderEmptyAsync(string userEmail);
     }
 }

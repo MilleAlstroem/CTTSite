@@ -11,5 +11,6 @@ namespace CTTSite.Services.Interface
         Task ConvertBoolPaidByUserIDAsync(int userID);
         Task<CartItem> GetCartItemByIDAsync(int ID);
         Task<decimal> GetTotalPriceOfCartByUserIDAsync(int userID);
+        Task<bool> IsCartEmptyAsync(string userName);
     }
 }
