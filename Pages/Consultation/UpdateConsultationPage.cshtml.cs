@@ -14,6 +14,8 @@ namespace CTTSite.Pages.Consultation
         [BindProperty]
         public Models.Consultation Consultation { get; set; }
         public int UserID { get; set; }
+        public string Message { get; set; }
+        public string MessageColor { get; set; }
 
         public UpdateConsultationPageModel(IConsultationService iConsultationService)
         {
@@ -39,8 +41,23 @@ namespace CTTSite.Pages.Consultation
             Consultation.BookedNamed = "";
             Consultation.TelefonNummer = "";
             Consultation.BookedEmail = "";
-            await _consultationService.UpdateConsultationAsync(Consultation);
-            return RedirectToPage("GetAllConsultaionsPage");
+            if (await _consultationService.IsTimeSlotAvailableInDataBaseAsync(Consultation) == false)
+            {
+                Message = "The Time slot that you have chosen is already taken";
+                MessageColor = "red";
+                return Page();
+            }
+            else if (await _consultationService.IsTimeSlotCorrectEnteredAsync(Consultation) == false)
+            {
+                Message = "The Time slot entered is worng";
+                MessageColor = "red";
+                return Page();
+            }
+            else
+            {
+                await _consultationService.UpdateConsultationAsync(Consultation);
+                return RedirectToPage("GetAllConsultaionsPage");
+            }
         }
     }
 }

@@ -136,9 +136,9 @@ namespace CTTSite.Services.NormalService
         //check for time slot is available in database depeding on the date
         public async Task<bool> IsTimeSlotAvailableInDataBaseAsync(Consultation consultation)
         {
-            TimeSpan duration = TimeSpan.FromMinutes(5); // Assuming you want to subtract 5 minutes
+            TimeSpan duration = TimeSpan.FromMinutes(1); // Assuming you want to subtract 1 minutes
             List<Consultation> allConsultations = await GetAllConsultationsAsync();
-            allConsultations = allConsultations.Where(c => c.Date == consultation.Date).ToList();
+            allConsultations = allConsultations.Where(c => c.Date == consultation.Date && (c.ID != consultation.ID)).ToList();
             foreach (Consultation consultationInList in allConsultations)
             {
                 if (consultationInList.StartTime == consultation.StartTime || consultationInList.EndTime.Subtract(duration) == consultation.StartTime)
@@ -166,6 +166,7 @@ namespace CTTSite.Services.NormalService
             }
         }
 
+        //check for time slot is before date now
         public async Task<bool> IsTimeSlotBeforeDateNowAsync(Consultation consultation)
         {
             if (consultation.StartTime == DateTime.Now.TimeOfDay || consultation.StartTime <= DateTime.Now.TimeOfDay)
