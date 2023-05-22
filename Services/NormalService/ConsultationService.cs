@@ -169,7 +169,7 @@ namespace CTTSite.Services.NormalService
         //check for time slot is before date now
         public async Task<bool> IsTimeSlotBeforeDateNowAsync(Consultation consultation)
         {
-            if (consultation.StartTime == DateTime.Now.TimeOfDay || consultation.StartTime <= DateTime.Now.TimeOfDay)
+            if (consultation.StartTime == DateTime.Now.TimeOfDay || consultation.StartTime >= DateTime.Now.TimeOfDay)
             {
                 return false;
             }
