@@ -173,7 +173,7 @@ namespace CTTSite.Services.NormalService
             if (order != null)
             {
                 await _dBServiceGeneric.DeleteObjectAsync(order);
-                await _shippingInfoService.DeleteShippingInfoAsync(order.ID);
+                await _shippingInfoService.DeleteShippingInfoByOrderIDAsync(order.ID);
             }
         }
 

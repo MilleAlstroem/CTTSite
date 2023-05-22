@@ -59,9 +59,9 @@ namespace CTTSite.Services.NormalService
             return await _dBServiceGeneric.GetObjectByIdAsync(ID);
         }
 
-        public async Task DeleteShippingInfoAsync(int ID)
+        public async Task DeleteShippingInfoByOrderIDAsync(int ID)
         {
-            ShippingInfo shippingInfoToBeDelete = await GetShippingByIDAsync(ID);
+            ShippingInfo shippingInfoToBeDelete = await GetShippingByOrderIDAsync(ID);
             if (shippingInfoToBeDelete != null)
             {
                 ShippingInfoList.Remove(shippingInfoToBeDelete);

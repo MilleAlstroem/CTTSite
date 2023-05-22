@@ -136,7 +136,7 @@ namespace CTTSite.Services.NormalService
         }
 
         //check for date is available
-        public async Task<bool> IsDateWithInPresentDateAsync(Consultation consultation)
+        public bool IsDateWithInPresentDate(Consultation consultation)
         {
             if (consultation == null)
             {
@@ -160,7 +160,7 @@ namespace CTTSite.Services.NormalService
             allConsultations = allConsultations.Where(c => c.Date == consultation.Date && (c.ID != consultation.ID)).ToList();
             foreach (Consultation consultationInList in allConsultations)
             {
-                if (consultationInList.StartTime == consultation.StartTime || consultationInList.EndTime.Subtract(duration) == consultation.StartTime)
+                if ((consultationInList.StartTime == consultation.StartTime) || (consultationInList.EndTime.Subtract(duration) == consultation.StartTime))
                 {
                     return false;
                 }
@@ -168,14 +168,10 @@ namespace CTTSite.Services.NormalService
             return true;
         }
 
-        //check for time slot is available or null
-        public async Task<bool> IsTimeSlotCorrectEnteredAsync(Consultation consultation)
+        // Check if the time slot is correct
+        public bool IsTimeSlotCorrectEntered(Consultation consultation)
         {
-            if (consultation.StartTime > consultation.EndTime)
-            {
-                return false;
-            }
-            if (consultation.StartTime == null || consultation.EndTime == null)
+            if ((consultation.StartTime > consultation.EndTime) || (consultation.StartTime == null) || (consultation.EndTime == null))
             {
                 return false;
             }
@@ -185,8 +181,8 @@ namespace CTTSite.Services.NormalService
             }
         }
 
-        //check for time slot is before date now
-        public async Task<bool> IsTimeSlotBeforeDateNowAsync(Consultation consultation)
+        // Check if the time slot is before the current date and time
+        public bool IsTimeSlotBeforeDateNow(Consultation consultation)
         {
             DateTime currentDateTime = DateTime.Now;
             DateTime consultationDateTime = consultation.Date.Date + consultation.StartTime;
@@ -199,7 +195,6 @@ namespace CTTSite.Services.NormalService
             {
                 return true;
             }
-
         }
     }
 }
