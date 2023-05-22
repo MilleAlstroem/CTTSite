@@ -1,5 +1,6 @@
 ﻿using CTTSite.Models;
 using CTTSite.Models.Forms;
+using CTTSite.Pages.TheRoomBooking;
 using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
@@ -162,7 +163,9 @@ namespace CTTSite.Services.NormalService
         public async Task SubmitFormActivityDiary(FormActivityDiary form, string email)
         {
             _emailService.SendEmail(new Email(form.ToString(), "Activity Diary: " + email, email));
-            _emailService.SendEmail(new Email(form.ToString(), "Activity Diary: " + email, "chilterntalkingtherapies@gmail.com"));
+            
+            //The line of code under this comment is commented out as this sends a mail to the PO with the form and we would like ot avoid spam in her inbox while the application is being tested.  
+            //_emailService.SendEmail(new Email(form.ToString(), "Activity Diary: " + email, "chilterntalkingtherapies@gmail.com"));
             await DeleteFormActivityDiary(form);
         }
         #endregion
