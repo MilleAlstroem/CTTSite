@@ -25,7 +25,7 @@ namespace CTTSite.Pages.Store.Product
             Item = await _itemService.GetItemByIDAsync(ID);
             if (Item == null)
             {
-                return RedirectToPage("AllProductsPage");
+                return RedirectToPage("AdminProductsPage");
             }
             return Page();
         }
@@ -37,7 +37,7 @@ namespace CTTSite.Pages.Store.Product
                 return Page();
             }
             await _itemService.UpdateItemAsync(Item);
-            return RedirectToPage("AllProductsPage");
+            return RedirectToPage("AdminProductsPage");
         }
     }
 }

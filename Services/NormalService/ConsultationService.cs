@@ -92,7 +92,8 @@ namespace CTTSite.Services.NormalService
                 consultationToBeUpdated.Booked = true;
 
                 _emailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, email));
-                _emailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, "chilterntalkingtherapies@gmail.com"));
+                // Becuase Jennie is getting spamed
+                //_emailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, "chilterntalkingtherapies@gmail.com"));
 
                 await _dbServiceGeneric.UpdateObjectAsync(consultationToBeUpdated);
             }

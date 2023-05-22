@@ -29,7 +29,7 @@ namespace CTTSite.Pages.Store.Product
 
             await _itemService.CreateItemAsync(Item);
 
-            return RedirectToPage("AllProductsPage");
+            return RedirectToPage("AdminProductsPage");
         }
     }
 }
