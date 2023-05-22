@@ -3,13 +3,13 @@
 @{
 }
 
-<div class="container-fluid">
-
+<div class="container-fluid text-center text-dark">
+    
 
 <h1>Tools</h1>
     <br />
 
-    <div class="row">
+    <div class="row" style="margin-left: 5%; margin-right:5%">
     @if (HttpContext.User.Identity != null && HttpContext.User.IsInRole("admin") == true)
     {            
 
