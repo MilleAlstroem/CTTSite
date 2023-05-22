@@ -35,10 +35,10 @@ namespace CTTSite.Services.NormalService
         {
             await DeleteExpiredUnbookedConsultationsAsync();
             List<Consultation> allConsultations = await GetAllConsultationsAsync();
-            DateTime currentDateTime = DateTime.Now;
+            DateTime currentDateTime = DateTime.Now.Date; // Get the current date without the time
 
             List<Consultation> availableConsultations = allConsultations
-                .Where(c => !c.Booked && c.Date >= currentDateTime)
+                .Where(c => !c.Booked && c.Date.Date >= currentDateTime)
                 .ToList();
 
             return availableConsultations;
@@ -122,8 +122,10 @@ namespace CTTSite.Services.NormalService
         {
             List<Consultation> allConsultations = await GetAllConsultationsAsync();
 
+            DateTime currentDateTime = DateTime.Now;
+
             List<Consultation> expiredUnbookedConsultations = allConsultations
-                .Where(c => !c.Booked && c.Date < DateTime.Now)
+                .Where(c => (!c.Booked && c.Date < currentDateTime.Date) || (!c.Booked && c.Date == currentDateTime.Date && c.StartTime < currentDateTime.TimeOfDay))
                 .ToList();
 
             foreach (Consultation consultation in expiredUnbookedConsultations)
