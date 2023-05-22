@@ -21,6 +21,7 @@ namespace CTTSite.Pages.Consultation
         public async Task OnGetAsync()
         {
             ConsultationsList = await _consultationService.GetAllConsultationsAsync();
+            ConsultationsList = _consultationService.SortConsultationsByDateTime(ConsultationsList);
         }
     }
 }

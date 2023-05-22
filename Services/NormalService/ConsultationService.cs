@@ -4,6 +4,7 @@ using CTTSite.Models.Forms;
 using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
+using System.Linq;
 using Consultation = CTTSite.Models.Consultation;
 
 namespace CTTSite.Services.NormalService
@@ -35,6 +36,16 @@ namespace CTTSite.Services.NormalService
             await DeleteExpiredUnbookedConsultationsAsync();
             List<Consultation> allConsultations = await GetAllConsultationsAsync();
             return allConsultations.Where(c => !c.Booked).ToList();
+        }
+
+        public List<Consultation> SortConsultationsByDateTime(List<Consultation> consultations)
+        {
+            return consultations.OrderBy(c => c.Date).ThenBy(c => c.StartTime).ToList();
+        }
+
+        public List<IGrouping<DateTime, Consultation>> GroupConsultationsByDate(List<Consultation> consultations)
+        {
+            return consultations.GroupBy(c => c.Date.Date).ToList();
         }
 
         public async Task<Consultation> GetConsultationByIDAsync(int ID)
