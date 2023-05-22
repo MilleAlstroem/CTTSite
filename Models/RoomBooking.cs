@@ -19,7 +19,7 @@ namespace CTTSite.Models
         [Required(ErrorMessage = "An end date and time is required")]
         public DateTime EndDateTime { get; set; }
         
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
 
         public RoomBooking(int iD, string userEmail, DateTime startDateTime, DateTime endDateTime, string description)
