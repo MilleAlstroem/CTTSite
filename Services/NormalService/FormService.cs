@@ -164,7 +164,7 @@ namespace CTTSite.Services.NormalService
         {
             _emailService.SendEmail(new Email(form.ToString(), "Activity Diary: " + email, email));
             
-            //The line of code under this comment is commented out as this sends a mail to the PO with the form and we would like ot avoid spam in her inbox while the application is being tested.  
+            //The line of code under this comment is commented out as this sends a mail to the PO with the form and we would like to avoid spam in her inbox while the application is being tested. This email does work and sends a copy of the form to the customer and the PO.  
             //_emailService.SendEmail(new Email(form.ToString(), "Activity Diary: " + email, "chilterntalkingtherapies@gmail.com"));
             await DeleteFormActivityDiary(form);
         }
@@ -274,7 +274,9 @@ namespace CTTSite.Services.NormalService
         public async Task SubmitFormActivityList(FormActivityList form, string email)
         {
             _emailService.SendEmail(new Email(form.ToString(), "Activity List: " + email, email));
-            _emailService.SendEmail(new Email(form.ToString(), "Activity List: " + email, "chilterntalkingtherapies@gmail.com"));
+
+            //The line of code under this comment is commented out as this sends a mail to the PO with the form and we would like to avoid spam in her inbox while the application is being tested. This email does work and sends a copy of the form to the customer and the PO.
+            //_emailService.SendEmail(new Email(form.ToString(), "Activity List: " + email, "chilterntalkingtherapies@gmail.com"));
             await DeleteFormActivityList(form);
         }
         #endregion
@@ -388,7 +390,9 @@ namespace CTTSite.Services.NormalService
         public async Task SubmitFormActivitySchedule(FormActivitySchedule form, string email)
         {
             _emailService.SendEmail(new Email(form.ToString(), "Activity Schedule: " + email, email));
-            _emailService.SendEmail(new Email(form.ToString(), "Activity Schedule: " + email, "chilterntalkingtherapies@gmail.com"));
+
+            //The line of code under this comment is commented out as this sends a mail to the PO with the form and we would like to avoid spam in her inbox while the application is being tested. This email does work and sends a copy of the form to the customer and the PO.
+            //_emailService.SendEmail(new Email(form.ToString(), "Activity Schedule: " + email, "chilterntalkingtherapies@gmail.com"));
             await DeleteFormActivitySchedule(form);
         }
         #endregion
@@ -502,7 +506,9 @@ namespace CTTSite.Services.NormalService
         public async Task SubmitFormHotCrossBun(FormHotCrossBun form, string email)
         {
             _emailService.SendEmail(new Email(form.ToString(), "Hot Cross Bun: " + email, email));
-            _emailService.SendEmail(new Email(form.ToString(), "Hot Cross Bun: " + email, "chilterntalkingtherapies@gmail.com"));
+
+            //The line of code under this comment is commented out as this sends a mail to the PO with the form and we would like to avoid spam in her inbox while the application is being tested. This email does work and sends a copy of the form to the customer and the PO.
+            //_emailService.SendEmail(new Email(form.ToString(), "Hot Cross Bun: " + email, "chilterntalkingtherapies@gmail.com"));
             await DeleteFormHotCrossBun(form);            
         }
         #endregion
@@ -617,7 +623,9 @@ namespace CTTSite.Services.NormalService
         public async Task SubmitFormSleepDiary(FormSleepDiary form, string email)
         {
             _emailService.SendEmail(new Email(form.ToString(), "Sleep Diary: " + email, email));
-            _emailService.SendEmail(new Email(form.ToString(), "Sleep Diary: " + email, "chilterntalkingtherapies@gmail.com"));
+
+            //The line of code under this comment is commented out as this sends a mail to the PO with the form and we would like to avoid spam in her inbox while the application is being tested. This email does work and sends a copy of the form to the customer and the PO.
+            //_emailService.SendEmail(new Email(form.ToString(), "Sleep Diary: " + email, "chilterntalkingtherapies@gmail.com"));
             await DeleteFormSleepDiary(form);
         }
         #endregion
