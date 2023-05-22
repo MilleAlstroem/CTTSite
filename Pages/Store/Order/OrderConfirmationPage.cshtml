@@ -3,7 +3,12 @@
 @{
 }
 
-<body style="background-color:#f6d8cc;">
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-1"></div>
+
+        <div class="col-md-10 text-center">
     <div class="text-center">
         <h1>Thank you for your purchase!</h1><br />
         <h4>Your order number is: @Model.OrderID</h4><br /</h4>
@@ -13,4 +18,7 @@
         <a asp-page="/Store/Order/SpecificUserOldOrderPage" asp-route-id="@Model.OrderID" class="btn btn-dark">View your order</a>
         <a asp-page="/Index" class="btn btn-outline-dark">Back to Homepage</a>
     </div>
-</body>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>

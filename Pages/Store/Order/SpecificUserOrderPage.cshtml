@@ -3,7 +3,12 @@
 @{
 }
 
-<body class="text-center" style="background-color:#f6d8cc;">
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-1"></div>
+
+        <div class="col-md-10 text-center">
     <h1 class="text-center"><b>@Model.User.Identity.Name's Orders</b></h1>
     <br />
 
@@ -37,4 +42,7 @@
         </tbody>
     </table>
 
-</body>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
