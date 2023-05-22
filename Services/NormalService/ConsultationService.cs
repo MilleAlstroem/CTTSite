@@ -35,7 +35,13 @@ namespace CTTSite.Services.NormalService
         {
             await DeleteExpiredUnbookedConsultationsAsync();
             List<Consultation> allConsultations = await GetAllConsultationsAsync();
-            return allConsultations.Where(c => !c.Booked).ToList();
+            DateTime currentDateTime = DateTime.Now;
+
+            List<Consultation> availableConsultations = allConsultations
+                .Where(c => !c.Booked && c.Date >= currentDateTime)
+                .ToList();
+
+            return availableConsultations;
         }
 
         public List<Consultation> SortConsultationsByDateTime(List<Consultation> consultations)
@@ -79,8 +85,8 @@ namespace CTTSite.Services.NormalService
 
         public async Task DeleteConsultationAsync(Consultation consultation)
         {
-            Consultation consultationToBeDeleted = null; 
-            if(consultation != null)
+            Consultation consultationToBeDeleted = null;
+            if (consultation != null)
             {
                 ConsultationsList.Remove(consultation);
                 //_ssonFileService.SaveJsonObjects(ConsultationsList);
@@ -163,11 +169,11 @@ namespace CTTSite.Services.NormalService
         //check for time slot is available or null
         public async Task<bool> IsTimeSlotCorrectEnteredAsync(Consultation consultation)
         {
-            if(consultation.StartTime > consultation.EndTime)
+            if (consultation.StartTime > consultation.EndTime)
             {
                 return false;
             }
-            if(consultation.StartTime == null || consultation.EndTime == null)
+            if (consultation.StartTime == null || consultation.EndTime == null)
             {
                 return false;
             }
@@ -180,15 +186,18 @@ namespace CTTSite.Services.NormalService
         //check for time slot is before date now
         public async Task<bool> IsTimeSlotBeforeDateNowAsync(Consultation consultation)
         {
-            if (consultation.StartTime == DateTime.Now.TimeOfDay || consultation.StartTime >= DateTime.Now.TimeOfDay)
+            DateTime currentDateTime = DateTime.Now;
+            DateTime consultationDateTime = consultation.Date.Date + consultation.StartTime;
+
+            if (consultationDateTime <= currentDateTime)
             {
                 return false;
             }
-            else 
+            else
             {
                 return true;
             }
-        }
 
+        }
     }
 }
