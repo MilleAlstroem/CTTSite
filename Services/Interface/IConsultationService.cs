@@ -16,7 +16,7 @@ namespace CTTSite.Services.Interface
         Task<bool> IsTimeSlotAvailableInDataBaseAsync(Consultation consultation);
         Task<bool> IsTimeSlotCorrectEnteredAsync(Consultation consultation);
         Task<bool> IsTimeSlotBeforeDateNowAsync(Consultation consultation);
-
-
+        List<IGrouping<DateTime, Consultation>> GroupConsultationsByDate(List<Consultation> consultations);
+        List<Consultation> SortConsultationsByDateTime(List<Consultation> consultations);
     }
 }

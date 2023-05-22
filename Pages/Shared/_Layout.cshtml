@@ -1,4 +1,7 @@
 ﻿@using CTTSite.Pages.User.LogIn;
+@using CTTSite.Services.Interface;
+@inject ICartItemService CartItemService;
+@inject IOrderService OrderService;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,12 +86,20 @@
                             }
                             else
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-page="/Store/Cart/SpecificUserCartPage">Cart</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-page="/Store/Order/SpecificUserOrderPage">Order</a>
-                                </li>
+                                bool isCartEmpty = await CartItemService.IsCartEmptyAsync(Context.User.Identity.Name);
+                                if (!isCartEmpty)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-page="/Store/Cart/SpecificUserCartPage">Cart</a>
+                                    </li>
+                                }
+                                bool isOrderEmpty = await OrderService.IsOrderEmptyAsync(Context.User.Identity.Name);
+                                if (!isOrderEmpty)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-page="/Store/Order/SpecificUserOrderPage">Order</a>
+                                    </li>
+                                }
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="" asp-page="/Forms/FormsMenuPage">Forms</a>
                                 </li>

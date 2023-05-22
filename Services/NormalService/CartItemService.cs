@@ -14,16 +14,33 @@ namespace CTTSite.Services.NormalService
         private readonly DBServiceGeneric<CartItem> _dBServiceGenericCartItem;
         private readonly JsonFileService<CartItem> _jsonFileService;
         private readonly IItemService _itemService;
+        private readonly IUserService _userService;
         public List<CartItem> CartItems { get; private set; }
         public List<Item> Items { get; private set; }
 
-        public CartItemService(DBServiceGeneric<CartItem> dBServiceGenericCartItem, JsonFileService<CartItem> jsonFileService, IItemService itemService)
+        public CartItemService(DBServiceGeneric<CartItem> dBServiceGenericCartItem, JsonFileService<CartItem> jsonFileService, IItemService itemService, IUserService userService)
         {
             _dBServiceGenericCartItem = dBServiceGenericCartItem;
             _jsonFileService = jsonFileService;
             _itemService = itemService;
+            _userService = userService;
             CartItems = GetAllCartItemsAsync().Result;
             Items = _itemService.GetAllItemsAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<bool> IsCartEmptyAsync(string userEmail)
+        {
+            User user = _userService.GetUserByEmail(userEmail);
+            List<CartItem> cartItemsList = await GetAllCartItemsByUserIDAsync(user.Id);
+            if (cartItemsList.Count == 0)
+            {
+                return true;
+            }
+            else 
+            { 
+                return false; 
+            }
+
         }
 
         public async Task<List<CartItem>> GetAllCartItemsAsync()

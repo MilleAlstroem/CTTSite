@@ -8,7 +8,7 @@ namespace CTTSite.Pages.Consultation
     {
         private readonly IConsultationService _consultationService;
 
-        public List<Models.Consultation> ConsultationsList { get; set; }
+        public List<IGrouping<DateTime, Models.Consultation>> GroupedConsultations { get; set; }
 
         public AvailableConsultationsPageModel(IConsultationService consultationService)
         {
@@ -17,8 +17,9 @@ namespace CTTSite.Pages.Consultation
 
         public async Task OnGetAsync()
         {
-            //await _consultationService.DeleteExpiredUnbookedConsultationsAsync();
-            ConsultationsList = await _consultationService.GetAvailableConsultationsAsync();
+            List<Models.Consultation> consultations = await _consultationService.GetAvailableConsultationsAsync();
+            consultations = _consultationService.SortConsultationsByDateTime(consultations);
+            GroupedConsultations = _consultationService.GroupConsultationsByDate(consultations);
         }
     }
 }
