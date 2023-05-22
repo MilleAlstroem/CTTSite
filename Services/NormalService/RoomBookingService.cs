@@ -22,12 +22,12 @@ namespace CTTSite.Services.NormalService
         }
 
         #region Create Room Booking
-        public async Task<bool> CreateRoomBookingAsync(RoomBooking RoomBooking)
+        public async Task<bool> CreateRoomBookingAsync(RoomBooking roomBooking)
         {
-            if (BookingIsAvailable(RoomBooking))
+            if (BookingIsAvailable(roomBooking))
             {
-                RoomBookings.Add(RoomBooking);
-                await DBServiceGeneric.AddObjectAsync(RoomBooking);
+                RoomBookings.Add(roomBooking);
+                await DBServiceGeneric.AddObjectAsync(roomBooking);
                 return true;
             }
             return false;
@@ -35,21 +35,21 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Update Room Booking
-        public async Task<bool> UpdateRoomBookingAsync(RoomBooking NewRoomBooking)
+        public async Task<bool> UpdateRoomBookingAsync(RoomBooking newRoomBooking)
         {
-            RoomBookings = GetAllRoomBookingsAsync().Result;
-            if (NewRoomBooking != null)
+            RoomBookings = await GetAllRoomBookingsAsync();
+            if (newRoomBooking != null)
             {
                 foreach (RoomBooking OldRoomBooking in RoomBookings)
                 {
-                    if (OldRoomBooking.ID == NewRoomBooking.ID)
+                    if (OldRoomBooking.ID == newRoomBooking.ID)
                     {
-                        if(BookingIsAvailable(NewRoomBooking))
+                        if(BookingIsAvailable(newRoomBooking))
                         {
-                            OldRoomBooking.StartDateTime = NewRoomBooking.StartDateTime;
-                            OldRoomBooking.EndDateTime = NewRoomBooking.EndDateTime;
-                            OldRoomBooking.Description = NewRoomBooking.Description;
-                            OldRoomBooking.UserEmail = NewRoomBooking.UserEmail;
+                            OldRoomBooking.StartDateTime = newRoomBooking.StartDateTime;
+                            OldRoomBooking.EndDateTime = newRoomBooking.EndDateTime;
+                            OldRoomBooking.Description = newRoomBooking.Description;
+                            OldRoomBooking.UserEmail = newRoomBooking.UserEmail;
 
                             await DBServiceGeneric.UpdateObjectAsync(OldRoomBooking);
                             return true;
@@ -62,12 +62,12 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Delete Room Booking
-        public async Task DeleteRoomBookingByIDAsync(int ID)
+        public async Task DeleteRoomBookingByIDAsync(int iD)
         {
-            RoomBookings = GetAllRoomBookingsAsync().Result;
+            RoomBookings = await GetAllRoomBookingsAsync();
             foreach (RoomBooking roomBooking in RoomBookings)
             {
-                if (roomBooking.ID == ID)
+                if (roomBooking.ID == iD)
                 {
                     RoomBookings.Remove(roomBooking);
                     await DBServiceGeneric.DeleteObjectAsync(roomBooking);
@@ -122,12 +122,12 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Get Room Booking By ID
-        public RoomBooking GetRoomBookingByID(int ID)
+        public RoomBooking GetRoomBookingByID(int iD)
         {
             RoomBookings = GetAllRoomBookingsAsync().Result;
             foreach (RoomBooking roomBooking in RoomBookings)
             {
-                if (roomBooking.ID == ID)
+                if (roomBooking.ID == iD)
                 {
                     return roomBooking;
                 }
@@ -137,13 +137,13 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Get Room Booking By User Email
-        public List<RoomBooking> GetRoomBookingsByUserEmail(string UserEmail)
+        public List<RoomBooking> GetRoomBookingsByUserEmail(string userEmail)
         {
             RoomBookings = GetCurrentRoomBookings();
             List<RoomBooking> UserRoomBookings = new List<RoomBooking>();
             foreach (RoomBooking roomBooking in RoomBookings)
             {
-                if (roomBooking.UserEmail == UserEmail)
+                if (roomBooking.UserEmail == userEmail)
                 {
                     UserRoomBookings.Add(roomBooking);
                 }
@@ -153,27 +153,27 @@ namespace CTTSite.Services.NormalService
         #endregion
     
         #region Check Room Booking Availability
-        public bool BookingIsAvailable(RoomBooking RoomBooking)
+        public bool BookingIsAvailable(RoomBooking roomBooking)
         {
             RoomBookings = GetCurrentRoomBookings();
-            foreach (RoomBooking roomBooking in RoomBookings)
+            foreach (RoomBooking listRoomBooking in RoomBookings)
             {
-                if(roomBooking.ID != RoomBooking.ID)
+                if(listRoomBooking.ID != roomBooking.ID)
                 {
                     // If booking time slot overlaps with previous bookings
-                    if (roomBooking.StartDateTime < RoomBooking.EndDateTime && roomBooking.EndDateTime > RoomBooking.StartDateTime)
+                    if (listRoomBooking.StartDateTime < roomBooking.EndDateTime && listRoomBooking.EndDateTime > roomBooking.StartDateTime)
                     {
                         return false;
                     }
                     continue;
                 }
                 // If booking StartDateTime is after booking EndDateTime
-                if (RoomBooking.StartDateTime > RoomBooking.EndDateTime)
+                if (roomBooking.StartDateTime > roomBooking.EndDateTime)
                 {
                     return false;
                 }
                 // If booking time slot is in the past
-                if (RoomBooking.StartDateTime < DateTime.Now)
+                if (roomBooking.StartDateTime < DateTime.Now)
                 {
                     return false;
                 }
@@ -183,18 +183,18 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Sort By Ascending
-        public IEnumerable<RoomBooking> SortByAscending(List<RoomBooking> ListRoomBookings)
+        public IEnumerable<RoomBooking> SortByAscending(List<RoomBooking> listRoomBookings)
         {
-            return from roomBooking in ListRoomBookings
+            return from roomBooking in listRoomBookings
                    orderby roomBooking.StartDateTime
                    select roomBooking;
         }
         #endregion
 
         #region Sort By Descending
-        public IEnumerable<RoomBooking> SortByDescending(List<RoomBooking> ListRoomBookings)
+        public IEnumerable<RoomBooking> SortByDescending(List<RoomBooking> listRoomBookings)
         {
-            return from roomBooking in ListRoomBookings
+            return from roomBooking in listRoomBookings
                    orderby roomBooking.StartDateTime descending
                    select roomBooking;
         }
