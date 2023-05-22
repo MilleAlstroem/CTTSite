@@ -27,7 +27,7 @@ namespace CTTSite.Pages.Store.Product
         public async Task<IActionResult> OnPostAsync()
         {
             await _itemService.DeleteItemByIDAsync(Item.ID);
-            return RedirectToPage("AllProductsPage");
+            return RedirectToPage("AdminProductsPage");
         }
     }
 }

@@ -38,7 +38,6 @@ namespace CTTSite.Services.Interface
 
         IEnumerable<User> SortByEmailDescending();
 
-        Task SaveUsers();
 
         void ForgottenPassword(string email);
 

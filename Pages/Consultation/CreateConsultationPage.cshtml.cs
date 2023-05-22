@@ -34,7 +34,7 @@ namespace CTTSite.Pages.Consultation
             Consultation.TelefonNumber = "";
             Consultation.BookedEmail = "";
             Consultation.Booked = false;
-            if ( await _consultationService.IsDateWithInPresentDate(Consultation) == true)
+            if ( await _consultationService.IsDateWithInPresentDateAsync(Consultation) == false)
             {
                 Message = "You can't create a consultation in the past";
                 MessageColor = "red";
@@ -42,7 +42,19 @@ namespace CTTSite.Pages.Consultation
             }
             else if (await _consultationService.IsTimeSlotAvailableInDataBaseAsync(Consultation) == false)
             {
-                Message = "The Time slot that you have chosen is allready taken";
+                Message = "The Time slot that you have chosen is already taken";
+                MessageColor = "red";
+                return Page();
+            }
+            else if (await _consultationService.IsTimeSlotCorrectEnteredAsync(Consultation) == false)
+            {
+                Message = "The Time slot entered is worng";
+                MessageColor = "red";
+                return Page();
+            }
+            else if (await _consultationService.IsTimeSlotBeforeDateNowAsync(Consultation) == false)
+            {
+                Message = "The Time slot entered is behind the present time";
                 MessageColor = "red";
                 return Page();
             }

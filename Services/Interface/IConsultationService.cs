@@ -12,9 +12,11 @@ namespace CTTSite.Services.Interface
         Task<List<Consultation>> GetAllConsultationsAsync();
         Task<List<Consultation>> GetAvailableConsultationsAsync();
         Task DeleteExpiredUnbookedConsultationsAsync();
-        Task<bool> IsDateWithInPresentDate(Consultation consultation);
+        Task<bool> IsDateWithInPresentDateAsync(Consultation consultation);
         Task<bool> IsTimeSlotAvailableInDataBaseAsync(Consultation consultation);
-
-
+        Task<bool> IsTimeSlotCorrectEnteredAsync(Consultation consultation);
+        Task<bool> IsTimeSlotBeforeDateNowAsync(Consultation consultation);
+        List<IGrouping<DateTime, Consultation>> GroupConsultationsByDate(List<Consultation> consultations);
+        List<Consultation> SortConsultationsByDateTime(List<Consultation> consultations);
     }
 }

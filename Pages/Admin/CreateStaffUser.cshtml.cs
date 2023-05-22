@@ -26,12 +26,12 @@ namespace CTTSite.Pages.Staff.Admin
 
         public Models.User newUser { get; set; }
 
-        private PasswordHasher<string> passwordHasher;
+        private PasswordHasher<string> _passwordHasher;
 
         public CreateStaffUserModel(IUserService userService)
         {
             _iUserService = userService;
-            passwordHasher = new PasswordHasher<string>();
+            _passwordHasher = new PasswordHasher<string>();
         }
 
         public void OnGet()
@@ -65,7 +65,7 @@ namespace CTTSite.Pages.Staff.Admin
 			Password = new String(stringChars);
             _iUserService.SaveNewPassword(Password);
 
-            newUser = new Models.User(Email, passwordHasher.HashPassword(null, Password), false, true); 
+            newUser = new Models.User(Email, _passwordHasher.HashPassword(null, Password), false, true); 
             if (_iUserService.AddUser(newUser).Result == true)
             {
                 await _iUserService.AddUser(newUser);

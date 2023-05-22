@@ -2,6 +2,7 @@
 
 namespace CTTSite.Services.Interface
 {
+    // Made by Mille
     public interface IRoomBookingService
     {
         Task<bool> CreateRoomBookingAsync(RoomBooking RoomBooking);
@@ -15,10 +16,6 @@ namespace CTTSite.Services.Interface
         bool BookingIsAvailable(RoomBooking RoomBooking);
         IEnumerable<RoomBooking> SortByAscending(List<RoomBooking> ListRoomBookings);
         IEnumerable<RoomBooking> SortByDescending(List<RoomBooking> ListRoomBookings);
-
-        // TODO: Maybe implement these methods if time permits.
-        //List<RoomBooking> GetRoomBookingsWithinDateRangeAsync(DateTime StartDate, DateTime EndDate);
-        //List<RoomBooking> GetRoomBookingsOutsideDateRangeAsync(DateTime StartDate, DateTime EndDate);
 
     }
 }

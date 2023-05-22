@@ -24,8 +24,8 @@
             <p>Last Name: @Model.ShippingInfo.LastName</p>
             <p>Submission Date: @Model.ShippingInfo.SubmissionDate</p>
         </div>
-        <a asp-page="/Store/Order/AllOrderPage" class="btn btn-outline-dark">Back</a>
         <a class="btn btn-dark" type="button" asp-page="/Store/Shipping/EditShippingPage" asp-route-id="@Model.ShippingInfo.OrderID">Update</a>
+            <a asp-page="/Store/Order/AllOrderPage" class="btn btn-outline-dark">Back</a>
     }
 
 

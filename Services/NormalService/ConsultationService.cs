@@ -1,8 +1,11 @@
-﻿using CTTSite.Models;
+﻿using CTTSite.Migrations;
+using CTTSite.Models;
 using CTTSite.Models.Forms;
 using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
+using System.Linq;
+using Consultation = CTTSite.Models.Consultation;
 
 namespace CTTSite.Services.NormalService
 {
@@ -32,7 +35,23 @@ namespace CTTSite.Services.NormalService
         {
             await DeleteExpiredUnbookedConsultationsAsync();
             List<Consultation> allConsultations = await GetAllConsultationsAsync();
-            return allConsultations.Where(c => !c.Booked).ToList();
+            DateTime currentDateTime = DateTime.Now;
+
+            List<Consultation> availableConsultations = allConsultations
+                .Where(c => !c.Booked && c.Date >= currentDateTime)
+                .ToList();
+
+            return availableConsultations;
+        }
+
+        public List<Consultation> SortConsultationsByDateTime(List<Consultation> consultations)
+        {
+            return consultations.OrderBy(c => c.Date).ThenBy(c => c.StartTime).ToList();
+        }
+
+        public List<IGrouping<DateTime, Consultation>> GroupConsultationsByDate(List<Consultation> consultations)
+        {
+            return consultations.GroupBy(c => c.Date.Date).ToList();
         }
 
         public async Task<Consultation> GetConsultationByIDAsync(int ID)
@@ -66,8 +85,8 @@ namespace CTTSite.Services.NormalService
 
         public async Task DeleteConsultationAsync(Consultation consultation)
         {
-            Consultation consultationToBeDeleted = null; 
-            if(consultation != null)
+            Consultation consultationToBeDeleted = null;
+            if (consultation != null)
             {
                 ConsultationsList.Remove(consultation);
                 //_ssonFileService.SaveJsonObjects(ConsultationsList);
@@ -92,7 +111,8 @@ namespace CTTSite.Services.NormalService
                 consultationToBeUpdated.Booked = true;
 
                 _emailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, email));
-                _emailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, "chilterntalkingtherapies@gmail.com"));
+                // Becuase Jennie is getting spamed
+                //_emailService.SendEmail(new Email(consultation.ToString(), "Booking of Consultation: " + email, "chilterntalkingtherapies@gmail.com"));
 
                 await _dbServiceGeneric.UpdateObjectAsync(consultationToBeUpdated);
             }
@@ -114,30 +134,31 @@ namespace CTTSite.Services.NormalService
         }
 
         //check for date is available
-        public async Task<bool> IsDateWithInPresentDate(Consultation consultation)
+        public async Task<bool> IsDateWithInPresentDateAsync(Consultation consultation)
         {
             if (consultation == null)
             {
-                return true;
+                return false;
             }
             if (consultation.Date.Date < DateTime.Now.Date)
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
         }
 
-        //check for time slot is available
+        //check for time slot is available in database depeding on the date
         public async Task<bool> IsTimeSlotAvailableInDataBaseAsync(Consultation consultation)
         {
+            TimeSpan duration = TimeSpan.FromMinutes(1); // Assuming you want to subtract 1 minutes
             List<Consultation> allConsultations = await GetAllConsultationsAsync();
-            allConsultations = allConsultations.Where(c => c.Date == consultation.Date).ToList();
+            allConsultations = allConsultations.Where(c => c.Date == consultation.Date && (c.ID != consultation.ID)).ToList();
             foreach (Consultation consultationInList in allConsultations)
             {
-                if (consultationInList.StartTime == consultation.StartTime)
+                if (consultationInList.StartTime == consultation.StartTime || consultationInList.EndTime.Subtract(duration) == consultation.StartTime)
                 {
                     return false;
                 }
@@ -145,8 +166,38 @@ namespace CTTSite.Services.NormalService
             return true;
         }
 
-        //check for time slot is available in database depeding on the date
+        //check for time slot is available or null
+        public async Task<bool> IsTimeSlotCorrectEnteredAsync(Consultation consultation)
+        {
+            if (consultation.StartTime > consultation.EndTime)
+            {
+                return false;
+            }
+            if (consultation.StartTime == null || consultation.EndTime == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
+        //check for time slot is before date now
+        public async Task<bool> IsTimeSlotBeforeDateNowAsync(Consultation consultation)
+        {
+            DateTime currentDateTime = DateTime.Now;
+            DateTime consultationDateTime = consultation.Date.Date + consultation.StartTime;
 
+            if (consultationDateTime <= currentDateTime)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
     }
 }
