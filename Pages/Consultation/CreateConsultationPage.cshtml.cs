@@ -42,7 +42,7 @@ namespace CTTSite.Pages.Consultation
             }
             else if (await _consultationService.IsTimeSlotAvailableInDataBaseAsync(Consultation) == false)
             {
-                Message = "The Time slot that you have chosen is allready taken";
+                Message = "The Time slot that you have chosen is already taken";
                 MessageColor = "red";
                 return Page();
             }
