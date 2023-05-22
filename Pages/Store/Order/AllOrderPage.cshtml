@@ -27,10 +27,24 @@
                             @order.ID
                         </td>
                         <td>
-                            @order.Shipped
+                            @if (order.Shipped)
+                            {
+                                <i class="fa fa-check"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-times"></i>
+                            }
                         </td>
                         <td>
-                            @order.Cancelled
+                            @if (order.Cancelled)
+                            {
+                                <i class="fa fa-check"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-times"></i>
+                            }
                         </td>
                         <td>
                             £@order.TotalPrice
