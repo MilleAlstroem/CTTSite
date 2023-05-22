@@ -31,10 +31,10 @@ namespace CTTSite.Pages.Consultation
             Consultation.EndTime = Consultation.EndTime;
             Consultation.UserID = _userService.GetUserIdByEmail(HttpContext.User.Identity.Name);
             Consultation.BookedNamed = "";
-            Consultation.TelefonNummer = "";
+            Consultation.TelefonNumber = "";
             Consultation.BookedEmail = "";
             Consultation.Booked = false;
-            if ( await _consultationService.IsDateWithInPresentDateAsync(Consultation) == false)
+            if (_consultationService.IsDateWithInPresentDate(Consultation) == false)
             {
                 Message = "You can't create a consultation in the past";
                 MessageColor = "red";
@@ -46,13 +46,13 @@ namespace CTTSite.Pages.Consultation
                 MessageColor = "red";
                 return Page();
             }
-            else if (await _consultationService.IsTimeSlotCorrectEnteredAsync(Consultation) == false)
+            else if (_consultationService.IsTimeSlotCorrectEntered(Consultation) == false)
             {
                 Message = "The Time slot entered is worng";
                 MessageColor = "red";
                 return Page();
             }
-            else if (await _consultationService.IsTimeSlotBeforeDateNowAsync(Consultation) == false)
+            else if (_consultationService.IsTimeSlotBeforeDateNow(Consultation) == false)
             {
                 Message = "The Time slot entered is behind the present time";
                 MessageColor = "red";

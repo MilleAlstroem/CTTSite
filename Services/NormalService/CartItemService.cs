@@ -14,16 +14,33 @@ namespace CTTSite.Services.NormalService
         private readonly DBServiceGeneric<CartItem> _dBServiceGenericCartItem;
         private readonly JsonFileService<CartItem> _jsonFileService;
         private readonly IItemService _itemService;
+        private readonly IUserService _userService;
         public List<CartItem> CartItems { get; private set; }
         public List<Item> Items { get; private set; }
 
-        public CartItemService(DBServiceGeneric<CartItem> dBServiceGenericCartItem, JsonFileService<CartItem> jsonFileService, IItemService itemService)
+        public CartItemService(DBServiceGeneric<CartItem> dBServiceGenericCartItem, JsonFileService<CartItem> jsonFileService, IItemService itemService, IUserService userService)
         {
             _dBServiceGenericCartItem = dBServiceGenericCartItem;
             _jsonFileService = jsonFileService;
             _itemService = itemService;
+            _userService = userService;
             CartItems = GetAllCartItemsAsync().Result;
             Items = _itemService.GetAllItemsAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<bool> IsCartEmptyAsync(string userEmail)
+        {
+            User user = _userService.GetUserByEmail(userEmail);
+            List<CartItem> cartItemsList = await GetAllCartItemsByUserIDAsync(user.Id);
+            if (cartItemsList.Count == 0)
+            {
+                return true;
+            }
+            else 
+            { 
+                return false; 
+            }
+
         }
 
         public async Task<List<CartItem>> GetAllCartItemsAsync()
@@ -64,28 +81,29 @@ namespace CTTSite.Services.NormalService
 
         public async Task<CartItem> GetCartItemByIDAsync(int ID)
         {
-            using (var context = new ItemDbContext())
+            using (ItemDbContext context = new ItemDbContext())
             {
                 return await context.CartItems
                     .Include(ci => ci.Item)
-                    .FirstOrDefaultAsync(cartItem => cartItem.ID == ID);
+                    .FirstOrDefaultAsync((CartItem cartItem) => cartItem.ID == ID);
             }
         }
 
         public async Task<List<CartItem>> GetAllCartItemsByUserIDAsync(int userID)
         {
             List<CartItem> cartItemsByUserID = new List<CartItem>();
-            using (var context = new ItemDbContext())
+            using (ItemDbContext context = new ItemDbContext())
             {
-                var cartItems = await context.CartItems
+                List<CartItem> cartItems = await context.CartItems
                     .Include(ci => ci.Item)
-                    .Where(ci => ci.UserID == userID && !ci.Paid)
+                    .Where((CartItem ci) => ci.UserID == userID && !ci.Paid)
                     .ToListAsync();
 
                 cartItemsByUserID.AddRange(cartItems);
             }
             return cartItemsByUserID;
         }
+
 
         public async Task RemoveFromCartByIDAsync(int ID)
         {

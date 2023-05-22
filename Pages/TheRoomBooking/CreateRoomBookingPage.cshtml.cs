@@ -28,16 +28,23 @@ namespace CTTSite.Pages.TheRoomBooking
         public IActionResult OnPostAsync()
         {
             RoomBooking.UserEmail = HttpContext.User.Identity.Name;
-
-            if(IRoomBookingService.CreateRoomBookingAsync(RoomBooking).Result == true)
+            if((RoomBooking != null) && (RoomBooking.Description != null))
             {
-                return RedirectToPage("/TheRoomBooking/AllRoomBookingsPage");
-            }
+				if (IRoomBookingService.CreateRoomBookingAsync(RoomBooking).Result == true)
+				{
+					return RedirectToPage("/TheRoomBooking/AllRoomBookingsPage");
+				}
+				else
+				{
+					Message = "Booking time slot is not available";
+					return Page();
+				}
+			}
             else
             {
-                Message = "Booking time slot is not available";
-                return Page();
-            }
+                Message = "Please fill out the booking";
+				return Page();
+			}
         }
 
     }

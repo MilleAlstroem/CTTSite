@@ -75,6 +75,20 @@ namespace CTTSite.Services.NormalService
             return await Task.Run(() => _orders.Where(order => order.UserID == userID && !order.Cancelled).ToList());
         }
 
+        public async Task<bool> IsOrderEmptyAsync(string userEmail)
+        {
+            User user = _userService.GetUserByEmail(userEmail);
+            List<Order> orders = await GetOrdersByUserIDAsync(user.Id);
+            if (orders.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public async Task CreateOrderAsync(Order order)
         {
             int IDCount = 0;
@@ -159,7 +173,7 @@ namespace CTTSite.Services.NormalService
             if (order != null)
             {
                 await _dBServiceGeneric.DeleteObjectAsync(order);
-                await _shippingInfoService.DeleteShippingInfoAsync(order.ID);
+                await _shippingInfoService.DeleteShippingInfoByOrderIDAsync(order.ID);
             }
         }
 

@@ -28,8 +28,8 @@
                             £@order.TotalPrice
                         </td>
                         <td>
-                            <a class="btn btn-danger" type="button" asp-page="CancelOrderPage" asp-route-id="@order.ID">Cancel order</a>
-                            <a class="btn btn-secondary" type="button" asp-page="SpecificUserOldOrderPage" asp-route-id="@order.ID">View order</a>
+                            <a class="btn btn-danger" type="button" asp-page="CancelOrderPage" asp-route-id="@order.ID"><i class="fa fa-trash"></i></a>
+                            <a class="btn btn-secondary" type="button" asp-page="SpecificUserOldOrderPage" asp-route-id="@order.ID"><i class="fa fa-info-circle"></i></a>
                         </td>
                     </tr>
                 }

@@ -20,11 +20,11 @@ namespace CTTSite.Models
 
         public int UserID { get; set; }
         public string BookedNamed { get; set; }
-        public string TelefonNummer { get; set; }
+        public string TelefonNumber { get; set; }
         public string BookedEmail { get; set; }
         public bool Booked { get; set; }
 
-        public Consultation(int iD, DateTime date, TimeSpan startTime, TimeSpan endTime, int userID, string bookedNamed, string telefonNummer, string bookedEmail, bool booked)
+        public Consultation(int iD, DateTime date, TimeSpan startTime, TimeSpan endTime, int userID, string bookedNamed, string telefonNumber, string bookedEmail, bool booked)
         {
             ID = iD;
             Date = date;
@@ -32,7 +32,7 @@ namespace CTTSite.Models
             EndTime = endTime;
             UserID = userID;
             BookedNamed = bookedNamed;
-            TelefonNummer = telefonNummer;
+            TelefonNumber = telefonNumber;
             BookedEmail = bookedEmail;
             Booked = booked;
         }
@@ -48,7 +48,7 @@ namespace CTTSite.Models
                 "Start time for it: " + StartTime + "\n" +
                 "End time for it: " + EndTime + "\n" +
                 "Client's name: " + BookedNamed + "\n" +
-                "Client's TelefonNummer: " + TelefonNummer + "\n" +
+                "Client's TelefonNummer: " + TelefonNumber + "\n" +
                 "Client's Email: " + BookedEmail + "\n";
         }
     }

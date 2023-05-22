@@ -39,7 +39,7 @@ namespace CTTSite.Pages.Consultation
             Consultation.EndTime = Consultation.EndTime;
             Consultation.UserID = UserID;
             Consultation.BookedNamed = "";
-            Consultation.TelefonNummer = "";
+            Consultation.TelefonNumber = "";
             Consultation.BookedEmail = "";
             if (await _consultationService.IsTimeSlotAvailableInDataBaseAsync(Consultation) == false)
             {
@@ -47,7 +47,7 @@ namespace CTTSite.Pages.Consultation
                 MessageColor = "red";
                 return Page();
             }
-            else if (await _consultationService.IsTimeSlotCorrectEnteredAsync(Consultation) == false)
+            else if (_consultationService.IsTimeSlotCorrectEntered(Consultation) == false)
             {
                 Message = "The Time slot entered is worng";
                 MessageColor = "red";

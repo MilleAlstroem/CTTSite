@@ -106,12 +106,12 @@ namespace CTTSite.Services.NormalService
             }
         }
 
-        public async Task UpdateItemQuantityByIDAsync(int ItemID, int Quantity)
+        public async Task UpdateItemQuantityByIDAsync(int itemID, int quantity)
         {
-            Item item = await GetItemByIDAsync(ItemID);
+            Item item = await GetItemByIDAsync(itemID);
             if (item != null)
             {
-                item.Stock = item.Stock - Quantity;
+                item.Stock = item.Stock - quantity;
                 //_jsonFileService.SaveJsonObjects(Items);
                 await _dBServiceGeneric.UpdateObjectAsync(item);
             }

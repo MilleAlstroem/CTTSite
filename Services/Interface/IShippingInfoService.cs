@@ -7,7 +7,7 @@ namespace CTTSite.Services.Interface
         Task CreateShippingInfoAsync(ShippingInfo shippingInfo);
         Task<ShippingInfo> GetShippingByIDAsync(int ID);
         Task<ShippingInfo> GetShippingByOrderIDAsync(int ID);
-        Task DeleteShippingInfoAsync(int ID);
+        Task DeleteShippingInfoByOrderIDAsync(int ID);
         Task UpdateShippingAsync(ShippingInfo shippingInfo);
         Task SubmitShippingInfoByEmailAsync(ShippingInfo shippingInfo, string email);
     }
