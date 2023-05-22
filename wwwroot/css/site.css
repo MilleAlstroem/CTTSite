@@ -151,3 +151,11 @@ body {
 .no-padding {
     padding: -50px;
 }
+
+.true-value {
+    color: green;
+}
+
+.false-value {
+    color: red;
+}
