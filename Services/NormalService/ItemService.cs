@@ -17,12 +17,16 @@ namespace CTTSite.Services.NormalService
             _jsonFileService = jsonFileService;
             Items = GetAllItemsAsync().Result;
         }
-
+        public ItemService()
+        {
+            Items = MockData.MockDataItem.GetMockItem();
+        }
         public async Task<List<Item>> GetAllItemsAsync()
         {
-            return (await _dBServiceGeneric.GetObjectsAsync()).ToList();
+           // return (await _dBServiceGeneric.GetObjectsAsync()).ToList();
             //return _jsonFileService.GetJsonObjects().ToList();
             //return MockData.MockDataItem.GetMockItem();
+            return Items;
         }
 
         public async Task CreateItemAsync(Item item)
