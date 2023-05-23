@@ -17,12 +17,18 @@ namespace CTTSite.Services.NormalService
             _jsonFileService = jsonFileService;
             Items = GetAllItemsAsync().Result;
         }
+        public ItemService()
+        {
+            Items = MockData.MockDataItem.GetMockItem(); 
+        }
 
         public async Task<List<Item>> GetAllItemsAsync()
         {
-            return (await _dBServiceGeneric.GetObjectsAsync()).ToList();
+            //return (await _dBServiceGeneric.GetObjectsAsync()).ToList();
             //return _jsonFileService.GetJsonObjects().ToList();
-            //return MockData.MockDataItem.GetMockItem();
+           // return MockData.MockDataItem.GetMockItem();
+           //Shero
+           return Items;    
         }
 
         public async Task CreateItemAsync(Item item)
@@ -73,17 +79,17 @@ namespace CTTSite.Services.NormalService
         }
 
         public async Task<Item> GetItemByIDAsync(int ID) 
-        { 
-            //foreach(Item item in Items)
-            //{
-            //    if(item.ID == ID)
-            //    {
-            //        return item;
-            //    }
-            //}
-            //return null;
+        {
+            foreach (Item item in Items)
+            {
+                if (item.ID == ID)
+                {
+                    return item;
+                }
+            }
+            return null;
 
-            return await _dBServiceGeneric.GetObjectByIdAsync(ID);
+            //return await _dBServiceGeneric.GetObjectByIdAsync(ID);
         }
 
         public async Task UpdateItemStockAsync(int itemID, int amount)
