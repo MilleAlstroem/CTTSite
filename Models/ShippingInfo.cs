@@ -39,9 +39,10 @@ namespace CTTSite.Models
         public DateTime SubmissionDate { get; set; }
 
 
-        public ShippingInfo(int userID, string address, string city, string postCode, string county, string phoneNumber, string firstName, string lastName, DateTime submissionDate)
+        public ShippingInfo(int userID, int orderID, string address, string city, string postCode, string county, string phoneNumber, string firstName, string lastName, DateTime submissionDate)
         {
             UserID = userID;
+            OrderID = orderID;
             Address = address;
             City = city;
             PostCode = postCode;
@@ -57,5 +58,18 @@ namespace CTTSite.Models
             
         }
 
+        public override string ToString()
+        {
+            return 
+                "Order number: " + OrderID + "\n" +
+                "Address: " + Address + "\n" +
+                "City: " + City + "\n" +
+                "PostCode: " + PostCode + "\n" +
+                "County: " + County + "\n" +
+                "PhoneNumber: " + PhoneNumber + "\n" +
+                "FirstName: " + FirstName + "\n" +
+                "LastName: " + LastName + "\n" +
+                "SubmissionDate: " + SubmissionDate + "\n";
+        }
     }
 }

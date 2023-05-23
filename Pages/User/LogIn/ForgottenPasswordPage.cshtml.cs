@@ -6,9 +6,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CTTSite.Pages.User.LogIn
 {
+    // Made by Christian
     public class ForgottenPasswordPageModel : PageModel
     {
-        // Made by Christian
+        
 
         [BindProperty]
         public string Email { get; set; }

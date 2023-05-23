@@ -41,6 +41,7 @@ namespace CTTSite.Pages.Store.Shipping
         public async Task<IActionResult> OnPostCreateOrderAsync()
         {
             Models.User currentUser = _userService.GetUserByEmail(HttpContext.User.Identity.Name);
+            CartItems = await _cartItemService.GetAllCartItemsByUserIDAsync(currentUser.Id);
             ShippingInfo.UserID = currentUser.Id;
             ShippingInfo.SubmissionDate = DateTime.Now;
             Order.UserID = currentUser.Id;
@@ -48,7 +49,6 @@ namespace CTTSite.Pages.Store.Shipping
             Order.Cancelled = false;
             Order.TotalPrice = await _cartItemService.GetTotalPriceOfCartByUserIDAsync(currentUser.Id);
             await _orderService.CreateOrderAsync(Order);
-
             ShippingInfo.OrderID = Order.ID;
             await _shippingInfoService.CreateShippingInfoAsync(ShippingInfo);
             if (CartItems != null)
@@ -58,10 +58,9 @@ namespace CTTSite.Pages.Store.Shipping
                     await _itemService.UpdateItemQuantityByIDAsync(cartItem.ItemID, cartItem.Quantity);
                 }
             }
-
+            await _shippingInfoService.SubmitShippingInfoByEmailAsync(ShippingInfo, currentUser.Email);
             await _orderService.AddCartItemsToOrderAsync(currentUser.Id);
             await _cartItemService.ConvertBoolPaidByUserIDAsync(currentUser.Id);
-
             return RedirectToPage("/Store/Order/OrderConfirmationPage");
         }
     }

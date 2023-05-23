@@ -17,7 +17,7 @@ namespace CTTSite.Models
         [StringLength(500)]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Image is required")]
+        [Required(ErrorMessage = "Image is required if you there is no Image then type NoImg")]
         [StringLength(100)]
         public string IMG { get; set; }
 

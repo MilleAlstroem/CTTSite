@@ -1,11 +1,13 @@
 ﻿using CTTSite.DAO;
 using CTTSite.EFDbContext;
+using CTTSite.Migrations;
 using CTTSite.Models;
 using CTTSite.Services.DB;
 using CTTSite.Services.Interface;
 using CTTSite.Services.JSON;
 using MailKit.Search;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using Org.BouncyCastle.Asn1.X509;
 
 namespace CTTSite.Services.NormalService
@@ -13,12 +15,14 @@ namespace CTTSite.Services.NormalService
     public class OrderService : IOrderService
     {
         private readonly DBServiceGeneric<Order> _dBServiceGeneric;
-        private readonly DBServiceGeneric<CartItem_Order> _dBServiceGenericCIO;
+        private readonly DBServiceGeneric<DAO.CartItem_Order> _dBServiceGenericCIO;
         private readonly DBServiceGeneric<CartItem> _dBServiceGenericCartItem;
         private readonly JsonFileService<Order> _jsonFileService;
+        private readonly IEmailService _emailService;
         private readonly IUserService _userService;
         private readonly ICartItemService _cartItemService;
         private readonly IItemService _itemService;
+        private readonly IShippingInfoService _shippingInfoService;
         private List<Order> _orders;
         private List<CartItem> _cartItems;
         private int _lastOrderID = 0;
@@ -26,9 +30,11 @@ namespace CTTSite.Services.NormalService
         public OrderService(
             DBServiceGeneric<Order> dBServiceGeneric,
             JsonFileService<Order> jsonFileService,
-            ICartItemService cartItemService,
-            DBServiceGeneric<CartItem_Order> dBServiceGenericCIO,
+            DBServiceGeneric<DAO.CartItem_Order> dBServiceGenericCIO,
             DBServiceGeneric<CartItem> dBServiceGenericCartItem,
+            IEmailService emailService,
+            IShippingInfoService shippingInfoService,
+            ICartItemService cartItemService,
             IUserService userService,
             IItemService itemService)
         {
@@ -37,8 +43,10 @@ namespace CTTSite.Services.NormalService
             _cartItemService = cartItemService;
             _dBServiceGenericCIO = dBServiceGenericCIO;
             _dBServiceGenericCartItem = dBServiceGenericCartItem;
+            _shippingInfoService = shippingInfoService;
             _userService = userService;
             _itemService = itemService;
+            _emailService = emailService;
             _orders = GetAllOrdersAsync().Result;
         }
 
@@ -65,6 +73,20 @@ namespace CTTSite.Services.NormalService
         public async Task<List<Order>> GetOrdersByUserIDAsync(int userID)
         {
             return await Task.Run(() => _orders.Where(order => order.UserID == userID && !order.Cancelled).ToList());
+        }
+
+        public async Task<bool> IsOrderEmptyAsync(string userEmail)
+        {
+            User user = _userService.GetUserByEmail(userEmail);
+            List<Order> orders = await GetOrdersByUserIDAsync(user.Id);
+            if (orders.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public async Task CreateOrderAsync(Order order)
@@ -113,7 +135,7 @@ namespace CTTSite.Services.NormalService
             {
                 foreach (CartItem cartItem in _cartItems)
                 {
-                    CartItem_Order cartItemOrder = new CartItem_Order(cartItem.ID, orderID);
+                    DAO.CartItem_Order cartItemOrder = new DAO.CartItem_Order(cartItem.ID, orderID);
 
                     await _dBServiceGenericCIO.AddObjectAsync(cartItemOrder);
                 }
@@ -122,7 +144,7 @@ namespace CTTSite.Services.NormalService
 
         public async Task<List<CartItem>> GetOldOrderByOrderIDAsync(int orderID)
         {
-            IEnumerable<CartItem_Order> CIO = await _dBServiceGenericCIO.GetObjectsAsync();
+            IEnumerable<DAO.CartItem_Order> CIO = await _dBServiceGenericCIO.GetObjectsAsync();
             IEnumerable<CartItem> cartItems = await _dBServiceGenericCartItem.GetObjectsAsync();
 
             CIO = CIO.Where(cartItem_Order => cartItem_Order.OrderID == orderID).ToList();
@@ -143,6 +165,33 @@ namespace CTTSite.Services.NormalService
             List<Order> userOrders = await GetOrdersByUserIDAsync(user.Id);
             Order latestOrder = userOrders.OrderByDescending(order => order.ID).FirstOrDefault();
             return latestOrder?.ID ?? 0;
+        }
+
+        public async Task DeleteOrderByOrderIDAsync(int ID)
+        {
+            Order order = await GetOrderByIDAsync(ID);
+            if (order != null)
+            {
+                await _dBServiceGeneric.DeleteObjectAsync(order);
+                await _shippingInfoService.DeleteShippingInfoByOrderIDAsync(order.ID);
+            }
+        }
+
+        public async Task UpdateOrderAsync(Order order)
+        {
+            await _dBServiceGeneric.UpdateObjectAsync(order);
+        }
+
+        public async Task SubmitCancelOrderByEmailAsync(int ID, string email)
+        {
+            Order orderToBeSend = await GetOrderByIDAsync(ID);
+
+            if(orderToBeSend != null)
+            {
+                _emailService.SendEmail(new Email(orderToBeSend.ToString(), "Order Cancelled, Your order has been cancelled. Please contact us if you have any questions. " + email, email));
+                // Becuase Jennie is getting spamed
+                //_emailService.SendEmail(new Email(orderToBeSend.ToString(), "Order Cancelled" + email, "chilterntalkingtherapies@gmail.com"));               
+            }
         }
     }
 }

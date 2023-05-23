@@ -2,18 +2,20 @@
 
 namespace CTTSite.Services.Interface
 {
+    // Made by Mille
     public interface IRoomBookingService
     {
-        Task CreateRoomBookingAsync(RoomBooking RoomBooking);
-        Task UpdateRoomBookingAsync(RoomBooking RoomBooking);
-        Task DeleteRoomBookingByIDAsync(int ID);
-        List<RoomBooking> GetAllRoomBookings();
-        RoomBooking GetRoomBookingByID(int ID);
-        List<RoomBooking> GetRoomBookingsByUserEmail(string UserEmail);
-
-        // TODO: Maybe implement these methods if time permits.
-        //List<RoomBooking> GetRoomBookingsWithinDateRangeAsync(DateTime StartDate, DateTime EndDate);
-        //List<RoomBooking> GetRoomBookingsOutsideDateRangeAsync(DateTime StartDate, DateTime EndDate);
+        Task<bool> CreateRoomBookingAsync(RoomBooking roomBooking);
+        Task<bool> UpdateRoomBookingAsync(RoomBooking roomBooking);
+        Task DeleteRoomBookingByIDAsync(int iD);
+        Task<List<RoomBooking>> GetAllRoomBookingsAsync();
+        List<RoomBooking> GetCurrentRoomBookings();
+        List<RoomBooking> GetOldRoomBookings();
+        RoomBooking GetRoomBookingByID(int iD);
+        List<RoomBooking> GetRoomBookingsByUserEmail(string userEmail);
+        bool BookingIsAvailable(RoomBooking roomBooking);
+        IEnumerable<RoomBooking> SortByAscending(List<RoomBooking> listRoomBookings);
+        IEnumerable<RoomBooking> SortByDescending(List<RoomBooking> listRoomBookings);
 
     }
 }

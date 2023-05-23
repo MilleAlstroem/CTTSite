@@ -15,6 +15,7 @@ namespace CTTSite.Services.NormalService
     /// </summary>
     public class UserService : IUserService
     {
+        #region Lists
         /// <summary>
         /// List of all users
         /// </summary>
@@ -33,8 +34,10 @@ namespace CTTSite.Services.NormalService
         /// <summary>
         /// List of all clients
         /// </summary>
-        private List<User> _clients { get; set; }         
+        private List<User> _clients { get; set; }
+        #endregion
 
+        #region Services
         /// <summary>
         /// Dependency Injection for EmailService to allow for sending emails
         /// </summary>
@@ -44,6 +47,8 @@ namespace CTTSite.Services.NormalService
         /// Dependency Injection for DBServiceGeneric to allow for database access
         /// </summary>
         private DBServiceGeneric<User> DBServiceGeneric { get; set; }
+
+        #endregion
 
         /// <summary>
         /// The new unhashed password that is generated when a user requests a new password
@@ -77,9 +82,7 @@ namespace CTTSite.Services.NormalService
 
             if (existingUser == null)
             {
-                _users.Add(user);
-				//JsonFileService.SaveJsonObjects(_users);
-				//SaveUsers();
+                _users.Add(user);				
                 await DBServiceGeneric.AddObjectAsync(user);
 
 				return true;
@@ -89,17 +92,7 @@ namespace CTTSite.Services.NormalService
                 return false;
             }
         }
-		#endregion
-
-		#region Save Users
-        /// <summary>
-        /// Saves the list of users stored in UserService to the database.
-        /// </summary>
-        public async Task SaveUsers()
-        {
-			await DBServiceGeneric.SaveObjectsAsync(_users);
-		}
-		#endregion		
+		#endregion			
         
         #region Get User ID by Email
         /// <summary>
@@ -109,7 +102,7 @@ namespace CTTSite.Services.NormalService
         /// <returns>user.id as an int</returns>
         public int GetUserIdByEmail(string email)
         {
-            User? user = _users.Find(_user => _user.Email == email);
+            User user = _users.Find(_user => _user.Email == email);
             return user.Id;
         }
         #endregion
@@ -127,7 +120,7 @@ namespace CTTSite.Services.NormalService
         }
         #endregion
 
-        #region Get Users From DB
+        #region Private Get Users From DB
         /// <summary>
         /// Gets all users from the database
         /// </summary>
@@ -370,7 +363,7 @@ namespace CTTSite.Services.NormalService
         }
         #endregion
 
-        #region Delete Saved Password
+        #region Private Delete Saved Password
         /// <summary>
         /// Deletes saved unhashed password. Used after password has been sent to user.
         /// </summary>

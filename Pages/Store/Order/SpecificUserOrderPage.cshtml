@@ -3,7 +3,12 @@
 @{
 }
 
-<body class="text-center" style="background-color:#f6d8cc;">
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-1"></div>
+
+        <div class="col-md-10 text-center">
     <h1 class="text-center"><b>@Model.User.Identity.Name's Orders</b></h1>
     <br />
 
@@ -25,11 +30,11 @@
                             @order.ID
                         </td>
                         <td>
-                            @order.TotalPrice
+                            £@order.TotalPrice
                         </td>
                         <td>
-                            <a class="btn btn-danger" type="button" asp-page="CancelOrderPage" asp-route-id="@order.ID">Cancel order</a>
-                            <a class="btn btn-secondary" type="button" asp-page="SpecificUserOldOrderPage" asp-route-id="@order.ID">View order</a>
+                            <a class="btn btn-danger" type="button" asp-page="CancelOrderPage" asp-route-id="@order.ID"><i class="fa fa-trash"></i></a>
+                            <a class="btn btn-secondary" type="button" asp-page="SpecificUserOldOrderPage" asp-route-id="@order.ID"><i class="fa fa-info-circle"></i></a>
                         </td>
                     </tr>
                 }
@@ -37,4 +42,7 @@
         </tbody>
     </table>
 
-</body>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>

@@ -34,5 +34,11 @@ namespace CTTSite.Models
         {
             
         }
+
+        public override string ToString()
+        {
+            return
+                "ID: " + ID + "\n";
+        }
     }
 }

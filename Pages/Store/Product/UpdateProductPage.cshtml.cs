@@ -1,10 +1,13 @@
 using CTTSite.Models;
 using CTTSite.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
 
 namespace CTTSite.Pages.Store.Product
 {
+    [Authorize(Roles = "admin")]
     public class UpdateProductPageModel : PageModel
     {
         private readonly IItemService _itemService;
@@ -22,7 +25,7 @@ namespace CTTSite.Pages.Store.Product
             Item = await _itemService.GetItemByIDAsync(ID);
             if (Item == null)
             {
-                return RedirectToPage("AllProductsPage");
+                return RedirectToPage("AdminProductsPage");
             }
             return Page();
         }
@@ -34,7 +37,7 @@ namespace CTTSite.Pages.Store.Product
                 return Page();
             }
             await _itemService.UpdateItemAsync(Item);
-            return RedirectToPage("AllProductsPage");
+            return RedirectToPage("AdminProductsPage");
         }
     }
 }

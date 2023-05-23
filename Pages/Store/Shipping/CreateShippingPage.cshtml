@@ -3,14 +3,24 @@
 @{
 }
 
+<div class="container-fluid text-center">
 
-<body class="text-center" style="background-color:#f6d8cc;">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 text-center">
+            <div class=" row">
+            <div class="col-md-3"></div>
     <div class="col-md-6">
         <h4 class="text-center"><b>Shipping Information</b></h4>
+                <div class="col-md-3"></div>
+                </div>
         <br />
     </div>
+
     <form method="post">
         <div class="form-row">
+            <div class=" row">
+                    <div class="col-md-3"></div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="@Model.ShippingInfo.FirstName" class="control-lable">First Name</label>
@@ -36,9 +46,7 @@
                     <label asp-for="@Model.ShippingInfo.County" class="control-lable">County</label>
                     <input asp-for="@Model.ShippingInfo.County" class="form-control" />
                     <span asp-validation-for="@Model.ShippingInfo.County" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="col-md-6">
+                </div>                          
                 <div class="form-group">
                     <label asp-for="@Model.ShippingInfo.City" class="control-lable">City</label>
                     <input asp-for="@Model.ShippingInfo.City" class="form-control" />
@@ -49,13 +57,17 @@
                     <input asp-for="@Model.ShippingInfo.PostCode" class="form-control" />
                     <span asp-validation-for="@Model.ShippingInfo.PostCode" class="text-danger"></span>
                 </div>
+                        <div class="form-group">
+                            <br />
+                            <input type="submit" value="Continue" class="btn btn-dark" asp-page-handler="CreateOrder" />
+                            <a asp-page="/Store/Cart/SpecificUserCartPage" class="btn btn-outline-dark">Back to Cart</a>
+                        </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input type="submit" value="Continue" class="btn btn-dark" asp-page-handler="CreateOrder" />
-                    <a asp-page="/Store/Cart/SpecificUserCartPage" class="btn btn-dark">Back to Cart</a>
-                </div>
-            </div>
+                    <div class="col-md-3"></div> 
+                    </div>
         </div>
     </form>
-</body>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+</div>

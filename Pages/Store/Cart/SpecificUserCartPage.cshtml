@@ -2,8 +2,12 @@
 @model CTTSite.Pages.Store.Cart.SpecificUserCartPageModel
 @{
 }
+<div class="container-fluid">
 
-<body class="text-center" style="background-color:#f6d8cc;">
+    <div class="row">
+        <div class="col-md-1"></div>
+
+        <div class="col-md-10 text-center">
     <h1 class="text-center"><b>@Model.User.Identity.Name's Cart</b></h1>
     <br />
 
@@ -26,7 +30,7 @@
                             @cartItem.Item.Name
                         </td>
                         <td>
-                            @cartItem.Item.Price £
+                            £@cartItem.Item.Price
                         </td>
                         <td>
                             @cartItem.Quantity
@@ -39,12 +43,15 @@
             }
         </tbody>
     </table>
-</body>
 
 
 
 @if (@Model.CartItemsCount > 0)
 {
     <a class="btn btn-dark" type="button" asp-page="/Store/Shipping/CreateShippingPage" asp-route-id="">Order now</a>
-    <span id="total-price" class="btn btn-dark" disabled style="cursor: default;">Total price: @Model.TotalPrice £</span>
+    <span id="total-price" class="btn btn-dark" disabled style="cursor: default;">Total price: £@Model.TotalPrice</span>
 }
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>

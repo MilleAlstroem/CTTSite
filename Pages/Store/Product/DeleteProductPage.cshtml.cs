@@ -1,9 +1,12 @@
 using CTTSite.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
 
 namespace CTTSite.Pages.Store.Product
 {
+    [Authorize(Roles = "admin")]
     public class DeleteProductPageModel : PageModel
     {
         private readonly IItemService _itemService;
@@ -24,7 +27,7 @@ namespace CTTSite.Pages.Store.Product
         public async Task<IActionResult> OnPostAsync()
         {
             await _itemService.DeleteItemByIDAsync(Item.ID);
-            return RedirectToPage("AllProductsPage");
+            return RedirectToPage("AdminProductsPage");
         }
     }
 }

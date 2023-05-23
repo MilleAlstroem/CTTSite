@@ -1,9 +1,12 @@
 using CTTSite.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
 
 namespace CTTSite.Pages.Store.Order
 {
+    [Authorize(Roles = "admin")]
     public class AllOrderPageModel : PageModel
     {
         private readonly IOrderService _orderService;

@@ -98,7 +98,7 @@ namespace CTTSite.Migrations
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time");
 
-                    b.Property<string>("TelefonNummer")
+                    b.Property<string>("TelefonNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -1279,7 +1279,6 @@ namespace CTTSite.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndDateTime")

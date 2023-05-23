@@ -3,7 +3,12 @@
 @{
 }
 
-<body class="text-center" style="background-color:#f6d8cc;">
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-1"></div>
+
+        <div class="col-md-10 text-center">
     <h1><b>Store</b></h1>
 
     <div class="row">
@@ -16,7 +21,7 @@
                         <img src="@Item.IMG" alt="ProductImage" class="card-img-top img-fluid">
                         <div class="card-body text-center">
                             <h4 class="card-title"><b>@Item.Name</b></h4>
-                            <h4 class="card-text">@Item.Price £</h4>
+                            <h4 class="card-text">£@Item.Price</h4>
                         </div>
                     </div>
                 </a>
@@ -25,4 +30,7 @@
 
     </div>
     <br />
-</body>
+</div>
+<div class="col-md-1"></div>
+</div>
+</div>

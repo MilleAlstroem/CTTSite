@@ -15,7 +15,7 @@ namespace CTTSite.Pages.User.LogIn
 
         public async Task<IActionResult> OnPost()
         {
-            //LogInPageModel.LoggedInUser = null;
+            
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToPage("/index");
         }   

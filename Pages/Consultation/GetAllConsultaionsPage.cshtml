@@ -1,6 +1,10 @@
 ﻿@page
 @model CTTSite.Pages.Consultation.GetAllConsultaionsPageModel
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
 <br />
 <h1 class="text-center"><b>Consultations</b></h1>
 <br />
@@ -36,7 +40,7 @@
                             @consultation.BookedNamed
                         </td>
                         <td>
-                            @consultation.TelefonNummer
+                            @consultation.TelefonNumber
                         </td>
                         <td>
                             @consultation.BookedEmail
@@ -53,4 +57,8 @@
 </div>
 
 <a class="btn btn-dark" type="button" asp-page="CreateConsultationPage">Create Consultation</a>
-<a class="btn btn-dark" type="button" asp-page="/Index">Back</a>
+<a asp-page="/Admin/ToolsPage" class="btn btn-outline-dark">Back</a>
+</div>
+<div class="col-md-1"></div>
+</div>
+</div>

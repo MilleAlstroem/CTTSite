@@ -5,7 +5,7 @@
     "Description": "This gift basket is perfect for self-care",
     "IMG": "NoIMG",
     "Price": 25.00,
-    "Stock": 15
+    "Stock": 5
   },
   {
     "ID": 2,
@@ -13,7 +13,7 @@
     "Description": "These scented candles gives a lovely and relaxing aroma.",
     "IMG": "NoIMG",
     "Price": 10.50,
-    "Stock": 56
+    "Stock": 48
   },
   {
     "ID": 3,
@@ -21,7 +21,7 @@
     "Description": "Great book to take with you everywhere for a quick read.",
     "IMG": "NoIMG",
     "Price": 29.00,
-    "Stock": 74
+    "Stock": 67
   },
   {
     "ID": 4,
@@ -29,7 +29,7 @@
     "Description": "Cozy plaint kit to get your thoughts and emotions out on a canvas.",
     "IMG": "NoIMG",
     "Price": 12.00,
-    "Stock": 28
+    "Stock": 20
   },
   {
     "ID": 5,
@@ -37,14 +37,14 @@
     "Description": "Soft and Fluffy",
     "IMG": "NoIMG",
     "Price": 50.99,
-    "Stock": 12
+    "Stock": 5
   },
   {
-    "ID": 9,
+    "ID": 7,
     "Name": "Mus",
     "Description": "Go to love it",
     "IMG": "NoIMG",
     "Price": 550,
-    "Stock": 3
+    "Stock": 48
   }
 ]

@@ -15,7 +15,7 @@ namespace CTTSite.Pages.User.LogIn
     {
         // Made by Christian
 
-        //public static Models.User LoggedInUser { get; set; } = null;
+        
         private IUserService _userService;
 
         
@@ -66,7 +66,7 @@ namespace CTTSite.Pages.User.LogIn
 
                     if (passwordHasher.VerifyHashedPassword(null, user.Password, Password) == PasswordVerificationResult.Success)
                     {
-                        //LoggedInUser = user;
+                        
                         
 
                         var claims = new List<Claim> { new Claim(ClaimTypes.Name, Email) };

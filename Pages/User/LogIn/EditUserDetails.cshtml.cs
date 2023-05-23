@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CTTSite.Pages.User.LogIn
 {
+    // Made by Christian
 	public class EditUserDetailsModel : PageModel
 	{
 		private IUserService _userService;

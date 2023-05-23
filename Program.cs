@@ -37,7 +37,6 @@ builder.Services.AddTransient<JsonFileService<CartItem>>();
 builder.Services.AddTransient<JsonFileService<ShippingInfo>>();
 builder.Services.AddTransient<JsonFileService<Order>>();
 builder.Services.AddTransient<JsonFileService<Consultation>>();
-builder.Services.AddTransient<JsonFileService<RoomBooking>>();
 builder.Services.AddDbContext<ItemDbContext>();
 builder.Services.AddTransient<DBServiceGeneric<Item>>();
 builder.Services.AddTransient<DBServiceGeneric<CartItem>>();

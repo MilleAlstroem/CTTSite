@@ -9,6 +9,8 @@
     {
     <h1 class="text-center"><b>Create Booking</b></h1>
     <br />
+    <h4 class="text-center text-danger">@Model.Message</h4>
+    <br />
     <form method="post" class="text-center" style="width:80%; margin-inline:10%">
         <div class="row">
             <div class="form-group" style="width:40%; margin-inline:5%">
@@ -31,7 +33,7 @@
 
         <div class="form-group">
             <input type="submit" value="Create" class="btn btn-dark" style="margin-inline:1%" />
-            <a asp-page="/TheRoomBooking/AllRoomBookingsPage" class="btn btn-dark" style="margin-inline:1%">Back</a>
+            <a asp-page="/TheRoomBooking/AllRoomBookingsPage" class="btn btn-outline-dark" style="margin-inline:1%">Back</a>
         </div>
     </form>
 
