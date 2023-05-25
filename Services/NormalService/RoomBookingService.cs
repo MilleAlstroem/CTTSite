@@ -22,6 +22,11 @@ namespace CTTSite.Services.NormalService
         }
 
         #region Create Room Booking
+        /// <summary>
+        /// This method creates a RoomBooking and adds it to the DB by first checking if the booking is available with the BookingIsAvailable method.
+        /// </summary>
+        /// <param name="roomBooking"></param>
+        /// <returns></returns>
         public async Task<bool> CreateRoomBookingAsync(RoomBooking roomBooking)
         {
             if (BookingIsAvailable(roomBooking))
@@ -35,6 +40,11 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Update Room Booking
+        /// <summary>
+        /// This method updates a RoomBooking and saves it to the DB by checking if the updated RoomBooking is available with the BookingIsAvailable method.
+        /// </summary>
+        /// <param name="newRoomBooking"></param>
+        /// <returns></returns>
         public async Task<bool> UpdateRoomBookingAsync(RoomBooking newRoomBooking)
         {
             RoomBookings = await GetAllRoomBookingsAsync();
@@ -62,6 +72,11 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Delete Room Booking
+        /// <summary>
+        /// This method deletes a RoomBooking from the DB by first getting all RoomBookings and then removing the RoomBooking with the matching ID.
+        /// </summary>
+        /// <param name="iD"></param>
+        /// <returns></returns>
         public async Task DeleteRoomBookingByIDAsync(int iD)
         {
             RoomBookings = await GetAllRoomBookingsAsync();
@@ -78,6 +93,10 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Get All Room Bookings
+        /// <summary>
+        /// This method gets all RoomBookings from the DB and removes all RoomBookings that are more than a month old.
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<RoomBooking>> GetAllRoomBookingsAsync()
         {
             foreach (RoomBooking roomBooking in DBServiceGeneric.GetObjectsAsync().Result.ToList())
@@ -92,6 +111,10 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Get Current Room Bookings
+        /// <summary>
+        /// This method gets all RoomBookings that are not older than the current date and time.
+        /// </summary>
+        /// <returns></returns>
         public List<RoomBooking> GetCurrentRoomBookings()
         {
             List<RoomBooking> CurrentRoomBookings = new List<RoomBooking>();
@@ -107,6 +130,10 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Get Old Room Bookings
+        /// <summary>
+        /// This method gets all RoomBookings that are older than the current date and time.
+        /// </summary>
+        /// <returns></returns>
         public List<RoomBooking> GetOldRoomBookings() 
         { 
             List<RoomBooking> OldRoomBookings = new List<RoomBooking>();
@@ -122,6 +149,11 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Get Room Booking By ID
+        /// <summary>
+        /// This method gets a RoomBooking from DB by ID.
+        /// </summary>
+        /// <param name="iD"></param>
+        /// <returns></returns>
         public RoomBooking GetRoomBookingByID(int iD)
         {
             RoomBookings = GetAllRoomBookingsAsync().Result;
@@ -137,6 +169,11 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Get Room Booking By User Email
+        /// <summary>
+        /// This method gets all RoomBookings of a specific user from DB by UserEmail.
+        /// </summary>
+        /// <param name="userEmail"></param>
+        /// <returns></returns>
         public List<RoomBooking> GetRoomBookingsByUserEmail(string userEmail)
         {
             RoomBookings = GetCurrentRoomBookings();
@@ -153,6 +190,12 @@ namespace CTTSite.Services.NormalService
         #endregion
     
         #region Check Room Booking Availability
+        /// <summary>
+        /// This method checks if a RoomBooking is available by checking if the time slot overlaps with previous bookings, 
+        /// if the StartDateTime is after the EndDateTime and if the time slot is in the past.
+        /// </summary>
+        /// <param name="roomBooking"></param>
+        /// <returns></returns>
         public bool BookingIsAvailable(RoomBooking roomBooking)
         {
             RoomBookings = GetCurrentRoomBookings();
@@ -183,6 +226,11 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Sort By Ascending
+        /// <summary>
+        /// This method uses Linq to sort a list of RoomBookings by StartDateTime in ascending order.
+        /// </summary>
+        /// <param name="listRoomBookings"></param>
+        /// <returns></returns>
         public IEnumerable<RoomBooking> SortByAscending(List<RoomBooking> listRoomBookings)
         {
             return from roomBooking in listRoomBookings
@@ -192,6 +240,11 @@ namespace CTTSite.Services.NormalService
         #endregion
 
         #region Sort By Descending
+        /// <summary>
+        /// This method uses Linq to sort a list of RoomBookings by StartDateTime in descending order.
+        /// </summary>
+        /// <param name="listRoomBookings"></param>
+        /// <returns></returns>
         public IEnumerable<RoomBooking> SortByDescending(List<RoomBooking> listRoomBookings)
         {
             return from roomBooking in listRoomBookings
